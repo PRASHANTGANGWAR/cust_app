@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Place Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div *ngFor="let prod of products; let i = index">
+		<ion-card (click)="additionalData()">
+			<ion-card-content>
+			<ion-item>
+				<div class="row">
+		          <div class="col-10">
+		            <ion-avatar item-start>
+		              <img style="width: 100px; height: 100px;" src="assets/img/farm-fresh-milk.jpg">
+		            </ion-avatar>
+		          </div>
+		          <div class="col" style="margin-left: 10px;">
+		            <h2>{{prod.display_name}}</h2>
+		             <h3>{{prod.name}}</h3>
+		             <p>MRP:{{prod.price | currency:'INR':true}}</p>
+		             <p>{{'Save:'+prod.discount}}</p>
+		             <p>{{prod.price_with_discount | currency:'INR':true}}</p>
+		          </div>
+		        </div>
+			</ion-item>
+			</ion-card-content>
+		</ion-card>
+		<ion-row padding>Additional Info:</ion-row>
+		<ion-card>
+			<ion-card-content (click)="additionalData()">
+				<pre style="font-family: 'Dosis', sans-serif; white-space: pre-line;">{{prod.description}}</pre>
+			</ion-card-content>
+		</ion-card>
+	</div>
+</ion-content>

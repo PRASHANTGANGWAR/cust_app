@@ -1,0 +1,43 @@
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+		<ion-title>Signup</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="login-page">
+	<form #signupForm="ngForm" novalidate>
+		<ion-list>
+			<ion-item>
+				<ion-label stacked color="primary">Name</ion-label>
+				<ion-input [(ngModel)]="signup.username" name="username" type="text" #username="ngModel" required>
+				</ion-input>
+			</ion-item>
+			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
+				Username is required
+			</p>
+
+			<ion-item>
+				<ion-label stacked color="primary">Register Number</ion-label>
+				<ion-input [(ngModel)]="signup.phone" name="phone" type="tel" maxlength="10" #phone="ngModel" required>
+				</ion-input>
+			</ion-item>
+			<p ion-text [hidden]="phone.valid || submitted == false" color="danger" padding-left>
+				Phone no is required
+			</p>
+
+			<ion-item>
+				<ion-label stacked color="primary">Email</ion-label>
+				<ion-input [(ngModel)]="signup.email" name="email" type="email" #email="ngModel">
+				</ion-input>
+			</ion-item>
+		</ion-list>
+
+		<div padding>
+			<button ion-button (click)="onSignup(signupForm)" type="submit" block>Create</button>
+		</div>
+	</form>
+
+</ion-content>

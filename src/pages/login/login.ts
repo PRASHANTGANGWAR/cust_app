@@ -8,6 +8,7 @@ import { SignupPage } from '../signup/signup';
 import { ResetPassword } from '../reset-password/reset-password';
 import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Database } from '../../providers/db-provider';
 
 declare var window: any;
 @Component({
@@ -23,6 +24,7 @@ export class LoginPage {
   options :BarcodeScannerOptions;
 
   constructor(
+    public dataBase: Database,
     public events: Events,
     private navCtrl: NavController, 
     public userData: UserData,
@@ -41,17 +43,25 @@ export class LoginPage {
 
   onLogin(form: NgForm) {
     this.submitted = true;
+    //let page = window.localStorage.getItem('current_page');
 
     if (form.valid) {
       this.showLoader();
       this.userData.login(this.login.username,this.login.password).then(results=>{
-        debugger;
           let resultData : any = {};
           //let mainData : any = {};
            //mainData = results.json();
            resultData = results;
           if(resultData.status == 200){
-            this.navCtrl.setRoot(PrescriptionListPage);
+            this.userData.userAddress().then(address=>{
+              let data : any = {};
+              data = address;
+              if(data.status == 200){
+                  this.deleteTable();
+                } else{
+                  this.doAlert('Error','something went wrong.');
+                }
+            });
             this.hideLoader();
           } else{
             this.hideLoader();
@@ -59,6 +69,13 @@ export class LoginPage {
           }
       });
     }
+  }
+
+  deleteTable(){
+    this.dataBase.deleteTableData().then(data =>{
+      console.log(data);
+       this.navCtrl.setRoot(PrescriptionListPage);
+    }); 
   }
 
   onSignup() {

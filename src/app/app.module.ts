@@ -16,6 +16,8 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
 import { PrescriptionListPage } from '../pages/prescription-list/prescription-list';
 import { ProductListPage } from '../pages/product-list/product-list';
+import { PlaceOrderPage } from '../pages/place-order/place-order';
+import { MyAddressPage  } from '../pages/my-address/my-address';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -25,6 +27,7 @@ import {Push} from "@ionic-native/push";
 import { Facebook  }  from '@ionic-native/facebook';
 import { SQLite } from '@ionic-native/sqlite';
 import { Database } from '../providers/db-provider';
+import { DatePickerModule } from 'ionic3-datepicker';
 
 @NgModule({
   declarations: [
@@ -34,17 +37,22 @@ import { Database } from '../providers/db-provider';
     CalendarPage,
     SignupPage,
     PrescriptionListPage,
-    ProductListPage
+    ProductListPage,
+    PlaceOrderPage,
+    MyAddressPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NgCalendarModule,
+    DatePickerModule,
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: CalendarPage, name: 'Calendar', segment: 'calendar' },
         { component: PrescriptionListPage, name: 'PrescriptionList', segment: 'prescriptionList' },
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },
+        { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
+        { component: MyAddressPage, name: 'MyAddress', segment: 'myAddress' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
@@ -60,7 +68,9 @@ import { Database } from '../providers/db-provider';
     CalendarPage,
     SignupPage,
     PrescriptionListPage,
-    ProductListPage
+    ProductListPage,
+    PlaceOrderPage,
+    MyAddressPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

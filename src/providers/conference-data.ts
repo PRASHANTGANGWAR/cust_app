@@ -61,7 +61,7 @@ export class ConferenceData {
   eventScheduler(presData: any){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ 
-      method: RequestMethod.Post,
+      method: RequestMethod.Get,
       headers: headers,
       body: JSON.stringify(presData),
       url: this.baseUrl+'/eventscheduler'
@@ -74,6 +74,28 @@ export class ConferenceData {
         },
         err => {
           resolve(err.json());
+        }
+      );
+    });
+  }
+
+  states(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      url: this.baseUrl+'/states'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          window.localStorage.setItem('states', JSON.stringify(res.json().states));
+        },
+        err => {
+          resolve(err);
         }
       );
     });

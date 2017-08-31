@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { Database } from '../../providers/db-provider';
 import { LoginPage } from '../login/login';
+import { PlaceOrderPage } from '../place-order/place-order';
 import { NavController, ToastController } from 'ionic-angular';
+
 
 declare var window: any; 
 @Component({
@@ -27,7 +29,6 @@ export class ProductListPage {
 
 	getProducts(id: any){
 		this.dataBase.getProducts(id).then(results =>{
-			debugger;
 			console.log(results);
 			this.products = JSON.parse(results[0].products);
 		});	
@@ -35,13 +36,12 @@ export class ProductListPage {
 
 	additionalData(){
 		let user = JSON.parse(window.localStorage.getItem('login_details'));
-		let token = user.authentication_token
-		if(token){
-			//do something
+		if(user){
+			this.navCtrl.setRoot(PlaceOrderPage);
 		}
 		else{
 			this.presentToast();
-			this.navCtrl.setRoot(LoginPage);
+			this.navCtrl.push(LoginPage);
 		}
 	}
 

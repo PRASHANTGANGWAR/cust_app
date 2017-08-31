@@ -3,7 +3,7 @@ import { UserData } from '../../providers/user-data';
 import { ProductListPage } from '../product-list/product-list';
 import { Database } from '../../providers/db-provider';
 
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController, ViewController } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 
 declare var window: any;
@@ -30,12 +30,15 @@ export class PrescriptionListPage {
 
   constructor(
     public navCtrl: NavController,
+    private viewCtrl: ViewController,
     public confData: ConferenceData,
     private _alert: AlertController,
     private _loading: LoadingController,
     public userData: UserData,
     public dataBase: Database
   ) {
+      window.localStorage.setItem('current_page',this.viewCtrl.name);
+      console.log(this.viewCtrl.name);
       //this.prescriptionList();
       //let user = JSON.parse(window.localStorage.getItem('login_details'));
       //this.username = user.name;
@@ -45,7 +48,9 @@ export class PrescriptionListPage {
     productList(){
       this.confData.categories().then(results=>{
            console.log(results);
-           this.dataBase.insertProducts(results);
+           this.dataBase.insertProducts(results).then(data =>{
+            console.log(data);
+           });
       });
     }
 

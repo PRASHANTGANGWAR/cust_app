@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 
-//declare var window: any;
+declare var window: any;
 @Injectable()
 export class UserData {
   baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
@@ -34,7 +34,6 @@ export class UserData {
       this.http.request(new Request(options))
       .subscribe(
         res => {
-          debugger;
           resolve(res);
           window.localStorage.setItem('login_details', JSON.stringify(res.json().user));
           //this.events.publish('user:loggedin');
@@ -67,7 +66,6 @@ export class UserData {
       this.http.request(new Request(options))
       .subscribe(
         res => {
-          debugger;
           resolve(res);
         },
         err => {
@@ -98,4 +96,26 @@ export class UserData {
       );
     });
   };
+
+  userAddress(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      url: this.baseUrl+'/users/addresses'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
 }

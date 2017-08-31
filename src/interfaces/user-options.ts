@@ -12,3 +12,8 @@ export interface SignupOptions {
 export interface resetOptions {
   email: string
 }
+
+export interface AddressOptions {
+  aname: string
+}
+

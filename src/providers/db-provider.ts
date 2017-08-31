@@ -81,6 +81,10 @@ export class Database {
         });
     }
 
+    deleteTableData(): Promise<any> {
+       return this.query("DELETE FROM Products");
+   }
+
     query(query: string, params: any[] = []): Promise<any> {
         return new Promise((resolve, reject) => {
             try {

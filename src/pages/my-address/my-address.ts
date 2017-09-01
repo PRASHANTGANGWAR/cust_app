@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NavController, AlertController } from 'ionic-angular';
+import { UserData } from '../../providers/user-data';
 import { ConferenceData } from '../../providers/conference-data';
 import { AddressOptions } from '../../interfaces/user-options';
+import { PlaceOrderPage } from '../place-order/place-order';
 
 declare var window:any;
 @Component({
@@ -10,13 +13,20 @@ declare var window:any;
 })
 
 export class MyAddressPage {
-	  address: AddressOptions = { aname: ''};
+	  address: AddressOptions = { addressinfo: ''};
 	  submitted = false;
 	  cities: any = {};
 	  states:any = [];
 	  cityOption:any = [];
 	  areaOption:any = [];
-	constructor(public confData: ConferenceData){
+	  local: string = "";
+	  type : string = "Home";
+
+	constructor(
+		public confData: ConferenceData,
+		public userData: UserData,
+		private navCtrl: NavController,
+		private _alert: AlertController){
 	    this.onLoad();
 	}
 
@@ -26,7 +36,7 @@ export class MyAddressPage {
 	    	if (this.states[i].name == value){
 	    		this.cityOption = this.states[i].cities;
 	    		this.areaOption = this.states[i].cities[0].areas;
-
+	    		this.local = this.states[i].cities[0].areas[0].id;
 	    	}
 	    }
  	 }
@@ -51,10 +61,32 @@ export class MyAddressPage {
 	   	});
 	  }
 
-	onSubmit(form: NgForm) {
+	onSubmit(form: NgForm,value: any) {
 	    this.submitted = true;
+	    console.log(value);
 	    if (form.valid) {
-	    	console.log(this.address.aname);
+	    	let address:any = {};
+	    	address.address_type = value.type;
+	    	address.area_id = value.local;
+	    	address.name = value.addressinfo;
+	    	this.userData.addAddress(address).then(result=> {
+	    	let data : any = {};
+              data = result;
+              if(data.status == 200){
+              	this.navCtrl.setRoot(PlaceOrderPage);
+              } else{
+                  this.doAlert('Error','something went wrong.');
+                }
+    		});
 	    }
 	}
+
+	 doAlert(type: string,message: string) {
+	    let alert = this._alert.create({
+	      title: type,
+	      subTitle: message,
+	      buttons: ['OK']
+	    });
+	    alert.present();
+	  }
 }

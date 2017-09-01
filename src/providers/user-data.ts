@@ -118,4 +118,30 @@ export class UserData {
       );
     });
   }
+
+  addAddress(address: any){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    address.mobile = user.mobile;
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: JSON.stringify({address}),
+      url: this.baseUrl+'/addresses'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
+
 }

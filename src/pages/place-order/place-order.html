@@ -28,6 +28,7 @@
   </div>
 	<ion-row padding>CHOOSE ADDRESS</ion-row>
  <ion-card>
+ <div *ngIf="address">
  	<ion-card-header style="border-bottom: 1px solid #bdbdbd; text-align: center;">{{address.address_type}}</ion-card-header>
  	 <ion-card-content  style="min-height: 200px;">
  	 <p>{{address.name}}</p>
@@ -35,6 +36,7 @@
    <p>{{address.area.city.name}}</p>
    <p>{{address.area.state.name}}</p>
  	 </ion-card-content>
+   </div>
  </ion-card>
  <ion-row padding>
     <ion-col>

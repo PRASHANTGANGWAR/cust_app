@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController} from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { MyAddressPage } from '../my-address/my-address';
 
 declare var window: any; 
@@ -11,18 +11,18 @@ declare var window: any;
 export class PlaceOrderPage {
 	public address: Array<any>;
  	public initDate: Date = new Date();
-	constructor(private navCtrl: NavController){
+	constructor(private navCtrl: NavController, private _alert: AlertController){
 		this.showAddress();
 	}
 
 	showAddress(){
-		let user = JSON.parse(window.localStorage.getItem('user_address'));
-		if (user.addresses.length == 0){
-			alert("add address");
-		}
-		else{
-			this.address = user.addresses[0];
-		}
+		let data = JSON.parse(window.localStorage.getItem('user_address'));
+		if(!data){
+				this.presentConfirm();
+			}
+			else{
+				this.address = data.addresses[0];
+			}
 	}
 
 	setDate(date: Date) {
@@ -31,6 +31,28 @@ export class PlaceOrderPage {
 	}
 
 	addAddressPage(){
-		this.navCtrl.setRoot(MyAddressPage);
+		//this.navCtrl.setRoot(MyAddressPage);
+	}
+
+	presentConfirm() {
+	    let alert = this._alert.create({
+	      message: 'Please add one address.',
+	      buttons: [
+	        {
+	          text: 'CANCEL',
+	          role: 'cancel',
+	          handler: () => {
+	            console.log('Cancel clicked');
+	          }
+	        },
+	        {
+	          text: 'ADD',
+	          handler: () => {
+	            this.navCtrl.setRoot(MyAddressPage);
+	          }
+	        }
+	      ]
+	    });
+	    alert.present();
 	}
 }

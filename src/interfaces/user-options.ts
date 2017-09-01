@@ -14,6 +14,6 @@ export interface resetOptions {
 }
 
 export interface AddressOptions {
-  aname: string
+  addressinfo: string
 }
 

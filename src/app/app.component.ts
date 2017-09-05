@@ -4,9 +4,11 @@ import { Events, MenuController, AlertController, Nav, LoadingController, Platfo
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
+import { PaymentDue  } from '../pages/payment-due/payment-due';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { CategoriesPage } from '../pages/categories/categories';
-
+import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
+import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -24,6 +26,9 @@ export interface PageInterface {
   tabComponent?: any;
   categories?: boolean;
   calendar?: boolean;
+  nutritionValues?: boolean;
+  paymentdue?: boolean;
+  lastOrders?: boolean;
 }
 
 @Component({
@@ -43,10 +48,10 @@ export class ConferenceApp {
     { title: 'My Profile', icon: 'calendar' },
     { title: 'My Orders', icon: 'calendar' },
     { title: 'My Address', icon: 'calendar' },
-    { title: 'Nutrition Values', icon: 'calendar' },
+    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'calendar', nutritionValues: true },
     { title: 'contact us', icon: 'calendar' },
-    { title: 'Payment Due', icon: 'calendar' },
-    { title: 'Last Five Deliveries', icon: 'calendar' },
+    { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'calendar', paymentdue: true },
+    { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'calendar', lastOrders: true },
    // { title: 'Prescriptions', name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
     //{ title: 'Calendar', name: 'CalendarPage', component: CalendarPage, icon: 'calendar', calendar: true },
     //{ title: 'Feedback', name: '', component: null, index: 3, icon: 'information-circle' },
@@ -98,6 +103,15 @@ export class ConferenceApp {
       this.nav.setRoot(CalendarPage);
       this.hideLoader();
     }
+    if(page.nutritionValues=== true){ 
+      this.nav.setRoot(NutritionValues);
+    }
+    if(page.paymentdue=== true){ 
+      this.nav.setRoot(PaymentDue);
+    }
+    if(page.lastOrders=== true){ 
+      this.nav.setRoot(LastFiveOrder);
+    }
 
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the
@@ -105,7 +119,14 @@ export class ConferenceApp {
     if (page.logsOut === true) {
       this.showLoader();
       window.localStorage.removeItem('login_details');
-      //window.localStorage.removeItem('device_token');
+      window.localStorage.removeItem('user_address');
+      window.localStorage.removeItem('add_address');
+      window.localStorage.removeItem('states');
+      window.localStorage.removeItem('prescriptions');
+      window.localStorage.removeItem('current_page');
+      window.localStorage.removeItem('_qrcode');
+      window.localStorage.removeItem('device_token');
+      window.localStorage.removeItem('deviceType');
       this.nav.setRoot(LoginPage);
       this.hideLoader();
     } else {

@@ -19,6 +19,9 @@ import { ProductListPage } from '../pages/product-list/product-list';
 import { PlaceOrderPage } from '../pages/place-order/place-order';
 import { MyAddressPage  } from '../pages/my-address/my-address';
 import { ViewAddressPage  } from '../pages/view-address/view-address';
+import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
+import { PaymentDue  } from '../pages/payment-due/payment-due';
+import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -41,7 +44,10 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,
-    ViewAddressPage
+    ViewAddressPage,
+    NutritionValues,
+    PaymentDue,
+    LastFiveOrder
   ],
   imports: [
     BrowserModule,
@@ -56,6 +62,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
         { component: MyAddressPage, name: 'MyAddress', segment: 'myAddress' },
         { component: ViewAddressPage, name: 'ViewAddress', segment: 'viewAddress' },
+        { component: NutritionValues, name: 'NutritionValues', segment: 'nutritionValues' },
+        { component: PaymentDue, name: 'PaymentDue', segment: 'paymentDue' },
+        { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
@@ -74,7 +83,10 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,
-    ViewAddressPage
+    ViewAddressPage,
+    NutritionValues,
+    PaymentDue,
+    LastFiveOrder
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

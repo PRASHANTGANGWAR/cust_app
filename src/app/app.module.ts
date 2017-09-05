@@ -18,6 +18,7 @@ import { PrescriptionListPage } from '../pages/prescription-list/prescription-li
 import { ProductListPage } from '../pages/product-list/product-list';
 import { PlaceOrderPage } from '../pages/place-order/place-order';
 import { MyAddressPage  } from '../pages/my-address/my-address';
+import { ViewAddressPage  } from '../pages/view-address/view-address';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -39,7 +40,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     PrescriptionListPage,
     ProductListPage,
     PlaceOrderPage,
-    MyAddressPage
+    MyAddressPage,
+    ViewAddressPage
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
         { component: MyAddressPage, name: 'MyAddress', segment: 'myAddress' },
+        { component: ViewAddressPage, name: 'ViewAddress', segment: 'viewAddress' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
@@ -70,7 +73,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     PrescriptionListPage,
     ProductListPage,
     PlaceOrderPage,
-    MyAddressPage
+    MyAddressPage,
+    ViewAddressPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

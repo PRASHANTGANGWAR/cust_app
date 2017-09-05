@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Address</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-card style="min-height:300px;" *ngIf="address">
+		<ion-card-header style="border: 1px solid #bdbdbd;">
+		<ion-row>
+			<ion-col>
+			 	<button ion-button small (click)="addAddressPage()"> 
+			 		<div>EDIT</div>
+			 	</button>
+			</ion-col>
+			<ion-col>{{address.address_type}}</ion-col>
+		</ion-row>
+         </ion-card-header>
+		<ion-card-content>
+			<p>{{address.name}}</p>
+  			<p>{{address.area.name}},</p>
+   			<p>{{address.area.city.name}}</p>
+  			<p>{{address.area.state.name}}</p>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

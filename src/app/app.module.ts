@@ -14,7 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import { ResetPassword } from '../pages/reset-password/reset-password';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
-import { PrescriptionListPage } from '../pages/prescription-list/prescription-list';
+import { CategoriesPage } from '../pages/categories/categories';
 import { ProductListPage } from '../pages/product-list/product-list';
 import { PlaceOrderPage } from '../pages/place-order/place-order';
 import { MyAddressPage  } from '../pages/my-address/my-address';
@@ -37,7 +37,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ResetPassword,
     CalendarPage,
     SignupPage,
-    PrescriptionListPage,
+    CategoriesPage,
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,
@@ -51,7 +51,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
         { component: CalendarPage, name: 'Calendar', segment: 'calendar' },
-        { component: PrescriptionListPage, name: 'PrescriptionList', segment: 'prescriptionList' },
+        { component: CategoriesPage, name: 'Categories', segment: 'categories' },
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
         { component: MyAddressPage, name: 'MyAddress', segment: 'myAddress' },
@@ -70,7 +70,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ResetPassword,
     CalendarPage,
     SignupPage,
-    PrescriptionListPage,
+    CategoriesPage,
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,

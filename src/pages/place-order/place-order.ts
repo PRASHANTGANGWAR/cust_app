@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { MyAddressPage } from '../my-address/my-address';
-import { PrescriptionListPage } from '../prescription-list/prescription-list';
+import { CategoriesPage } from '../categories/categories';
 
 declare var window: any; 
 @Component({
@@ -42,7 +42,7 @@ export class PlaceOrderPage {
 	        {
 	          text: 'CANCEL',
 	          handler: () => {
-	            this.navCtrl.setRoot(PrescriptionListPage);
+	            this.navCtrl.setRoot(CategoriesPage);
 	          }
 	        },
 	        {

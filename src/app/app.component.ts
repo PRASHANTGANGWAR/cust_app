@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
 import { CalendarPage } from '../pages/calendar/calendar';
-import { PrescriptionListPage } from '../pages/prescription-list/prescription-list';
+import { CategoriesPage } from '../pages/categories/categories';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
@@ -22,7 +22,7 @@ export interface PageInterface {
   index?: number;
   tabName?: string;
   tabComponent?: any;
-  prescription?: boolean;
+  categories?: boolean;
   calendar?: boolean;
 }
 
@@ -39,7 +39,7 @@ export class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Main Menu',name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
+    { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'contacts', categories: true },
     { title: 'My Profile', icon: 'calendar' },
     { title: 'My Orders', icon: 'calendar' },
     { title: 'My Address', icon: 'calendar' },
@@ -69,7 +69,7 @@ export class ConferenceApp {
     public _loading: LoadingController,
     private emailComposer: EmailComposer
   ) {
-      this.rootPage = PrescriptionListPage;
+      this.rootPage = CategoriesPage;
       this.platformReady()
       this.listenToUserEvents();
    }
@@ -88,7 +88,7 @@ export class ConferenceApp {
     if (page.index) {
       params = { tabIndex: page.index };
     }
-    if(page.prescription === true){
+    if(page.categories === true){
       this.showLoader();
       //this.nav.setRoot(PrescriptionListPage);
       this.hideLoader();

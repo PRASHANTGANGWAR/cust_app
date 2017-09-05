@@ -11,14 +11,14 @@
   <form #addressForm="ngForm" novalidate>
     <ion-card>
     <ion-card-header style="text-align: center;
-    border-bottom: 1px solid grey;">Add New Address</ion-card-header>
+    border-bottom: 1px solid grey;">{{title}}</ion-card-header>
       <ion-card-content>
         <ion-row>
           <ion-col>Choose Type</ion-col>
           <ion-col radio-group [(ngModel)]="type" name="type">
             <ion-item>
               <ion-label>Home</ion-label>
-              <ion-radio value="Home" checked></ion-radio>
+              <ion-radio value="Home"></ion-radio>
             </ion-item>
             <ion-item>
               <ion-label>Office</ion-label>
@@ -30,7 +30,7 @@
           <ion-col>Choose City</ion-col>
           <ion-col>
         		 <select [ngModel]="city" name="city"
-             (ngModelChange)="selectOption($event)" style="background-color: #bdbdbd;">
+             (ngModelChange)="selectOption($event,'null','null')" style="background-color: #bdbdbd;">
                   <option *ngFor="let state of states">{{state.name}}</option>
               </select>
             </ion-col>
@@ -63,8 +63,11 @@
         </p>
       </ion-card-content>
     </ion-card>
-    <div padding>
+      <div padding [hidden]="!isAddress">
+          <button ion-button (click)="onUpdate(addressForm,addressForm.value)" type="submit" block>UPDATE</button>
+      </div>
+      <div padding [hidden]="isAddress">
           <button ion-button (click)="onSubmit(addressForm,addressForm.value)" type="submit" block>Save</button>
-    </div>
+      </div>
   </form>
 </ion-content>

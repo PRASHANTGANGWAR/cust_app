@@ -134,13 +134,17 @@ export class UserData {
       .subscribe(
         res => {
           resolve(res);
-          window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+          window.localStorage.setItem('add_address', JSON.stringify(res.json().user));
         },
         err => {
           resolve(err);
         }
       );
     });
+  }
+
+  updateAddress(){
+   //code for update address api
   }
 
 

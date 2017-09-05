@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { ConferenceData } from '../../providers/conference-data';
 import { AddressOptions } from '../../interfaces/user-options';
@@ -15,31 +15,49 @@ declare var window:any;
 export class MyAddressPage {
 	  address: AddressOptions = { addressinfo: ''};
 	  submitted = false;
+	  city : string = "";
+	  area : string = "";
+	  title : string ="";
 	  cities: any = {};
 	  states:any = [];
 	  cityOption:any = [];
 	  areaOption:any = [];
 	  local: string = "";
 	  type : string = "Home";
+	  isAddress: boolean = false;
 
 	constructor(
 		public confData: ConferenceData,
 		public userData: UserData,
 		private navCtrl: NavController,
+		public navParams: NavParams,
 		private _alert: AlertController){
+		this.isAddress = navParams.get('isAddress');
 	    this.onLoad();
 	}
 
-	selectOption(value: string){
+	selectOption(value: string,area: string,local : string){
 	    console.log(value);
 	    for( var i=0;i < this.states.length;i++ ){
 	    	if (this.states[i].name == value){
 	    		this.cityOption = this.states[i].cities;
-	    		this.areaOption = this.states[i].cities[0].areas;
-	    		this.local = this.states[i].cities[0].areas[0].id;
+	    		if(area!="null"){
+	    			for( var j=0;j< this.states[i].cities.length;j++ ){
+	    				if(this.states[i].cities[j].name==area){
+	    					this.areaOption = this.states[i].cities[j].areas;
+	    					this.local = local;
+	    				}
+	    			}
+	    		}
+	    		else {
+	    			this.areaOption = this.states[i].cities[0].areas;
+	    			this.local = this.states[i].cities[0].areas[0].id;
+	    		}
 	    	}
 	    }
  	 }
+
+
 
 	  selectOptionCity(value : string){
 	  	console.log(value);
@@ -55,9 +73,21 @@ export class MyAddressPage {
 	   	this.confData.states().then(data => {
 	   		console.log(data);
 	   		this.states = JSON.parse(window.localStorage.getItem('states'));
-	   		let st = this.states[0].name;
-	   		this.selectOption(st);
-	    	console.log(this.states);
+	   		let result = JSON.parse(window.localStorage.getItem('user_address'));
+	   		let st = "";
+	   		if(this.isAddress){
+	   			this.city = result.addresses[0].area.state.name;
+	   			this.area = result.addresses[0].area.city.name;
+	   			this.local = result.addresses[0].area.id;
+	   			this.address.addressinfo = result.addresses[0].name;
+	   			this.title = "Update Address";
+	   			this.selectOption(this.city,this.area,this.local);
+   			}else{
+   				this.title = "Add New Address";
+   				st = this.states[0].name;
+		   		this.selectOption(st,"null","null");
+		    	console.log(this.states);
+   			}
 	   	});
 	  }
 
@@ -72,7 +102,7 @@ export class MyAddressPage {
 	    	this.userData.addAddress(address).then(result=> {
 	    	let data : any = {};
               data = result;
-              if(data.status == 200){
+              if(data.status == 201){
               	this.navCtrl.setRoot(PlaceOrderPage);
               } else{
                   this.doAlert('Error','something went wrong.');

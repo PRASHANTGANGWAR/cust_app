@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { MyAddressPage } from '../my-address/my-address';
+import { PrescriptionListPage } from '../prescription-list/prescription-list';
 
 declare var window: any; 
 @Component({
@@ -12,12 +13,12 @@ export class PlaceOrderPage {
 	public address: Array<any>;
  	public initDate: Date = new Date();
 	constructor(private navCtrl: NavController, private _alert: AlertController){
-		this.showAddress();
+		let data = JSON.parse(window.localStorage.getItem('user_address'));
+		this.showAddress(data);
 	}
 
-	showAddress(){
-		let data = JSON.parse(window.localStorage.getItem('user_address'));
-		if(!data){
+	showAddress(data: any){
+		if(data.addresses.length == 0){
 				this.presentConfirm();
 			}
 			else{
@@ -31,7 +32,7 @@ export class PlaceOrderPage {
 	}
 
 	addAddressPage(){
-		//this.navCtrl.setRoot(MyAddressPage);
+		this.navCtrl.setRoot(MyAddressPage,{isAddress: true});
 	}
 
 	presentConfirm() {
@@ -40,9 +41,8 @@ export class PlaceOrderPage {
 	      buttons: [
 	        {
 	          text: 'CANCEL',
-	          role: 'cancel',
 	          handler: () => {
-	            console.log('Cancel clicked');
+	            this.navCtrl.setRoot(PrescriptionListPage);
 	          }
 	        },
 	        {

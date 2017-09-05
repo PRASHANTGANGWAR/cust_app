@@ -120,6 +120,7 @@ export class UserData {
   }
 
   addAddress(address: any){
+    let data :any = {addresses:[]};
     let user = JSON.parse(window.localStorage.getItem('login_details'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     address.mobile = user.mobile;
@@ -134,7 +135,8 @@ export class UserData {
       .subscribe(
         res => {
           resolve(res);
-          window.localStorage.setItem('add_address', JSON.stringify(res.json().user));
+          data.addresses.push(res.json());
+          window.localStorage.setItem('user_address', JSON.stringify(data));
         },
         err => {
           resolve(err);
@@ -143,8 +145,32 @@ export class UserData {
     });
   }
 
-  updateAddress(){
-   //code for update address api
+  updateAddress(address: any){
+    let update :any = {addresses:[]}
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let data = JSON.parse(window.localStorage.getItem('user_address'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    address.mobile = user.mobile;
+    let address_id = data.addresses[0].id;
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      body: JSON.stringify({address}),
+      url: this.baseUrl+'/addresses/'+address_id
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          update.addresses.push(res.json());
+          window.localStorage.setItem('user_address', JSON.stringify(update));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
   }
 
 

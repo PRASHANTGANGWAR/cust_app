@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, NavParams, ToastController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { ConferenceData } from '../../providers/conference-data';
 import { AddressOptions } from '../../interfaces/user-options';
@@ -31,6 +31,7 @@ export class MyAddressPage {
 		public userData: UserData,
 		private navCtrl: NavController,
 		public navParams: NavParams,
+		private toastCtrl: ToastController,
 		private _alert: AlertController){
 		this.isAddress = navParams.get('isAddress');
 	    this.onLoad();
@@ -80,6 +81,7 @@ export class MyAddressPage {
 	   			this.area = result.addresses[0].area.city.name;
 	   			this.local = result.addresses[0].area.id;
 	   			this.address.addressinfo = result.addresses[0].name;
+	   			this.type = result.addresses[0].address_type;
 	   			this.title = "Update Address";
 	   			this.selectOption(this.city,this.area,this.local);
    			}else{
@@ -111,6 +113,27 @@ export class MyAddressPage {
 	    }
 	}
 
+	onUpdate(form: NgForm,value: any){
+		this.submitted = true;
+		console.log(value);
+	    if (form.valid) {
+	    	let address:any = {};
+	    	address.address_type = value.type;
+	    	address.area_id = value.local;
+	    	address.name = value.addressinfo;
+	    	this.userData.updateAddress(address).then(result=> {
+	    	let data : any = {};
+              data = result;
+              if(data.status == 200){
+              	this.presentToast("Address updated successfully.")
+              	this.navCtrl.setRoot(PlaceOrderPage);
+              } else{
+                  this.doAlert('Error','something went wrong.');
+                }
+    		});
+	    }
+	}
+
 	 doAlert(type: string,message: string) {
 	    let alert = this._alert.create({
 	      title: type,
@@ -119,4 +142,12 @@ export class MyAddressPage {
 	    });
 	    alert.present();
 	  }
+
+	presentToast(msg: any) {
+	  this.toastCtrl.create({
+	    message: msg,
+	    duration: 2000,
+	    position: 'bottom'
+	  }).present();
+	}
 }

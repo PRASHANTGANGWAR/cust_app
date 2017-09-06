@@ -31,6 +31,7 @@ export interface PageInterface {
   paymentdue?: boolean;
   lastOrders?: boolean;
   contactUs?: boolean;
+  
 }
 
 @Component({
@@ -62,7 +63,7 @@ export class ConferenceApp {
   ];
   rootPage: any;
   userId: any;
-
+  isLogin: boolean = false;
   constructor(
     public events: Events,
     public userData: UserData,
@@ -82,7 +83,7 @@ export class ConferenceApp {
    }
 
   openPage(page: PageInterface) {
-    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    // let user = JSON.parse(window.localStorage.getItem('login_details'));
     if(page.index === 3){
       this.showLoader();
       this.hideLoader();
@@ -110,25 +111,13 @@ export class ConferenceApp {
       this.nav.setRoot(NutritionValues);
     }
     if(page.paymentdue=== true){ 
-      if(user){
         this.nav.setRoot(PaymentDue);
-      }else{
-        this.nav.push(LoginPage);
-      }
     }
     if(page.lastOrders=== true){
-      if(user){
         this.nav.setRoot(LastFiveOrder);
-      }else{
-        this.nav.push(LoginPage);
-      }
     }
     if(page.contactUs=== true){ 
-      if(user){
         this.nav.setRoot(ContactPage);
-      }else{
-        this.nav.push(LoginPage);
-      }
     }
 
     // If we are already on tabs just change the selected tab
@@ -136,6 +125,7 @@ export class ConferenceApp {
     // tabs even if changing them from the menupage.
     if (page.logsOut === true) {
       this.showLoader();
+      this.isLogin = false;
       window.localStorage.removeItem('login_details');
       window.localStorage.removeItem('user_address');
       window.localStorage.removeItem('add_address');
@@ -145,7 +135,7 @@ export class ConferenceApp {
       window.localStorage.removeItem('_qrcode');
       window.localStorage.removeItem('device_token');
       window.localStorage.removeItem('deviceType');
-      this.nav.setRoot(LoginPage);
+      this.nav.setRoot(CategoriesPage);
       this.hideLoader();
     } else {
       if(page.index != 3){
@@ -162,6 +152,10 @@ export class ConferenceApp {
 
   }
 
+  login(){
+     this.nav.setRoot(LoginPage);
+  }
+  
   sendFeedback() {
     this.emailComposer.isAvailable().then((available: boolean) =>{
      if(available) {
@@ -182,6 +176,7 @@ export class ConferenceApp {
   listenToUserEvents() {
       this.events.subscribe('user:loggedin', () => {
         let user = JSON.parse(window.localStorage.getItem('login_details'));
+        this.isLogin = true;
         this.userId = user.serial;
       });
   }

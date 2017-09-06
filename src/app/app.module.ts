@@ -19,6 +19,8 @@ import { ProductListPage } from '../pages/product-list/product-list';
 import { PlaceOrderPage } from '../pages/place-order/place-order';
 import { MyAddressPage  } from '../pages/my-address/my-address';
 import { ViewAddressPage  } from '../pages/view-address/view-address';
+import { CheckoutPage } from '../pages/checkout/checkout';
+import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -41,7 +43,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,
-    ViewAddressPage
+    ViewAddressPage,
+    CheckoutPage,
+    CheckoutModalPage
   ],
   imports: [
     BrowserModule,
@@ -56,6 +60,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
         { component: MyAddressPage, name: 'MyAddress', segment: 'myAddress' },
         { component: ViewAddressPage, name: 'ViewAddress', segment: 'viewAddress' },
+        { component: CheckoutPage, name: 'Checkout', segment: 'checkout' },
+        { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
@@ -74,7 +80,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ProductListPage,
     PlaceOrderPage,
     MyAddressPage,
-    ViewAddressPage
+    ViewAddressPage,
+    CheckoutPage,
+    CheckoutModalPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title style="text-align: center;">
+    	<p>Choose Quantity</p>
+		<ion-icon name="remove-circle" (click)="decrementMain()"></ion-icon>
+						{{mainNumber}}
+		<ion-icon name="add-circle" (click)="incrementMain()"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="checkout">
+	<ion-list>
+		<ion-row *ngFor="let day of weekday; let i=index" style="border-bottom: 1px solid #bdbdbd">
+		<ion-col>
+			<ion-checkbox color="dark" (click)= "status(i)" 
+			checked></ion-checkbox>
+		</ion-col>
+		<ion-row style="display:block;" id="toggle{{i}}">
+			<ion-col>
+				{{day.day}}
+			</ion-col>
+			<ion-col>
+			   <ion-icon name="remove-circle" (click)="decrement(i)"></ion-icon>
+					{{day.currentNumber}}
+				<ion-icon name="add-circle" (click)="increment(i)"></ion-icon>
+			</ion-col>
+		</ion-row>
+		</ion-row>
+	</ion-list>
+	<ion-row>
+		<ion-col>
+	    	<button ion-button small round (click)="closeModal()">CANCEL</button>
+		 </ion-col>
+		  <ion-col>
+		  	<button ion-button small round>PROCEED</button>
+		  </ion-col>
+	  </ion-row>
+</ion-content>

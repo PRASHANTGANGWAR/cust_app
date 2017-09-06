@@ -21,11 +21,13 @@ import { MyAddressPage  } from '../pages/my-address/my-address';
 import { ViewAddressPage  } from '../pages/view-address/view-address';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
+import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { CallNumber } from '@ionic-native/call-number';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import {Push} from "@ionic-native/push";
 import { Facebook  }  from '@ionic-native/facebook';
@@ -47,6 +49,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ViewAddressPage,
     NutritionValues,
     PaymentDue,
+    ContactPage,
     LastFiveOrder
   ],
   imports: [
@@ -64,6 +67,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: ViewAddressPage, name: 'ViewAddress', segment: 'viewAddress' },
         { component: NutritionValues, name: 'NutritionValues', segment: 'nutritionValues' },
         { component: PaymentDue, name: 'PaymentDue', segment: 'paymentDue' },
+        { component: ContactPage, name: 'ContactPage', segment: 'contactUs' },
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -86,6 +90,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ViewAddressPage,
     NutritionValues,
     PaymentDue,
+    ContactPage,
     LastFiveOrder
   ],
   providers: [
@@ -96,6 +101,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     SplashScreen,
     BarcodeScanner,
     EmailComposer,
+    CallNumber,
     Push,
     Facebook,
     SQLite,

@@ -9,6 +9,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
+import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -29,6 +30,7 @@ export interface PageInterface {
   nutritionValues?: boolean;
   paymentdue?: boolean;
   lastOrders?: boolean;
+  contactUs?: boolean;
 }
 
 @Component({
@@ -44,14 +46,14 @@ export class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'contacts', categories: true },
-    { title: 'My Profile', icon: 'calendar' },
-    { title: 'My Orders', icon: 'calendar' },
-    { title: 'My Address', icon: 'calendar' },
-    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'calendar', nutritionValues: true },
-    { title: 'contact us', icon: 'calendar' },
-    { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'calendar', paymentdue: true },
-    { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'calendar', lastOrders: true },
+    { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
+    { title: 'My Profile', icon: 'md-contact' },
+    { title: 'My Orders', icon: 'basket' },
+    { title: 'My Address', icon: 'locate' },
+    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
+    { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
+    { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
    // { title: 'Prescriptions', name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
     //{ title: 'Calendar', name: 'CalendarPage', component: CalendarPage, icon: 'calendar', calendar: true },
     //{ title: 'Feedback', name: '', component: null, index: 3, icon: 'information-circle' },
@@ -80,6 +82,7 @@ export class ConferenceApp {
    }
 
   openPage(page: PageInterface) {
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
     if(page.index === 3){
       this.showLoader();
       this.hideLoader();
@@ -95,7 +98,7 @@ export class ConferenceApp {
     }
     if(page.categories === true){
       this.showLoader();
-      //this.nav.setRoot(PrescriptionListPage);
+      this.nav.setRoot(CategoriesPage);
       this.hideLoader();
     }
     if(page.calendar=== true){ 
@@ -107,10 +110,25 @@ export class ConferenceApp {
       this.nav.setRoot(NutritionValues);
     }
     if(page.paymentdue=== true){ 
-      this.nav.setRoot(PaymentDue);
+      if(user){
+        this.nav.setRoot(PaymentDue);
+      }else{
+        this.nav.push(LoginPage);
+      }
     }
-    if(page.lastOrders=== true){ 
-      this.nav.setRoot(LastFiveOrder);
+    if(page.lastOrders=== true){
+      if(user){
+        this.nav.setRoot(LastFiveOrder);
+      }else{
+        this.nav.push(LoginPage);
+      }
+    }
+    if(page.contactUs=== true){ 
+      if(user){
+        this.nav.setRoot(ContactPage);
+      }else{
+        this.nav.push(LoginPage);
+      }
     }
 
     // If we are already on tabs just change the selected tab

@@ -23,13 +23,14 @@ import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
+import { ProfilePage } from '../pages/profile/profile';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { CallNumber } from '@ionic-native/call-number';
 import { NgCalendarModule  } from 'ionic2-calendar';
-import {Push} from "@ionic-native/push";
+import { Push } from "@ionic-native/push";
 import { Facebook  }  from '@ionic-native/facebook';
 import { SQLite } from '@ionic-native/sqlite';
 import { Database } from '../providers/db-provider';
@@ -50,6 +51,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     NutritionValues,
     PaymentDue,
     ContactPage,
+    ProfilePage,
     LastFiveOrder
   ],
   imports: [
@@ -70,6 +72,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: ContactPage, name: 'ContactPage', segment: 'contactUs' },
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
+        { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
         { component: SignupPage, name: 'SignupPage', segment: 'signup' }
       ]
@@ -90,6 +93,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ViewAddressPage,
     NutritionValues,
     PaymentDue,
+    ProfilePage,
     ContactPage,
     LastFiveOrder
   ],

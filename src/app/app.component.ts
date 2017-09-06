@@ -10,6 +10,7 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
+import { ProfilePage } from '../pages/profile/profile';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -31,6 +32,7 @@ export interface PageInterface {
   paymentdue?: boolean;
   lastOrders?: boolean;
   contactUs?: boolean;
+  profile?: boolean;
 }
 
 @Component({
@@ -47,7 +49,7 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
-    { title: 'My Profile', icon: 'md-contact' },
+    { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact' },
     { title: 'My Orders', icon: 'basket' },
     { title: 'My Address', icon: 'locate' },
     { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
@@ -82,7 +84,7 @@ export class ConferenceApp {
    }
 
   openPage(page: PageInterface) {
-    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    // let user = JSON.parse(window.localStorage.getItem('login_details'));
     if(page.index === 3){
       this.showLoader();
       this.hideLoader();
@@ -110,25 +112,19 @@ export class ConferenceApp {
       this.nav.setRoot(NutritionValues);
     }
     if(page.paymentdue=== true){ 
-      if(user){
         this.nav.setRoot(PaymentDue);
-      }else{
-        this.nav.push(LoginPage);
-      }
     }
     if(page.lastOrders=== true){
-      if(user){
         this.nav.setRoot(LastFiveOrder);
-      }else{
-        this.nav.push(LoginPage);
-      }
     }
     if(page.contactUs=== true){ 
-      if(user){
         this.nav.setRoot(ContactPage);
-      }else{
-        this.nav.push(LoginPage);
-      }
+    }
+    if(page.contactUs=== true){ 
+        this.nav.setRoot(ContactPage);
+    }
+    if(page.profile=== true){ 
+        this.nav.setRoot(ProfilePage);
     }
 
     // If we are already on tabs just change the selected tab

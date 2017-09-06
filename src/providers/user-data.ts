@@ -197,6 +197,28 @@ export class UserData {
 
   }
 
+  getProfile(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      url: this.baseUrl+'/current_customer'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          // window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
   paymentDue(){
 
     let user = JSON.parse(window.localStorage.getItem('login_details'));

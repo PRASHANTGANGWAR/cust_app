@@ -49,7 +49,7 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
-    { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact' },
+    { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
     { title: 'My Orders', icon: 'basket' },
     { title: 'My Address', icon: 'locate' },
     { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },

@@ -23,55 +23,59 @@ export class CheckoutModalPage {
     console.log('ionViewDidLoad CheckoutModalPage');
   }
 
-  closeModal(){
-  	this.view.dismiss();
-  }
-
   	incrementMain(){
-		if(this.mainNumber === 0){
-			this.mainNumber += 2;
-			for(var i=0; i<this.weekday.length; i++){
-				this.weekday[i].currentNumber = this.mainNumber;
+  		if(this.mainNumber <20){
+			if(this.mainNumber === 0){
+				this.mainNumber += 2;
+				for(var i=0; i<this.weekday.length; i++){
+					this.weekday[i].currentNumber = this.mainNumber;
+				}
 			}
-		}
-		else{
-			this.mainNumber++;
-			for(var j=0; j<this.weekday.length; j++){
-				this.weekday[j].currentNumber = this.mainNumber;
+			else{
+				this.mainNumber++;
+				for(var j=0; j<this.weekday.length; j++){
+					this.weekday[j].currentNumber = this.mainNumber;
+				}
 			}
 		}
 	}
 
 	decrementMain(){
-		if(this.mainNumber === 2){
-			this.mainNumber -= 2;
-			for(var i=0; i<this.weekday.length; i++){
-				this.weekday[i].currentNumber = this.mainNumber;
+		if(this.mainNumber !== 0){
+			if(this.mainNumber === 2){
+				this.mainNumber -= 2;
+				for(var i=0; i<this.weekday.length; i++){
+					this.weekday[i].currentNumber = this.mainNumber;
+				}
 			}
-		}
-		else{
-			this.mainNumber--;
-			for(var j=0; j<this.weekday.length; j++){
-				this.weekday[j].currentNumber = this.mainNumber;
+			else{
+				this.mainNumber--;
+				for(var j=0; j<this.weekday.length; j++){
+					this.weekday[j].currentNumber = this.mainNumber;
+				}
 			}
 		}
 	}
 
 	increment (index: number){
-		if(this.weekday[index].currentNumber === 0 ){
-			this.weekday[index].currentNumber += 2;
-		}else{
-			this.weekday[index].currentNumber++;
-			console.log(this.weekday);
+		if(this.weekday[index].currentNumber< 20){
+			if(this.weekday[index].currentNumber === 0 ){
+				this.weekday[index].currentNumber += 2;
+			}else{
+				this.weekday[index].currentNumber++;
+				console.log(this.weekday);
+			}
 		}
 	}
 
 	decrement(index: number){
-		if(this.weekday[index].currentNumber === 2 ){
-			this.weekday[index].currentNumber -= 2;
-		}else{
-			this.weekday[index].currentNumber--;
-			console.log(this.weekday);
+		if(this.weekday[index].currentNumber !== 0){
+			if(this.weekday[index].currentNumber === 2 ){
+				this.weekday[index].currentNumber -= 2;
+			}else{
+				this.weekday[index].currentNumber--;
+				console.log(this.weekday);
+			}
 		}
 	}
 
@@ -80,6 +84,14 @@ export class CheckoutModalPage {
 		let div = <HTMLElement>document.querySelector("#toggle"+index);
 		let display = div.style.display;
        	div.style.display = (display ==="block")? "none" : "block";
+	}
+
+	 closeModal(){
+	  	this.view.dismiss(null);
+	  }
+
+	proceed(){
+		this.view.dismiss(this.weekday);
 	}
 
 }

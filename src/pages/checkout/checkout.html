@@ -8,5 +8,18 @@
 </ion-header>
 
 <ion-content>
-<button ion-button small (click)="openModal()">modal</button>
+<ion-row>My current Order</ion-row>
+<ion-card *ngFor="let prod of products; let i= index" (click)="openModal(i)">
+	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+	{{ prod.display_name }} - {{prod.name}}</ion-card-header>
+	<ion-card-content style="min-height: 200px;">
+	<ion-row>
+		<ion-col *ngFor="let day of prod.weekday">{{day.day}}</ion-col>
+	</ion-row>
+	<ion-row>
+	 	<ion-col *ngFor="let day of prod.weekday">{{day.currentNumber}}</ion-col>
+	</ion-row>
+	</ion-card-content>
+</ion-card>
+<button ion-button round (click)="checkout()">Proceed to checkout</button>
 </ion-content>

@@ -101,4 +101,28 @@ export class ConferenceData {
     });
   }
 
+  newOrder(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let order:any={};
+    //add required data to send wiht post request in order object 
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: JSON.stringify({order}),
+      url: this.baseUrl+'/orders'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
 }

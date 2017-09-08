@@ -75,14 +75,18 @@ export class UserData {
     });
   };
 
-  resetPassword(email: string){
-    console.log(email);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+  resetPassword(phone: string){
+    let data: any = {};
+    data.user = {
+      mobile: phone
+    };
+
+    let headers = new Headers({ "Accept": "application/json", 'Content-Type': 'application/json' });
     let options = new RequestOptions({ 
-      method: RequestMethod.Post,
+      method: RequestMethod.Put,
       headers: headers,
-      body: JSON.stringify({email}),
-      url: this.baseUrl+'/forgetPassword'
+      body: data,
+      url: this.baseUrl+'/users/forgot_password'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

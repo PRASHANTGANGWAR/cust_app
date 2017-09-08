@@ -5,7 +5,6 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { CategoriesPage } from '../categories/categories';
 import { SignupPage } from '../signup/signup';
-import { ResetPassword } from '../reset-password/reset-password';
 import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { Database } from '../../providers/db-provider';
 
@@ -74,10 +73,23 @@ export class LoginPage {
   }
 
   forgotPassword() {
-    this.showLoader();
-    this.flag = true;
-    this.navCtrl.push(ResetPassword);
-    this.hideLoader();
+    if(this.login.username.length < 10 || this.login.username.length > 10){
+        this.doAlert('Error','Enter 10 digits mobile no.');
+    }else{
+      this.showLoader();
+        this.userData.resetPassword(this.login.username).then(results=>{
+          let resultData : any = {};
+           resultData = results;
+          if(resultData.user){
+            this.doAlert('Success','You will get a msg soon.');
+            this.hideLoader();
+          } else{
+            this.hideLoader();
+            this.doAlert('Error','something went wrong.');
+          }
+      });
+    }
+    
   }
 
   // scan QR code

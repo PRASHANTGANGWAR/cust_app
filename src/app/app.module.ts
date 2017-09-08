@@ -3,15 +3,12 @@ import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { IonicStorageModule } from '@ionic/storage';
-
 import { ConferenceApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-import { ResetPassword } from '../pages/reset-password/reset-password';
+import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
 import { CategoriesPage } from '../pages/categories/categories';
 import { ProductListPage } from '../pages/product-list/product-list';
@@ -44,7 +41,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
   declarations: [
     ConferenceApp,
     LoginPage,
-    ResetPassword,
     SignupPage,
     CategoriesPage,
     ProductListPage,
@@ -82,7 +78,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
         { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
-        { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -95,7 +90,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
   entryComponents: [
     ConferenceApp,
     LoginPage,
-    ResetPassword,
     SignupPage,
     CategoriesPage,
     ProductListPage,

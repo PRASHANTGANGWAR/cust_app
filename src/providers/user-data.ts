@@ -118,6 +118,31 @@ export class UserData {
     });
   };
 
+   forgotPassword(phone: string){
+      let data: any = {};
+      data.user = {
+        mobile: phone
+      };
+      let headers = new Headers({ "Accept": "application/json", 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ 
+        method: RequestMethod.Put,
+        headers: headers,
+        body: data,
+        url: this.baseUrl+'/users/forgot_password'
+      });
+      return new Promise(resolve => {
+        this.http.request(new Request(options))
+        .subscribe(
+          res => {
+            resolve(res.json());
+          },
+          err => {
+            resolve(err.json());
+          }
+        );
+      });
+  }
+
   userAddress(){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });

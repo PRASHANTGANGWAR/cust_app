@@ -16,16 +16,16 @@
     <ion-list no-lines>
       
 
-      <ion-item>
-        <ion-input class="forminput" name="oldPass" [(ngModel)]="password.old" type="text" placeholder="Current Password" required>
+      <ion-item class="outerInput">
+        <ion-input name="oldPass" [(ngModel)]="password.old" type="text" placeholder="Current Password" required>
         </ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input class="forminput" name="newPass" [(ngModel)]="password.new" type="text" placeholder="New Password" required>
+      <ion-item class="outerInput">
+        <ion-input name="newPass" [(ngModel)]="password.new" type="text" placeholder="New Password" required>
         </ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input class="forminput" name="confirmPass" [(ngModel)]="password.confirm" placeholder="Cofirm Password" type="text" required>
+      <ion-item class="outerInput">
+        <ion-input name="confirmPass" [(ngModel)]="password.confirm" placeholder="Cofirm Password" type="text" required>
         </ion-input>
       </ion-item>
 

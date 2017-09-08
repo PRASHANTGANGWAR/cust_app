@@ -7,8 +7,8 @@ import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 declare var window: any;
 @Injectable()
 export class UserData {
-  // baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
-  baseUrl = 'http://0f529517.ngrok.io';
+  baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
+  // baseUrl = 'http://0f529517.ngrok.io';
   
   constructor(
    // public events: Events,

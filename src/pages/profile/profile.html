@@ -3,7 +3,7 @@
     <button ion-button menuToggle="left" style="display: inline-block !important;">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Profile</ion-title>
+    <ion-title>My Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
         <b>Due Amount</b>
       </ion-col>
       <ion-col col-4 text-wrap no-lines class="bal">
-        :<span>&#8377;</span> {{Profile.due_balance}}
+        <span>&#8377;</span> {{Profile.due_balance}}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -23,7 +23,7 @@
         <b>Bill Amount</b>
       </ion-col>
       <ion-col col-4 text-wrap no-lines class="bal">
-        :<span>&#8377;</span> {{Profile.billing_amount}}
+        <span>&#8377;</span> {{Profile.billing_amount}}
       </ion-col>
     </ion-row>
   </ion-grid>

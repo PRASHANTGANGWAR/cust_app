@@ -1,13 +1,17 @@
 page-change-pas {
-	.forminput{
-		border: 1px solid gray;
-    	border-radius: 5px;
-    	height: 35px;
-    	margin: 20px;
-	}
+	
 	.heading{
 		color:#DF3796;
 		margin-top:20px;
 		font-size:20px;
 	}
+	.outerInput{
+		.item-inner{
+			margin-top: 20px !important;
+			border: 2px solid gray !important;
+    		border-radius: 5px !important;
+    		margin-right:5% !important;
+		}
+	}
+	
 }

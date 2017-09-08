@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
@@ -27,7 +26,6 @@ export interface PageInterface {
   tabName?: string;
   tabComponent?: any;
   categories?: boolean;
-  calendar?: boolean;
   nutritionValues?: boolean;
   paymentdue?: boolean;
   lastOrders?: boolean;
@@ -110,25 +108,25 @@ export class ConferenceApp {
     if (page.index) {
       params = { tabIndex: page.index };
     }
+
     if(page.categories === true){
       this.showLoader();
       this.nav.setRoot(CategoriesPage);
       this.hideLoader();
     }
-    if(page.calendar=== true){ 
-      this.showLoader();
-      this.nav.setRoot(CalendarPage);
-      this.hideLoader();
-    }
+
     if(page.nutritionValues=== true){ 
       this.nav.setRoot(NutritionValues);
     }
+
     if(page.paymentdue=== true){ 
         this.nav.setRoot(PaymentDue);
     }
+
     if(page.lastOrders=== true){
         this.nav.setRoot(LastFiveOrder);
     }
+
     if(page.contactUs=== true){ 
         this.nav.setRoot(ContactPage);
     }
@@ -143,7 +141,6 @@ export class ConferenceApp {
     if(page.profile=== true){ 
         this.nav.setRoot(ProfilePage);
     }
-
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the
     // tabs even if changing them from the menupage.

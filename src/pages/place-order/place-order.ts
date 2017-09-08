@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
+import { CheckoutPage } from '../checkout/checkout';
+
 
 declare var window: any; 
 @Component({
@@ -33,6 +35,10 @@ export class PlaceOrderPage {
 
 	addAddressPage(){
 		this.navCtrl.setRoot(MyAddressPage,{isAddress: true});
+	}
+
+	checkoutPage(){
+		this.navCtrl.setRoot(CheckoutPage);
 	}
 
 	presentConfirm() {

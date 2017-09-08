@@ -12,7 +12,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { ResetPassword } from '../pages/reset-password/reset-password';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
 import { CategoriesPage } from '../pages/categories/categories';
 import { ProductListPage } from '../pages/product-list/product-list';
@@ -25,6 +24,8 @@ import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { ProfilePage } from '../pages/profile/profile';
 import { ChangePasPage } from '../pages/change-pas/change-pas';
+import { CheckoutPage } from '../pages/checkout/checkout';
+import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -42,7 +43,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ConferenceApp,
     LoginPage,
     ResetPassword,
-    CalendarPage,
     SignupPage,
     CategoriesPage,
     ProductListPage,
@@ -55,6 +55,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ContactPage,
     ProfilePage,
     LastFiveOrder
+    CheckoutPage,
+    CheckoutModalPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     DatePickerModule,
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
-        { component: CalendarPage, name: 'Calendar', segment: 'calendar' },
         { component: CategoriesPage, name: 'Categories', segment: 'categories' },
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
@@ -73,6 +74,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: PaymentDue, name: 'PaymentDue', segment: 'paymentDue' },
         { component: ContactPage, name: 'ContactPage', segment: 'contactUs' },
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
+        { component: CheckoutPage, name: 'Checkout', segment: 'checkout' },
+        { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
@@ -87,7 +90,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ConferenceApp,
     LoginPage,
     ResetPassword,
-    CalendarPage,
     SignupPage,
     CategoriesPage,
     ProductListPage,
@@ -100,6 +102,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ProfilePage,
     ContactPage,
     LastFiveOrder
+    CheckoutPage,
+    CheckoutModalPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -12,7 +12,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { ResetPassword } from '../pages/reset-password/reset-password';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
 import { CategoriesPage } from '../pages/categories/categories';
 import { ProductListPage } from '../pages/product-list/product-list';
@@ -37,7 +36,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ConferenceApp,
     LoginPage,
     ResetPassword,
-    CalendarPage,
     SignupPage,
     CategoriesPage,
     ProductListPage,
@@ -54,7 +52,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     DatePickerModule,
     IonicModule.forRoot(ConferenceApp, {}, {
       links: [
-        { component: CalendarPage, name: 'Calendar', segment: 'calendar' },
         { component: CategoriesPage, name: 'Categories', segment: 'categories' },
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },
         { component: PlaceOrderPage, name: 'PlaceOrder', segment: 'placeOrder' },
@@ -74,7 +71,6 @@ import { DatePickerModule } from 'ionic3-datepicker';
     ConferenceApp,
     LoginPage,
     ResetPassword,
-    CalendarPage,
     SignupPage,
     CategoriesPage,
     ProductListPage,

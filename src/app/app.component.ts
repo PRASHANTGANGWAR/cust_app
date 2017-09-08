@@ -4,7 +4,6 @@ import { Events, MenuController, AlertController, Nav, LoadingController, Platfo
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { CategoriesPage } from '../pages/categories/categories';
 
 import { ConferenceData } from '../providers/conference-data';
@@ -91,11 +90,6 @@ export class ConferenceApp {
     if(page.categories === true){
       this.showLoader();
       //this.nav.setRoot(PrescriptionListPage);
-      this.hideLoader();
-    }
-    if(page.calendar=== true){ 
-      this.showLoader();
-      this.nav.setRoot(CalendarPage);
       this.hideLoader();
     }
 

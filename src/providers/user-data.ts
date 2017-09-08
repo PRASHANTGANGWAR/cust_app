@@ -7,8 +7,9 @@ import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 declare var window: any;
 @Injectable()
 export class UserData {
-  baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
-
+  // baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
+  baseUrl = 'http://0f529517.ngrok.io';
+  
   constructor(
     public events: Events,
     private http: Http
@@ -75,14 +76,36 @@ export class UserData {
     });
   };
 
-  resetPassword(email: string){
-    console.log(email);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+  resetPassword(password: any){
+    let headers = new Headers({ "Accept": "application/json",'Content-Type': 'application/json' });
     let options = new RequestOptions({ 
-      method: RequestMethod.Post,
+      method: RequestMethod.Put,
       headers: headers,
-      body: JSON.stringify({email}),
-      url: this.baseUrl+'/forgetPassword'
+      body: password,
+      url: this.baseUrl+'/users/change_password'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
+  updateProfile(userData: any){
+    console.log(userData);
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      body: userData,
+      url: this.baseUrl+'/users/update_details'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -195,6 +218,28 @@ export class UserData {
       );
     });
 
+  }
+
+  getProfile(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      url: this.baseUrl+'/current_customer'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          // window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
   }
 
   paymentDue(){

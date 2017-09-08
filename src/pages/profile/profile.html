@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+ <ion-grid>
+    <ion-row st>
+      <ion-col col-8 text-wrap no-lines text-center class="amount">
+        <b>Due Amount</b>
+      </ion-col>
+      <ion-col col-4 text-wrap no-lines class="bal">
+        :<span>&#8377;</span> {{Profile.due_balance}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-8 text-wrap no-lines text-center class="amount">
+        <b>Bill Amount</b>
+      </ion-col>
+      <ion-col col-4 text-wrap no-lines class="bal">
+        :<span>&#8377;</span> {{Profile.billing_amount}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+<form #userForm="ngForm" novalidate>
+    <ion-list no-lines>
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Name</ion-label>
+        <ion-input [(ngModel)]="Profile.name" class="forminput" name="name" type="text" spellcheck="false" autocapitalize="off"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Registered Number</ion-label>
+        <ion-input class="forminput" name="phone" [(ngModel)]="Profile.mobile" type="number" min="10" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Email</ion-label>
+        <ion-input class="forminput" name="email" [(ngModel)]="Profile.email" type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Date of Birth</ion-label>
+        <ion-input ion-datepicker class="forminput" (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob" name="dob" type="text">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="color:#999999;font-size:17px;">Same as above</ion-label>
+        <ion-checkbox [(ngModel)]="SameRecip" name="check" (click)="sameRec(userForm)" value="SameRecip"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Recipient Name</ion-label>
+        <ion-input class="forminput" name="recName" [(ngModel)]="RecName" min="10" type="text" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked style="color:#999999;font-size:17px;">Recipient Number</ion-label>
+        <ion-input class="forminput" name="recNumber" [(ngModel)]="RecNumber" type="number" required>
+        </ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-row responsive-sm>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="updateValidate(userForm)" type="submit" block style="background:#DF3796;border-radius:17px;">Update</button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+      
+    </ion-row>
+    <ion-row responsive-sm>
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="changePassword(userForm)" type="submit" block style="background:#46ce63;border-radius:17px;">Change Password</button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+      
+    </ion-row>
+  
+  </form>
+
+</ion-content>

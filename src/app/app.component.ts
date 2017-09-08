@@ -10,6 +10,7 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
+import { ProfilePage } from '../pages/profile/profile';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -33,7 +34,7 @@ export interface PageInterface {
   contactUs?: boolean;
   login?: boolean;
   disable?: boolean;
-  
+  profile?: boolean;
 }
 
 @Component({
@@ -50,7 +51,7 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
-    { title: 'My Profile', icon: 'md-contact' },
+    { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
     { title: 'My Orders', icon: 'basket' },
     { title: 'My Address', icon: 'locate' },
     { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
@@ -131,8 +132,16 @@ export class ConferenceApp {
     if(page.contactUs=== true){ 
         this.nav.setRoot(ContactPage);
     }
+
     if(page.login=== true){ 
         this.nav.setRoot(LoginPage);
+
+    if(page.contactUs=== true){ 
+        this.nav.setRoot(ContactPage);
+    }
+
+    if(page.profile=== true){ 
+        this.nav.setRoot(ProfilePage);
     }
 
     // If we are already on tabs just change the selected tab

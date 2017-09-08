@@ -9,15 +9,17 @@
     </ion-header>
 
     <ion-content class="outer-content">
-      <ion-list>
-        <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
+      <ion-list [hidden]="!isLogin">
+        <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)" [hidden]="isLogin && disable">
           <ion-icon item-start [name]="p.icon" class="fontColor"></ion-icon>
           {{p.title}}
         </button>
-        <!-- <button ion-item menuClose (click)="login()" [hidden]="isLogin">
-          <ion-icon item-start name="login" class="fontColor"></ion-icon>
-          Login
-        </button> -->
+      </ion-list>
+      <ion-list [hidden]="isLogin">
+        <button ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" disabled={{p.disable}}>
+          <ion-icon item-start [name]="p.icon" class="fontColor"></ion-icon>
+          {{p.title}}
+        </button>
       </ion-list>
     </ion-content>
 

@@ -31,6 +31,8 @@ export interface PageInterface {
   paymentdue?: boolean;
   lastOrders?: boolean;
   contactUs?: boolean;
+  login?: boolean;
+  disable?: boolean;
   
 }
 
@@ -55,11 +57,18 @@ export class ConferenceApp {
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
-   // { title: 'Prescriptions', name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
-    //{ title: 'Calendar', name: 'CalendarPage', component: CalendarPage, icon: 'calendar', calendar: true },
-    //{ title: 'Feedback', name: '', component: null, index: 3, icon: 'information-circle' },
-    { title: 'Logout', name: '', component: null, icon: 'log-out', logsOut: true },
-    //{ title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
+    { title: 'Logout', name: '', component: null, icon: 'log-out', logsOut: true }
+  ];
+  cashboyPages: PageInterface[] = [
+    { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
+    { title: 'My Profile', icon: 'md-contact', disable: true },
+    { title: 'My Orders', icon: 'basket', disable: true  },
+    { title: 'My Address', icon: 'locate', disable: true  },
+    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
+    { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true, disable: true },
+    { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true, disable: true },
+    { title: 'Login', name: '', component: LoginPage, icon: 'log-in', login: true }
   ];
   rootPage: any;
   userId: any;
@@ -77,6 +86,9 @@ export class ConferenceApp {
     public _loading: LoadingController,
     private emailComposer: EmailComposer
   ) {
+      if(window.localStorage.getItem('login_details')){
+        this.isLogin = true;
+      }
       this.rootPage = CategoriesPage;
       this.platformReady()
       this.listenToUserEvents();
@@ -118,6 +130,9 @@ export class ConferenceApp {
     }
     if(page.contactUs=== true){ 
         this.nav.setRoot(ContactPage);
+    }
+    if(page.login=== true){ 
+        this.nav.setRoot(LoginPage);
     }
 
     // If we are already on tabs just change the selected tab

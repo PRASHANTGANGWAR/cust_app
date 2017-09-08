@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-//import { Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 
@@ -10,7 +10,7 @@ export class UserData {
   baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
 
   constructor(
-   // public events: Events,
+    public events: Events,
     private http: Http
   ) {}
 
@@ -36,7 +36,7 @@ export class UserData {
         res => {
           resolve(res);
           window.localStorage.setItem('login_details', JSON.stringify(res.json().user));
-          //this.events.publish('user:loggedin');
+          this.events.publish('user:loggedin');
         },
         err => {
           resolve(err);

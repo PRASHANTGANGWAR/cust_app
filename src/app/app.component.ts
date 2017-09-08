@@ -55,11 +55,7 @@ export class ConferenceApp {
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
-   // { title: 'Prescriptions', name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
-    //{ title: 'Calendar', name: 'CalendarPage', component: CalendarPage, icon: 'calendar', calendar: true },
-    //{ title: 'Feedback', name: '', component: null, index: 3, icon: 'information-circle' },
     { title: 'Logout', name: '', component: null, icon: 'log-out', logsOut: true },
-    //{ title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
   ];
   rootPage: any;
   userId: any;
@@ -106,18 +102,6 @@ export class ConferenceApp {
       this.showLoader();
       this.nav.setRoot(CalendarPage);
       this.hideLoader();
-    }
-    if(page.nutritionValues=== true){ 
-      this.nav.setRoot(NutritionValues);
-    }
-    if(page.paymentdue=== true){ 
-        this.nav.setRoot(PaymentDue);
-    }
-    if(page.lastOrders=== true){
-        this.nav.setRoot(LastFiveOrder);
-    }
-    if(page.contactUs=== true){ 
-        this.nav.setRoot(ContactPage);
     }
 
     // If we are already on tabs just change the selected tab

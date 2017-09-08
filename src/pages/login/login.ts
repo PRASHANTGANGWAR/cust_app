@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, AlertController, LoadingController, MenuController, Events } from 'ionic-angular';
+import { ToastController, NavController, LoadingController, MenuController, Events } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { CategoriesPage } from '../categories/categories';
 import { SignupPage } from '../signup/signup';
-import { BarcodeScanner ,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { Database } from '../../providers/db-provider';
 
-declare var window: any;
 @Component({
   selector: 'login-user',
   templateUrl: 'login.html'
@@ -19,17 +17,15 @@ export class LoginPage {
   submitted = false;
   private loading :any;
   scanData : {};
-  options :BarcodeScannerOptions;
 
   constructor(
+    private toastCtrl: ToastController,
     public dataBase: Database,
     public events: Events,
     private navCtrl: NavController, 
     public userData: UserData,
     private _loading: LoadingController,
-    private _alert: AlertController,
-    public menu: MenuController,
-    private barcodeScanner: BarcodeScanner
+    public menu: MenuController
     ) { 
       }
 
@@ -47,13 +43,13 @@ export class LoginPage {
               if(data.status == 200){
                   this.deleteTable();
                 } else{
-                  this.doAlert('Error','something went wrong.');
+                  this.presentToast('something went wrong');
                 }
             });
             this.hideLoader();
           } else{
             this.hideLoader();
-            this.doAlert('Error','something went wrong.');
+            this.presentToast('Username and password do not match.');
           }
       });
     }
@@ -74,46 +70,25 @@ export class LoginPage {
 
   forgotPassword() {
     if(this.login.username.length < 10 || this.login.username.length > 10){
-        this.doAlert('Error','Enter 10 digits mobile no.');
+        this.presentToast('Enter 10 digits mobile no.');
     }else{
       this.showLoader();
         this.userData.resetPassword(this.login.username).then(results=>{
           let resultData : any = {};
            resultData = results;
           if(resultData.user){
-            this.doAlert('Success','You will get a msg soon.');
+            this.presentToast('You will get a msg soon.');
             this.hideLoader();
           } else{
             this.hideLoader();
-            this.doAlert('Error','something went wrong.');
+            this.presentToast('something went wrong.');
           }
       });
     }
     
   }
 
-  // scan QR code
-  scan(){
-    this.showLoader();
-    this.hideLoader();
-    this.options = {
-        prompt : "Scan your barcode "
-    }
-    this.barcodeScanner.scan(this.options).then((barcodeData) => {
-      this.scanData = barcodeData;
-        window.localStorage.setItem('_qrcode', (this.scanData as any).text);
-      if((this.scanData as any).text.length > 0){
-        let alert = this._alert.create({
-          title: 'Success!',
-          message: 'QR code scanned succesfully.Please login or signup to continue',
-          buttons: [{ text: 'THANKS'  }]
-        });
-        alert.present();
-      }
-    }, (err) => {
-        this.doAlert('Unable to scan barcode',err);
-    });         
-  } 
+ 
 
   showLoader(){
     this.loading = this._loading.create({
@@ -126,23 +101,11 @@ export class LoginPage {
     this.loading.dismiss();
   }
 
-  doAlert(type: string,message: string) {
-    let alert = this._alert.create({
-      title: type,
-      subTitle: message,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  ionViewDidEnter() {
-    // the root left menu should be disabled on the login page
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
-  }
-
-  ionViewDidLeave() {
-    // enable the root left menu when leaving the login page
-    this.menu.enable(true);
+  presentToast(msg: any) {
+    this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      position: 'bottom'
+    }).present();
   }
 }

@@ -44,7 +44,6 @@ export interface PageInterface {
 })
 export class ConferenceApp {
   private loading :any;
-  // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
 

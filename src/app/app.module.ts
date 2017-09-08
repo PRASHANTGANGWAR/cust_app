@@ -26,6 +26,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ChangePasPage } from '../pages/change-pas/change-pas';
 import { CheckoutPage } from '../pages/checkout/checkout';
 import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
+import { CurrentOrderPage } from '../pages/current-order/current-order';
+import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -54,9 +56,11 @@ import { DatePickerModule } from 'ionic3-datepicker';
     PaymentDue,
     ContactPage,
     ProfilePage,
-    LastFiveOrder
+    LastFiveOrder,
     CheckoutPage,
-    CheckoutModalPage
+    CheckoutModalPage,
+    CurrentOrderPage,
+    EditOrderPage
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
         { component: CheckoutPage, name: 'Checkout', segment: 'checkout' },
         { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
+        { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
+        { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
         { component: ResetPassword, name: 'ResetPassword', segment: 'resetPassword' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
@@ -101,9 +107,11 @@ import { DatePickerModule } from 'ionic3-datepicker';
     PaymentDue,
     ProfilePage,
     ContactPage,
-    LastFiveOrder
+    LastFiveOrder,
     CheckoutPage,
-    CheckoutModalPage
+    CheckoutModalPage,
+    CurrentOrderPage,
+    EditOrderPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

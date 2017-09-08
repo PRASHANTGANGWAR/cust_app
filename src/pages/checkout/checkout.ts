@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Database } from '../../providers/db-provider';
-import { Modal, ModalController } from 'ionic-angular';
-import { ConferenceData } from '../../providers/conference-data';
+import { Modal, ModalController, NavController } from 'ionic-angular';
+//import { ConferenceData } from '../../providers/conference-data';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
+import { CurrentOrderPage } from '../current-order/current-order';
 
 @Component({
   selector: 'checkout',
@@ -15,7 +16,7 @@ export class CheckoutPage {
 	constructor(
 		public dataBase: Database,
 		private modalCtrl: ModalController,
-		private confData: ConferenceData){
+		public navCtrl: NavController){
 		this.getCategories();
 	}
 
@@ -56,10 +57,11 @@ export class CheckoutPage {
 	}
 
 	checkout(){
-		this.confData.newOrder().then(data=>{
+		/*this.confData.newOrder().then(data=>{
 			//response of create order api
 			console.log(data);
-		});
+		});*/
+		this.navCtrl.setRoot(CurrentOrderPage);
 	}
 
 

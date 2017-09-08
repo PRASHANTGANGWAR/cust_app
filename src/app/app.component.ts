@@ -10,6 +10,8 @@ import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { ProfilePage } from '../pages/profile/profile';
+import { ViewAddressPage } from '../pages/view-address/view-address';
+import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -26,6 +28,8 @@ export interface PageInterface {
   tabName?: string;
   tabComponent?: any;
   categories?: boolean;
+  viewAddress?:boolean;
+  editOrder?:boolean;
   nutritionValues?: boolean;
   paymentdue?: boolean;
   lastOrders?: boolean;
@@ -50,8 +54,8 @@ export class ConferenceApp {
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
     { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
-    { title: 'My Orders', icon: 'basket' },
-    { title: 'My Address', icon: 'locate' },
+    { title: 'My Orders',name:'EditOrderPage',component:EditOrderPage, icon: 'basket',editOrder:true },
+    { title: 'My Address', name:'ViewAddressPage',component: ViewAddressPage, icon: 'locate',viewAddress:true },
     { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
@@ -132,7 +136,8 @@ export class ConferenceApp {
     }
 
     if(page.login=== true){ 
-        this.nav.setRoot(LoginPage);
+        this.nav.push(LoginPage);
+    }
 
     if(page.contactUs=== true){ 
         this.nav.setRoot(ContactPage);
@@ -140,6 +145,14 @@ export class ConferenceApp {
 
     if(page.profile=== true){ 
         this.nav.setRoot(ProfilePage);
+    }
+
+    if(page.viewAddress === true){
+      this.nav.setRoot(ViewAddressPage);
+    }
+
+    if(page.editOrder === true){
+      this.nav.setRoot(EditOrderPage);
     }
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the

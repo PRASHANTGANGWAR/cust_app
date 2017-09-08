@@ -1,0 +1,83 @@
+
+<ion-header>
+
+  <ion-navbar>
+  <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+   </button>
+    <ion-title>My Current Order</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-row padding>
+	<h3>Success!</h3>
+	<h6>Thanks for the order.Please Find below the order details</h6>
+</ion-row>
+<ion-card>
+	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+	Desi Cow Milk</ion-card-header>
+	<ion-card-content style="min-height: 200px;">
+	<ion-row>
+		<ion-col>Mon</ion-col>
+		<ion-col>Tue</ion-col>
+		<ion-col>Wed</ion-col>
+		<ion-col>Thu</ion-col>
+		<ion-col>Fri</ion-col>
+		<ion-col>Sat</ion-col>
+		<ion-col>Sun</ion-col>
+	</ion-row>
+	<ion-row>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	 	<ion-col>4</ion-col>
+	</ion-row>
+	</ion-card-content>
+</ion-card>
+
+<ion-card>
+	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+	Desi Buffalo milk</ion-card-header>
+	<ion-card-content style="min-height: 200px;">
+	<ion-row>
+		<ion-col>Mon</ion-col>
+		<ion-col>Tue</ion-col>
+		<ion-col>Wed</ion-col>
+		<ion-col>Thu</ion-col>
+		<ion-col>Fri</ion-col>
+		<ion-col>Sat</ion-col>
+		<ion-col>Sun</ion-col>
+	</ion-row>
+	<ion-row>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	 	<ion-col>0</ion-col>
+	</ion-row>
+	</ion-card-content>
+</ion-card>
+<div padding>
+	<ion-list>
+		<ion-row>Address Details</ion-row>
+		<ion-row>near temple, Binda Pur DDA FLATS, BINDAPUR PKT 3, Zone Dwarka
+		</ion-row>
+	</ion-list>
+
+	<ion-item>
+	<h6>Meanwhile you can:</h6>
+		<button ion-button round (click)="editOrderPage()">TRACK YOUR ORDER</button>
+		<button ion-button round (click)="mainMenu()">BACK TO MENU </button>
+	</ion-item>	
+</div>
+
+
+</ion-content>

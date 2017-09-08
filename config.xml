@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.enbake.dwaktest" ios-CFBundleIdentifier="com.enbake.dwaktest" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Dwak</name>
+    <name>CustomerApp</name>
     <description>
         An Ionic Framework application.
   </description>
@@ -102,6 +102,6 @@
         <variable name="APP_ID" value="287156941763035" />
         <variable name="APP_NAME" value="Dwak" />
     </plugin>
-    <engine name="android" spec="~6.2.3" />
     <engine name="ios" spec="~4.4.0" />
+    <engine name="android" spec="~6.2.3" />
 </widget>

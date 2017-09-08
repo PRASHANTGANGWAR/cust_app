@@ -8,7 +8,7 @@ import { UserData } from '../../providers/user-data';
 })
 
 export class LastFiveOrder {
-		Payment: any=[];
+		Deliveries: any=[];
 		private loading :any;
 
 	constructor(
@@ -25,7 +25,7 @@ export class LastFiveOrder {
 	   		let result: any = {};
 	   		result = data;
 	   		if(result.status == 200){
-	   			this.Payment = JSON.parse(result._body).user;
+	   			this.Deliveries = JSON.parse(result._body).deliveries;
 	   			this.hideLoader();
 	   		}else{
 	   			this.hideLoader();

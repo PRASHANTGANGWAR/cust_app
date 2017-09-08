@@ -7,7 +7,8 @@ import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 declare var window: any;
 @Injectable()
 export class UserData {
-  baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
+  // baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
+  baseUrl = 'http://app.dairylac.com';
 
   constructor(
    // public events: Events,
@@ -226,7 +227,8 @@ export class UserData {
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      url: this.baseUrl+'deliveries/customer_recent_delivered_deliveries'
+      params: null,
+      url: this.baseUrl+'/deliveries/customer_recent_delivered_deliveries'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

@@ -8,7 +8,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { SignupPage } from '../pages/signup/signup';
 import { CategoriesPage } from '../pages/categories/categories';
 import { ProductListPage } from '../pages/product-list/product-list';

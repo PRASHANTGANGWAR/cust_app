@@ -118,32 +118,8 @@ export class ConferenceApp {
       this.hideLoader();
     }
 
-    if(page.nutritionValues=== true){ 
-      this.nav.setRoot(NutritionValues);
-    }
-
-    if(page.paymentdue=== true){ 
-        this.nav.setRoot(PaymentDue);
-    }
-
-    if(page.lastOrders=== true){
-        this.nav.setRoot(LastFiveOrder);
-    }
-
-    if(page.contactUs=== true){ 
-        this.nav.setRoot(ContactPage);
-    }
-
     if(page.login=== true){ 
         this.nav.push(LoginPage);
-    }
-
-    if(page.contactUs=== true){ 
-        this.nav.setRoot(ContactPage);
-    }
-
-    if(page.profile=== true){ 
-        this.nav.setRoot(ProfilePage);
     }
 
     if(page.viewAddress === true){

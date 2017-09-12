@@ -16,9 +16,9 @@
 	<h3>Success!</h3>
 	<h6>Thanks for the order.Please Find below the order details</h6>
 </ion-row>
-<ion-card>
+<ion-card *ngFor="let package of orderPackages">
 	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
-	Desi Cow Milk</ion-card-header>
+	{{package.product.category.name}} - {{package.product.name}}</ion-card-header>
 	<ion-card-content style="min-height: 200px;">
 	<ion-row>
 		<ion-col>Mon</ion-col>
@@ -30,46 +30,21 @@
 		<ion-col>Sun</ion-col>
 	</ion-row>
 	<ion-row>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	 	<ion-col>4</ion-col>
-	</ion-row>
-	</ion-card-content>
-</ion-card>
-
-<ion-card>
-	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
-	Desi Buffalo milk</ion-card-header>
-	<ion-card-content style="min-height: 200px;">
-	<ion-row>
-		<ion-col>Mon</ion-col>
-		<ion-col>Tue</ion-col>
-		<ion-col>Wed</ion-col>
-		<ion-col>Thu</ion-col>
-		<ion-col>Fri</ion-col>
-		<ion-col>Sat</ion-col>
-		<ion-col>Sun</ion-col>
-	</ion-row>
-	<ion-row>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
-	 	<ion-col>0</ion-col>
+	 	<ion-col>{{package.weekdays_qty[0][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[1][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[2][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[3][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[4][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[5][1]}}</ion-col>
+	 	<ion-col>{{package.weekdays_qty[6][1]}}</ion-col>
 	</ion-row>
 	</ion-card-content>
 </ion-card>
 <div padding>
 	<ion-list>
 		<ion-row>Address Details</ion-row>
-		<ion-row>near temple, Binda Pur DDA FLATS, BINDAPUR PKT 3, Zone Dwarka
-		</ion-row>
+		<pre>{{currentOrderAddress.name}}, {{currentOrderAddress.area.name}}, {{currentOrderAddress.zone.name}}
+		</pre>
 	</ion-list>
 
 	<ion-item>

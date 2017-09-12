@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { ConferenceData } from '../../providers/conference-data';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
 import { CheckoutPage } from '../checkout/checkout';
@@ -14,9 +15,18 @@ declare var window: any;
 export class PlaceOrderPage {
 	public address: Array<any>;
  	public initDate: Date = new Date();
-	constructor(private navCtrl: NavController, private _alert: AlertController){
+	constructor(private navCtrl: NavController,
+	private _alert: AlertController,
+	private confData: ConferenceData){
 		let data = JSON.parse(window.localStorage.getItem('user_address'));
 		this.showAddress(data);
+		this.getAllOrders();
+	}
+
+	getAllOrders(){
+		this.confData.getAllOrders().then((data)=>{
+			console.log(data);
+		});
 	}
 
 	showAddress(data: any){
@@ -38,7 +48,7 @@ export class PlaceOrderPage {
 	}
 
 	checkoutPage(){
-		this.navCtrl.setRoot(CheckoutPage);
+		this.navCtrl.setRoot(CheckoutPage,{deliveryDate: this.initDate});
 	}
 
 	presentConfirm() {

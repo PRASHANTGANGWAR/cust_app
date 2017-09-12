@@ -8,12 +8,17 @@ import { EditOrderPage } from '../edit-order/edit-order';
   templateUrl: 'current-order.html',
 })
 export class CurrentOrderPage {
+  private orderPackages:any;
+  private currentOrderAddress:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    let currentOrderData = this.navParams.get('currentOrder');
+    this.currentOrderAddress = currentOrderData.address;
+    this.orderPackages = currentOrderData.order_packages;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CurrentOrderPage');
+
   }
 
   editOrderPage(){

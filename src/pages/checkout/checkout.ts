@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Database } from '../../providers/db-provider';
-import { Modal, ModalController, NavController } from 'ionic-angular';
-//import { ConferenceData } from '../../providers/conference-data';
+import { Modal, ModalController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { ConferenceData } from '../../providers/conference-data';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../current-order/current-order';
 
+declare var window:any;
 @Component({
   selector: 'checkout',
   templateUrl: 'checkout.html'
@@ -13,21 +14,41 @@ import { CurrentOrderPage } from '../current-order/current-order';
 export class CheckoutPage {
 	private categories:any =[];
 	private products:any =[];
+	private deliveryDate:any;
+	private orderPackages:any;
+	private allOrders:any;
 	constructor(
 		public dataBase: Database,
 		private modalCtrl: ModalController,
-		public navCtrl: NavController){
-		this.getCategories();
+		public navCtrl: NavController,
+		private confData: ConferenceData,
+		private toastCtrl: ToastController,
+		public navParams: NavParams){
+		this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
+		if(this.allOrders.length){
+			this.orderPackages = this.allOrders[0].order_packages
+		}else{
+			this.getCategories();
+		}
+		let selectedDate = this.navParams.get('deliveryDate');
+		this.deliveryDate = selectedDate.toISOString().substr(0, 10);
 	}
 
 	openModal(index: number) {
+	   //this.indx = index;
 	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage);
 	   chekoutModal.present();
 	   chekoutModal.onDidDismiss((data)=>{
 	   	if(data){
-		   	 for(var k=0;k<data.length;k++){
-		   	 	this.products[index].weekday[k].currentNumber = data[k].currentNumber;
-		   	 }
+	   		if(this.allOrders.length){
+	   			for(var k=0;k<data.length;k++){
+			   	 	this.orderPackages[index].weekdays_qty[k][1] = data[k].currentNumber;
+			   	 }
+	   		}else{
+			   	 for(var l=0;l<data.length;l++){
+			   	 	this.products[index].weekday[l].currentNumber = data[l].currentNumber;
+			   	 }
+		   	}
 	   	} else{
 	   		console.log("cancel clicked");
 	   	}
@@ -57,12 +78,77 @@ export class CheckoutPage {
 	}
 
 	checkout(){
-		/*this.confData.newOrder().then(data=>{
-			//response of create order api
-			console.log(data);
-		});*/
-		this.navCtrl.setRoot(CurrentOrderPage);
+		if(this.allOrders.length){
+			let order:any={"order_packages_attributes":{}};
+			order.alter_from = "";
+			order.delivery_date = this.deliveryDate;
+			order.isNew = "1";
+			for(var i=0;i<this.orderPackages.length;i++){
+				order["order_packages_attributes"][i] = {};
+				order["order_packages_attributes"][i]["default _qty"] = "3";
+				order["order_packages_attributes"][i]["friday"] = this.orderPackages[i].weekdays_qty[4][1];
+				order["order_packages_attributes"][i]["id"] = this.orderPackages[i].id;
+				order["order_packages_attributes"][i]["monday"] = this.orderPackages[i].weekdays_qty[0][1];
+				order["order_packages_attributes"][i]["package_type"] = "6";
+				order["order_packages_attributes"][i]["product_id"] = this.orderPackages[i].product_id;
+				order["order_packages_attributes"][i]["saturday"] = this.orderPackages[i].weekdays_qty[5][1];
+				order["order_packages_attributes"][i]["sunday"] = this.orderPackages[i].weekdays_qty[6][1];
+				order["order_packages_attributes"][i]["thursday"] = this.orderPackages[i].weekdays_qty[3][1];
+				order["order_packages_attributes"][i]["time_slot_id"] = "5";
+				order["order_packages_attributes"][i]["tuesday"] = this.orderPackages[i].weekdays_qty[1][1];
+				order["order_packages_attributes"][i]["wednesday"] = this.orderPackages[i].weekdays_qty[2][1];
+			}
+
+			order.pickup = "false";
+	        order.recurring = "true";
+	        order.order_id = this.allOrders[0].id;
+	        console.log(order);
+			this.confData.updateOrder(order).then((data:any)=>{
+				if (data.status == 200){
+					this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data.json()});
+				}else{
+					this.presentToast(data.statusText);
+				}
+			});
+		}else{
+			let order:any={"order_packages_attributes":{}};
+			order.alter_from = "this.deliveryDate";
+			order.delivery_date = this.deliveryDate;
+			order.isNew = "1";
+			for(var j=0;j<this.products.length;j++){
+				order["order_packages_attributes"][j] = {};
+				order["order_packages_attributes"][j]["default _qty"] = "3";
+				order["order_packages_attributes"][j]["friday"] = this.products[j].weekday[4].currentNumber;
+				order["order_packages_attributes"][j]["monday"] = this.products[j].weekday[0].currentNumber;
+				order["order_packages_attributes"][j]["package_type"] = "6";
+				order["order_packages_attributes"][j]["product_id"] = this.products[j].id;
+				order["order_packages_attributes"][j]["saturday"] = this.products[j].weekday[5].currentNumber;
+				order["order_packages_attributes"][j]["sunday"] = this.products[j].weekday[6].currentNumber;
+				order["order_packages_attributes"][j]["thursday"] = this.products[j].weekday[3].currentNumber;
+				order["order_packages_attributes"][j]["time_slot_id"] = "5";
+				order["order_packages_attributes"][j]["tuesday"] = this.products[j].weekday[1].currentNumber;
+				order["order_packages_attributes"][j]["wednesday"] = this.products[j].weekday[2].currentNumber;
+			}
+
+			order.pickup = "false";
+	        order.recurring = "true";
+	        console.log(order);
+			this.confData.newOrder(order).then((data:any)=>{
+				if (data.status == 201){
+					this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data.json()});
+				}else{
+					this.presentToast(data.statusText);
+				}
+			});
+		}
 	}
 
+    presentToast(msg:any) {
+	  this.toastCtrl.create({
+	    message: msg,
+	    duration: 2000,
+	    position: 'bottom'
+	  }).present();
+	}
 
 }

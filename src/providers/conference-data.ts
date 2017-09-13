@@ -192,4 +192,50 @@ export class ConferenceData {
       return {order};
   }
 
+  createDnd(order:any){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token }); 
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      body: JSON.stringify({order}),
+      url: this.baseUrl+'/orders/'+allOrders[0].id
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
+  removeDnd(order:any){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      body: JSON.stringify({order}),
+      url: this.baseUrl+'/orders/'+allOrders[0].id
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
 }

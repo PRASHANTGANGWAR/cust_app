@@ -24,8 +24,10 @@ import { CheckoutPage } from '../pages/checkout/checkout';
 import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
 import { EditOrderPage } from '../pages/edit-order/edit-order';
+import { SetNonavailabilityPage } from '../pages/set-nonavailability/set-nonavailability';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import { Alerts } from '../providers/alerts-provider';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { CallNumber } from '@ionic-native/call-number';
@@ -55,7 +57,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     CheckoutPage,
     CheckoutModalPage,
     CurrentOrderPage,
-    EditOrderPage
+    EditOrderPage,
+    SetNonavailabilityPage
   ],
   imports: [
     BrowserModule,
@@ -77,6 +80,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
         { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
+        { component: SetNonavailabilityPage, name: 'SetNonavailability', segment: 'setNonavailability' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -104,12 +108,14 @@ import { DatePickerModule } from 'ionic3-datepicker';
     CheckoutPage,
     CheckoutModalPage,
     CurrentOrderPage,
-    EditOrderPage
+    EditOrderPage,
+    SetNonavailabilityPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ConferenceData,
     UserData,
+    Alerts,
     InAppBrowser,
     SplashScreen,
     BarcodeScanner,

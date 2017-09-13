@@ -1,0 +1,44 @@
+<ion-header>
+
+ <ion-navbar>
+ <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Set Non availability</ion-title>
+ </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card style="min-height: 200px;">
+		<ion-row padding>
+			<ion-col>From</ion-col>
+			<ion-col>:</ion-col>
+			<ion-col>
+				<span ion-datepicker (ionChanged)="setfromDate($event);" 
+				[value]="fromDate"clear class="ScheduleDate">
+				<span>{{fromDate | date:'dd/MM/yyyy'}}</span>
+				</span>
+			</ion-col>
+		</ion-row>
+
+		<ion-row padding>
+			<ion-col>To</ion-col>
+			<ion-col>:</ion-col>
+			<ion-col>
+				<span ion-datepicker (ionChanged)="settoDate($event);" 
+				[value]="toDate"clear class="ScheduleDate">
+				<span>{{toDate | date:'dd/MM/yyyy'}}</span>
+				</span>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+
+	<button *ngIf="!isDnd;else other_buttons" ion-button round 
+		(click)="setDnd()">create DND</button>
+	<ng-template #other_buttons>
+		<button ion-button round (click)="setDnd()">Update DND</button>
+		<button ion-button round (click)="removeDnd()">Remove DND</button>
+	</ng-template>
+</ion-content>

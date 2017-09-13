@@ -16,6 +16,8 @@ import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { Database } from '../providers/db-provider';
+import { Alerts } from '../providers/alerts-provider';
+
 
 declare var window: any;
 export interface PageInterface {
@@ -82,6 +84,7 @@ export class ConferenceApp {
     public platform: Platform,
     public confData: ConferenceData,
     public dataBase: Database,
+    public alerts: Alerts, 
     public push: Push,
     public splashScreen: SplashScreen,
     public _alert: AlertController,

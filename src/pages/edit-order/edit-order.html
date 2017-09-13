@@ -14,7 +14,8 @@
 	<ion-list padding *ngIf="hasOrders;else other_content">
 		<ion-row ion-button round (click)="nonAvialability()">Set non avialability</ion-row>
 		<ion-row  ion-button round>Edit order for a duration</ion-row >
-		<ion-row  ion-button round>Edit daily order</ion-row>
+		<ion-row  ion-button round (click)="editDailyOrder()">Edit daily order
+    </ion-row>
 	</ion-list>
   <ng-template #other_content>
     <div><h2>No order yet</h2></div>

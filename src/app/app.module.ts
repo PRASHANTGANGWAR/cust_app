@@ -25,6 +25,7 @@ import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
 import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { SetNonavailabilityPage } from '../pages/set-nonavailability/set-nonavailability';
+import { EditDailyOrderPage } from '../pages/edit-daily-order/edit-daily-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Alerts } from '../providers/alerts-provider';
@@ -58,7 +59,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     CheckoutModalPage,
     CurrentOrderPage,
     EditOrderPage,
-    SetNonavailabilityPage
+    SetNonavailabilityPage,
+    EditDailyOrderPage
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,7 @@ import { DatePickerModule } from 'ionic3-datepicker';
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
         { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
         { component: SetNonavailabilityPage, name: 'SetNonavailability', segment: 'setNonavailability' },
+        { component: EditDailyOrderPage, name: 'EditDaily', segment: 'editDailyOrder' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
@@ -109,7 +112,8 @@ import { DatePickerModule } from 'ionic3-datepicker';
     CheckoutModalPage,
     CurrentOrderPage,
     EditOrderPage,
-    SetNonavailabilityPage
+    SetNonavailabilityPage,
+    EditDailyOrderPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

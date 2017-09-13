@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+	  <button ion-button menuToggle="left" style="display: inline-block !important;">
+	     <ion-icon name="menu"></ion-icon>
+	  </button>
+    <ion-title>EditDailyOrder</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-card>
+	<ion-card-content>
+	<ion-row>
+		<ion-col>From</ion-col>
+		<ion-col>:</ion-col>
+		<ion-col>
+			<span ion-datepicker (ionChanged)="setDate($event);" 
+				[value]="initDate" clear class="ScheduleDate">
+				<span>{{initDate | date:'dd/MM/yyyy'}}</span>
+			</span>
+		</ion-col>
+	</ion-row>
+	</ion-card-content>
+</ion-card>
+
+<ion-card *ngFor="let order of orderPackages; let i= index" 
+	(click)="openModal(i)">
+	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+	{{ order.product.category.name }} - {{order.product.name}}</ion-card-header>
+	<ion-card-content style="min-height: 200px;">
+		<ion-row>
+			<ion-col>Mon</ion-col>
+			<ion-col>Tue</ion-col>
+			<ion-col>Wed</ion-col>
+			<ion-col>Thu</ion-col>
+			<ion-col>Fri</ion-col>
+			<ion-col>Sat</ion-col>
+			<ion-col>Sun</ion-col>
+		</ion-row>
+		<ion-row>
+		 	<ion-col *ngFor="let qty of order.weekdays_qty">{{qty[1]}}</ion-col>
+		</ion-row>
+	</ion-card-content>
+</ion-card>
+<ion-row>
+	<button ion-button round (click)="updateOrder()">Update Order</button>
+	<button ion-button round (click)="cancelOrder()">Cancel Order</button>
+</ion-row>
+</ion-content>

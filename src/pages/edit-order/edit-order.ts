@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { SetNonavailabilityPage } from '../set-nonavailability/set-nonavailability';
+import{ EditDailyOrderPage } from '../edit-daily-order/edit-daily-order';
 
 declare var window:any;
 @Component({
@@ -31,6 +32,10 @@ export class EditOrderPage {
 
   nonAvialability(){
   	this.navCtrl.setRoot(SetNonavailabilityPage);
+  }
+
+  editDailyOrder(){
+    this.navCtrl.setRoot(EditDailyOrderPage);
   }
 
 }

@@ -15,7 +15,7 @@ export class CheckoutPage {
 	private categories:any =[];
 	private products:any =[];
 	private deliveryDate:any;
-	private orderPackages:any;
+	private orderPackages:any =[];
 	private allOrders:any;
 	constructor(
 		public dataBase: Database,

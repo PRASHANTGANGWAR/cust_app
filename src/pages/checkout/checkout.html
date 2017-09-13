@@ -9,22 +9,7 @@
 
 <ion-content>
 <ion-row>My current Order</ion-row>
-<ion-item *ngIf="products.length">
-	<ion-card *ngFor="let prod of products; let i= index" (click)="openModal(i)">
-		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
-		{{ prod.display_name }} - {{prod.name}}</ion-card-header>
-		<ion-card-content style="min-height: 200px;">
-		<ion-row>
-			<ion-col *ngFor="let day of prod.weekday">{{day.day}}</ion-col>
-		</ion-row>
-		<ion-row>
-		 	<ion-col *ngFor="let day of prod.weekday">{{day.currentNumber}}</ion-col>
-		</ion-row>
-		</ion-card-content>
-	</ion-card>
-</ion-item>
-
-<ion-item *ngIf="orderPackages.length">
+<ion-item *ngIf="orderPackages.length;else other_content">
 	<ion-card *ngFor="let order of orderPackages; let i= index" (click)="openModal(i)">
 		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
 		{{ order.product.category.name }} - {{order.product.name}}</ion-card-header>
@@ -44,5 +29,20 @@
 		</ion-card-content>
 	</ion-card>
 </ion-item>
+
+<ng-template #other_content>
+	<ion-card *ngFor="let prod of products; let i= index" (click)="openModal(i)">
+		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+		{{ prod.display_name }} - {{prod.name}}</ion-card-header>
+		<ion-card-content style="min-height: 200px;">
+		<ion-row>
+			<ion-col *ngFor="let day of prod.weekday">{{day.day}}</ion-col>
+		</ion-row>
+		<ion-row>
+		 	<ion-col *ngFor="let day of prod.weekday">{{day.currentNumber}}</ion-col>
+		</ion-row>
+		</ion-card-content>
+	</ion-card>
+</ng-template>
 <button ion-button round (click)="checkout()">Proceed to checkout</button>
 </ion-content>

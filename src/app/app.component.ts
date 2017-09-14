@@ -146,7 +146,6 @@ export class ConferenceApp {
       window.localStorage.removeItem('current_page');
       window.localStorage.removeItem('_qrcode');
       window.localStorage.removeItem('device_token');
-      window.localStorage.removeItem('deviceType');
       this.nav.setRoot(CategoriesPage);
       this.hideLoader();
     } else {
@@ -199,10 +198,10 @@ export class ConferenceApp {
       this.splashScreen.hide();
       this.initPushNotification();
       if(this.platform.is('android')){
-        window.localStorage.setItem('deviceType',"isandroid");
+        window.localStorage.setItem('deviceType',"android");
       }
       if(this.platform.is('ios')){
-        window.localStorage.setItem('deviceType',"isIOS");
+        window.localStorage.setItem('deviceType',"ios");
       }
     });
   }

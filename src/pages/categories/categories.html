@@ -8,13 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button outline block round icon-left (click)='showlist(1)'>
+  <button ion-button outline block round icon-left 
+    *ngFor="let cat of categories" (click)='showlist(cat.id)'>
     <ion-icon name="analytics"></ion-icon>
-    DESI COW MILK
-  </button>
-
-  <button ion-button outline block round icon-left (click)='showlist(4)'>
-    <ion-icon name="analytics"></ion-icon>
-    DESI BUFFALO MILK
+    {{cat.name}}
   </button>
 </ion-content>

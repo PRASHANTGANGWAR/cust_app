@@ -31,7 +31,7 @@ export class CheckoutPage {
 			this.getCategories();
 		}
 		let selectedDate = this.navParams.get('deliveryDate');
-		this.deliveryDate = selectedDate.toISOString().substr(0, 10);
+		this.deliveryDate = selectedDate.getFullYear()+'-'+("0" + (selectedDate.getMonth() + 1)).slice(-2)+'-'+selectedDate.getDate();
 	}
 
 	openModal(index: number) {

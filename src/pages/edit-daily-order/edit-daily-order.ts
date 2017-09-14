@@ -59,9 +59,9 @@ export class EditDailyOrderPage {
 
 	updateOrder(){
     let order:any={"order_packages_attributes":{}};
-     let alterFrom = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
-      order.alter_from = alterFrom;
-      order.delivery_date = alterFrom;
+     let dFrom = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
+      order.alter_from = "";
+      order.delivery_date = dFrom;
       order.isNew = "1";
       for(var i=0;i<this.orderPackages.length;i++){
         order["order_packages_attributes"][i] = {};

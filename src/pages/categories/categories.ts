@@ -22,6 +22,7 @@ export interface ActionSheetButton {
 })
 export class CategoriesPage {
   private loading :any;
+  private categories:any=[];
 
   constructor(
     public navCtrl: NavController,
@@ -38,8 +39,9 @@ export class CategoriesPage {
     }
 
     productList(){
-      this.confData.categories().then(results=>{
+      this.confData.categories().then((results:any)=>{
            console.log(results);
+           this.categories = results.categories;
            this.dataBase.insertProducts(results).then(data =>{
             console.log(data);
            });

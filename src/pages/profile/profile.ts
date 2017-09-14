@@ -49,7 +49,7 @@ export class ProfilePage {
 	  }
 
 	  setDate(date: Date) {
-	    this.Profile.dob = this.datepipe.transform(date, 'dd-MM-yy');
+	    this.Profile.dob = date.getFullYear()+'-'+("0" + (date.getMonth() + 1)).slice(-2)+'-'+date.getDate();
 	  }
 
 	  updateValidate(form: NgForm){

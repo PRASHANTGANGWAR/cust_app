@@ -14,13 +14,14 @@ export class UserData {
   ) {}
 
   login(username: string,password: string){
+    let deviceType = window.localStorage.getItem('deviceType');
     console.log(username+""+password);
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
     let data :any = {};
     data.app_version = "2.1";
     data.login = username;
     data.mobile_key = "";
-    data.mobile_type = "android";
+    data.mobile_type = deviceType;
     data.password= password;
     console.log(JSON.stringify({user:data}));
     let options = new RequestOptions({ 

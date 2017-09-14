@@ -1,0 +1,87 @@
+<ion-header>
+
+  <ion-navbar>
+   		<button ion-button menuToggle="left" style="display: inline-block !important;">
+      		<ion-icon name="menu"></ion-icon>
+    	</button>
+    <ion-title>EditOrderDuration</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card style="min-height: 150px;">
+		<ion-row padding>
+			<ion-col>From</ion-col>
+			<ion-col>:</ion-col>
+			<ion-col>
+				<span ion-datepicker (ionChanged)="setfromDate($event);" 
+				[value]="fromDate"clear class="ScheduleDate">
+				<span>{{fromDate | date:'dd/MM/yyyy'}}</span>
+				</span>
+			</ion-col>
+		</ion-row>
+
+		<ion-row padding>
+			<ion-col>To</ion-col>
+			<ion-col>:</ion-col>
+			<ion-col>
+				<span ion-datepicker (ionChanged)="settoDate($event);" 
+				[value]="toDate"clear class="ScheduleDate">
+				<span>{{toDate | date:'dd/MM/yyyy'}}</span>
+				</span>
+			</ion-col>
+		</ion-row>
+	</ion-card>
+
+	<ion-card *ngFor="let order of orderPackages; let i= index" 
+		(click)="openModal(i)">
+		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+		{{ order.product.category.name }} - {{order.product.name}}
+		</ion-card-header>
+		<ion-card-content style="min-height: 200px;">
+			<ion-row><p style="color:green;">New Order!</p></ion-row>
+			<ion-row>
+				<ion-col>Mon</ion-col>
+				<ion-col>Tue</ion-col>
+				<ion-col>Wed</ion-col>
+				<ion-col>Thu</ion-col>
+				<ion-col>Fri</ion-col>
+				<ion-col>Sat</ion-col>
+				<ion-col>Sun</ion-col>
+			</ion-row>
+			<ion-row>
+			 	<ion-col *ngFor="let qty of order.weekdays_qty">{{qty[1]}}</ion-col>
+			</ion-row>
+		</ion-card-content>
+	</ion-card>
+
+ 	<ion-item *ngFor="let child of child_orders">
+		<ion-card *ngFor="let package of child.child_order_packages">
+			<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
+			{{ package.product.category.name }} - {{package.product.name}}
+			</ion-card-header>
+			<ion-card-content style="min-height: 200px;">
+				<ion-row>
+					<p style="color:green;">Delivery Date:{{child.end_date | date:'dd/MM/yyyy'}}</p>
+				</ion-row>
+				<ion-row>
+					<ion-col>Mon</ion-col>
+					<ion-col>Tue</ion-col>
+					<ion-col>Wed</ion-col>
+					<ion-col>Thu</ion-col>
+					<ion-col>Fri</ion-col>
+					<ion-col>Sat</ion-col>
+					<ion-col>Sun</ion-col>
+				</ion-row>
+				<ion-row>
+				 	<ion-col *ngFor="let qty of package.weekdays_qty">{{qty[1]}}</ion-col>
+				</ion-row>
+			</ion-card-content>
+		</ion-card>
+	</ion-item>
+	<ion-row>
+		<button ion-button round (click)="childOrder()">update Order</button>
+	</ion-row>
+</ion-content>

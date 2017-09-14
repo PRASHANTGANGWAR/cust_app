@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { SetNonavailabilityPage } from '../set-nonavailability/set-nonavailability';
 import{ EditDailyOrderPage } from '../edit-daily-order/edit-daily-order';
+import { EditOrderDurationPage } from '../edit-order-duration/edit-order-duration';
+import { Alerts } from '../../providers/alerts-provider';
 
 declare var window:any;
 @Component({
@@ -12,7 +14,11 @@ declare var window:any;
 export class EditOrderPage {
   private hasOrders:boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private confData: ConferenceData) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private confData: ConferenceData,
+    private alerts: Alerts) {
     this.getAllOrders();
   }
 
@@ -21,12 +27,15 @@ export class EditOrderPage {
   }
 
   getAllOrders(){
-    this.confData.getAllOrders().then((data)=>{
-      console.log(data);
-     let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
+    this.confData.getAllOrders().then((data:any)=>{
+      if(data.status == 200){
+       let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
        if(allOrders.length){
         this.hasOrders = true;
        }
+     }else{
+      this.alerts.presentToast(data.statusText);
+     }
     });
   }
 
@@ -36,6 +45,10 @@ export class EditOrderPage {
 
   editDailyOrder(){
     this.navCtrl.setRoot(EditDailyOrderPage);
+  }
+
+  editOrderDuration(){
+    this.navCtrl.setRoot(EditOrderDurationPage);
   }
 
 }

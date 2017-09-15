@@ -37,10 +37,13 @@ export class PlaceOrderPage {
 	}
 
 	showAddress(data: any){
+		this.alerts.showLoader();
 		if(data.addresses.length == 0){
+				this.alerts.hideLoader();
 				this.presentConfirm();
 			}
 			else{
+				this.alerts.hideLoader();
 				this.address = data.addresses[0];
 			}
 	}

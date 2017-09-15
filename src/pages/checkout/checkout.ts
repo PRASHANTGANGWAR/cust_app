@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Database } from '../../providers/db-provider';
-import { Modal, ModalController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Modal, ModalController, NavController, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../current-order/current-order';
+import { Alerts } from '../../providers/alerts-provider';
 
 declare var window:any;
 @Component({
@@ -22,11 +23,13 @@ export class CheckoutPage {
 		private modalCtrl: ModalController,
 		public navCtrl: NavController,
 		private confData: ConferenceData,
-		private toastCtrl: ToastController,
-		public navParams: NavParams){
+		public navParams: NavParams,
+		public alerts: Alerts){
 		this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
 		if(this.allOrders.length){
+			this.alerts.showLoader();
 			this.orderPackages = this.allOrders[0].order_packages
+			this.alerts.hideLoader();
 		}else{
 			this.getCategories();
 		}
@@ -57,12 +60,14 @@ export class CheckoutPage {
 	}
 
 	getCategories(){
+		this.alerts.showLoader();
 		this.dataBase.getAllProducts().then(results =>{
 			console.log(results);
 			for(var i=0;i<results.length;i++){
 				this.categories.push(JSON.parse(results[i].products));
 				console.log(this.categories);
 			}
+			this.alerts.hideLoader();
 			this.getProducts();
 		});	
 	}
@@ -78,6 +83,7 @@ export class CheckoutPage {
 	}
 
 	checkout(){
+		this.alerts.showLoader();
 		if(this.allOrders.length){
 			let order:any={"order_packages_attributes":{}};
 			order.alter_from = "";
@@ -104,10 +110,11 @@ export class CheckoutPage {
 	        order.order_id = this.allOrders[0].id;
 	        console.log(order);
 			this.confData.updateOrder(order).then((data:any)=>{
+				this.alerts.hideLoader();
 				if (data.status == 200){
 					this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data.json()});
 				}else{
-					this.presentToast(data.statusText);
+					this.alerts.presentToast(data.statusText);
 				}
 			});
 		}else{
@@ -134,21 +141,13 @@ export class CheckoutPage {
 	        order.recurring = "true";
 	        console.log(order);
 			this.confData.newOrder(order).then((data:any)=>{
+				this.alerts.hideLoader();
 				if (data.status == 201){
 					this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data.json()});
 				}else{
-					this.presentToast(data.statusText);
+					this.alerts.presentToast(data.statusText);
 				}
 			});
 		}
 	}
-
-    presentToast(msg:any) {
-	  this.toastCtrl.create({
-	    message: msg,
-	    duration: 2000,
-	    position: 'bottom'
-	  }).present();
-	}
-
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Modal, ModalController, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, Modal, ModalController, AlertController } from 'ionic-angular';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
@@ -19,7 +19,6 @@ export class EditDailyOrderPage {
   	public navCtrl: NavController,
   	public navParams: NavParams,
   	public modalCtrl: ModalController,
-  	public toastCtrl: ToastController,
   	public alerts: Alerts,
     public confData: ConferenceData,
     public alertCtrl: AlertController
@@ -105,7 +104,9 @@ export class EditDailyOrderPage {
         {
           text: 'CONFIRM',
           handler: () => {
+            this.alerts.showLoader();
             this.confData.updateOrder(order).then((res:any)=>{
+              this.alerts.hideLoader();
               if (res.status == 200){
                 this.navCtrl.setRoot(EditOrderPage);
                 this.alerts.presentToast("Order updated succesfully");
@@ -135,7 +136,9 @@ export class EditDailyOrderPage {
         {
           text: 'CONFIRM',
           handler: () => {
+            this.alerts.showLoader();
             this.confData.cancelOrder().then((res:any)=>{
+              this.alerts.hideLoader();
               if(res.status == 204){
                 this.navCtrl.setRoot(EditOrderPage);
                 this.alerts.presentToast("Order cancelled succesfully");

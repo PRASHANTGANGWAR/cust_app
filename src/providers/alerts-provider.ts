@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController } from 'ionic-angular';
+import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 
 @Injectable()
 export class Alerts {
@@ -7,6 +7,7 @@ export class Alerts {
 	constructor(
 		private toastCtrl: ToastController,
 		private _loading: LoadingController,
+		private _alert: AlertController
 	) {}
 
 	presentToast(msg: any) {
@@ -27,4 +28,13 @@ export class Alerts {
 	hideLoader(){
 	    this.loading.dismiss();
 	}
+
+	doAlert(type: string,message: string) {
+	    let alert = this._alert.create({
+	      title: type,
+	      subTitle: message,
+	      buttons: ['OK']
+	    });
+	    alert.present();
+  	}
 }

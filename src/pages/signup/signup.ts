@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import { UserData } from '../../providers/user-data';
 
 import { SignupOptions } from '../../interfaces/user-options';
 
 import { LoginPage } from '../login/login';
+import { Alerts } from '../../providers/alerts-provider';
 
 
 @Component({
@@ -17,55 +18,35 @@ import { LoginPage } from '../login/login';
 export class SignupPage {
   signup: SignupOptions = { username: '', email: '', phone:''};
   submitted = false;
-  private loading :any;
 
   constructor(
     public navCtrl: NavController,
     public userData: UserData,
-    private _alert: AlertController,
-    private _loading: LoadingController
+    private alerts : Alerts
   ) { }
 
   onSignup(form: NgForm) {
     this.submitted = true;
     if (form.valid) {
-      this.showLoader();
+      this.alerts.showLoader();
         this.userData.signup(
           this.signup.username,
           this.signup.email,
           this.signup.phone
-        ).then(results=>{
-            this.hideLoader();
-            let resultData : any ={};
-             resultData = results;
-            if(resultData.status == 200){
-            this.doAlert('Success!','Please login to continue.');
+        ).then((res:any)=>{
+            this.alerts.hideLoader();
+            if(res.status == 200){
+            this.alerts.doAlert('Success!','Please login to continue.');
              this.navCtrl.setRoot(LoginPage);
-            } else{
+            }
+            else if(res.status == 422){
+              this.alerts.doAlert('','this number has already been taken');
+            } 
+            else{
               //form.resetForm();
-              this.doAlert('Error','something went wrong');
+              this.alerts.doAlert('Error','something went wrong');
           }
         });
     }
-  }
-
-  showLoader(){
-    this.loading = this._loading.create({
-      content: 'Please wait...',
-    });
-    this.loading.present();
-  }
-
-  hideLoader(){
-    this.loading.dismiss();
-  }
-
-  doAlert(type: string,message: string) {
-    let alert = this._alert.create({
-      title: type,
-      subTitle: message,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 }

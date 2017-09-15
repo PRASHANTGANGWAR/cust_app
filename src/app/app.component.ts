@@ -116,9 +116,7 @@ export class ConferenceApp {
     }
 
     if(page.categories === true){
-      this.showLoader();
       this.nav.setRoot(CategoriesPage);
-      this.hideLoader();
     }
 
     if(page.login=== true){ 
@@ -126,7 +124,9 @@ export class ConferenceApp {
     }
 
     if(page.viewAddress === true){
+      this.alerts.showLoader();
       this.nav.setRoot(ViewAddressPage);
+      this.alerts.hideLoader();
     }
 
     if(page.editOrder === true){

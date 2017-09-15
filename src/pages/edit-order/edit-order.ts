@@ -27,6 +27,7 @@ export class EditOrderPage {
   }
 
   getAllOrders(){
+    this.alerts.showLoader();
     this.confData.getAllOrders().then((data:any)=>{
       if(data.status == 200){
        let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
@@ -37,6 +38,7 @@ export class EditOrderPage {
       this.alerts.presentToast(data.statusText);
      }
     });
+    this.alerts.hideLoader();
   }
 
   nonAvialability(){
@@ -44,11 +46,15 @@ export class EditOrderPage {
   }
 
   editDailyOrder(){
+    this.alerts.showLoader();
     this.navCtrl.setRoot(EditDailyOrderPage);
+    this.alerts.hideLoader();
   }
 
   editOrderDuration(){
+    this.alerts.showLoader();
     this.navCtrl.setRoot(EditOrderDurationPage);
+    this.alerts.hideLoader();
   }
 
 }

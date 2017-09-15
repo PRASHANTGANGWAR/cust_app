@@ -28,14 +28,17 @@ export class SetNonavailabilityPage {
   }
 
   onDndSet(){
+    this.alerts.showLoader();
     this.isDnd = window.localStorage.getItem('isDnd');
     if(this.isDnd){
       let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
       this.fromDate = new Date(allOrders[0].dnd_from);
       this.toDate = new Date(allOrders[0].dnd_to);
+      this.alerts.hideLoader();
     }else{
       this.fromDate.setDate(this.fromDate.getDate()+1);
-      this.toDate.setDate(this.toDate.getDate()+1)
+      this.toDate.setDate(this.toDate.getDate()+1);
+      this.alerts.hideLoader();
     }
     
   }
@@ -100,7 +103,9 @@ export class SetNonavailabilityPage {
         {
           text: 'CONFIRM',
           handler: () => {
+            this.alerts.showLoader();
             this.confData.createDnd(order).then((res:any)=>{
+              this.alerts.hideLoader();
               if(res.status == 200){
                 window.localStorage.setItem('isDnd','1');
                 this.navCtrl.setRoot(EditOrderPage);
@@ -131,7 +136,9 @@ export class SetNonavailabilityPage {
         {
           text: 'CONFIRM',
           handler: () => {
+            this.alerts.showLoader();
             this.confData.removeDnd(order).then((res:any)=>{
+              this.alerts.hideLoader();
               if(res.status == 200){
                 window.localStorage.setItem('isDnd','');
                 this.navCtrl.setRoot(EditOrderPage);

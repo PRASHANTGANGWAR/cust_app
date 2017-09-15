@@ -24,7 +24,7 @@ export class ChangePasPage {
   	}else if(this.password.new == null || this.password.new == "" ){
   		this.presentToast("Enter new password");
   	}else if(this.password.confirm != this.password.new ){
-  		this.presentToast("Password_confirmation do not match");
+  		this.presentToast("Password confirmation do not match");
   	}else{
   		this.updatePassword();
   	}

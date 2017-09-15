@@ -37,15 +37,16 @@ export class LoginPage {
            resultData = results;
           if(resultData.status == 200){
             this.userData.userAddress().then(address=>{
+              this.alerts.hideLoader();
               let data : any = {};
               data = address;
               if(data.status == 200){
+                this.navCtrl.setRoot(CategoriesPage);
                   this.deleteTable();
                 } else{
                   this.alerts.presentToast('something went wrong');
                 }
             });
-            this.alerts.hideLoader();
           } else{
             this.alerts.hideLoader();
             this.alerts.presentToast('Username and password do not match.');
@@ -57,7 +58,6 @@ export class LoginPage {
   deleteTable(){
     this.dataBase.deleteTableData().then(data =>{
       console.log(data);
-       this.navCtrl.setRoot(CategoriesPage);
     }); 
   }
 
@@ -72,14 +72,15 @@ export class LoginPage {
         this.alerts.presentToast('Enter 10 digits mobile no.');
     }else{
       this.alerts.showLoader();
-        this.userData.forgotPassword(this.login.username).then(results=>{
-          let resultData : any = {};
-           resultData = results;
-          if(resultData.user){
+        this.userData.forgotPassword(this.login.username).then((res:any)=>{
+          this.alerts.hideLoader();
+          if(res.status == 200){
             this.alerts.presentToast('You will recieve a message soon.');
-            this.alerts.hideLoader();
-          } else{
-            this.alerts.hideLoader();
+          } 
+          else if(res.status == 500){
+            this.alerts.presentToast('Mobile number is not registered');
+          }
+          else{
             this.alerts.presentToast('something went wrong.');
           }
       });

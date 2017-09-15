@@ -135,10 +135,10 @@ export class UserData {
         this.http.request(new Request(options))
         .subscribe(
           res => {
-            resolve(res.json());
+            resolve(res);
           },
           err => {
-            resolve(err.json());
+            resolve(err);
           }
         );
       });

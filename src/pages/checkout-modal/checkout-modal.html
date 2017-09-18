@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar style="min-height: 90px !important;">
     <ion-title style="text-align: center;">
     	<p>Choose Quantity</p>
 		<ion-icon name="remove-circle" (click)="decrementMain()"></ion-icon>
@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content padding class="checkout">
+<ion-content padding class="checkout" style="margin-top: 50px;">
 	<ion-list>
 		<ion-row *ngFor="let day of weekday; let i=index" style="border-bottom: 1px solid #bdbdbd">
 		<ion-col>

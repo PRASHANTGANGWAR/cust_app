@@ -30,15 +30,10 @@ import { EditOrderDurationPage } from '../pages/edit-order-duration/edit-order-d
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Alerts } from '../providers/alerts-provider';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { EmailComposer } from '@ionic-native/email-composer';
-import { CallNumber } from '@ionic-native/call-number';
 import { NgCalendarModule  } from 'ionic2-calendar';
-import { Push } from "@ionic-native/push";
-import { Facebook  }  from '@ionic-native/facebook';
-import { SQLite } from '@ionic-native/sqlite';
-import { Database } from '../providers/db-provider';
 import { DatePickerModule } from 'ionic3-datepicker';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -126,14 +121,9 @@ import { DatePickerModule } from 'ionic3-datepicker';
     Alerts,
     InAppBrowser,
     SplashScreen,
-    BarcodeScanner,
     EmailComposer,
     CallNumber,
-    Push,
-    Facebook,
-    SQLite,
-    DatePipe,
-    Database
+    DatePipe
   ]
 })
 export class AppModule { }

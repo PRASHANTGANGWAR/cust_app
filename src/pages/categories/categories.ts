@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserData } from '../../providers/user-data';
 import { ProductListPage } from '../product-list/product-list';
-import { Database } from '../../providers/db-provider';
 
 import { NavController, ViewController } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
@@ -29,8 +28,7 @@ export class CategoriesPage {
     private viewCtrl: ViewController,
     public confData: ConferenceData,
     public userData: UserData,
-    private alert:Alerts,
-    public dataBase: Database
+    private alert:Alerts
   ) {
       window.localStorage.setItem('current_page',this.viewCtrl.name);
       console.log(this.viewCtrl.name);
@@ -44,9 +42,7 @@ export class CategoriesPage {
          if(res.status == 200){
              let result = res.json();
              this.categories = result.categories;
-             this.dataBase.insertProducts(result).then(data =>{
-              console.log(data);
-             });
+             window.localStorage.setItem('categories',JSON.stringify(this.categories));
           }else{
               this.alert.presentToast("something went wrong!");
           }

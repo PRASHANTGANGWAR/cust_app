@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <button ion-button outline block round icon-left 
-    *ngFor="let cat of categories" (click)='showlist(cat.id)'>
+    *ngFor="let cat of categories; let i = index" (click)='showlist(i)'>
     <ion-icon name="analytics"></ion-icon>
     {{cat.name}}
   </button>

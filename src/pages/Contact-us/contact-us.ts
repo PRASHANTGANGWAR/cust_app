@@ -41,9 +41,9 @@ export class ContactPage {
 
   	call(){
   		this.callNumber.callNumber("01161616161", true)
-		  .then(() => this.doAlert('Success','Launched dialer!'))
+		  .then(() => console.log('Success','Launched dialer!'))
 		  .catch(() => this.doAlert('Error','Error launching dialer'));
-		}
+	}
 
 	 doAlert(type: string,message: string) {
 	    let alert = this._alert.create({

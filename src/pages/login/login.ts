@@ -5,7 +5,6 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { CategoriesPage } from '../categories/categories';
 import { SignupPage } from '../signup/signup';
-import { Database } from '../../providers/db-provider';
 import { Alerts } from '../../providers/alerts-provider';
 
 @Component({
@@ -16,10 +15,8 @@ export class LoginPage {
   public flag : boolean = false;
   login: UserOptions = { username: '', password: '' };
   submitted = false;
-  scanData : {};
 
   constructor(
-    public dataBase: Database,
     public events: Events,
     private navCtrl: NavController, 
     public userData: UserData,
@@ -42,7 +39,6 @@ export class LoginPage {
               data = address;
               if(data.status == 200){
                 this.navCtrl.setRoot(CategoriesPage);
-                  this.deleteTable();
                 } else{
                   this.alerts.presentToast('something went wrong');
                 }
@@ -53,12 +49,6 @@ export class LoginPage {
           }
       });
     }
-  }
-
-  deleteTable(){
-    this.dataBase.deleteTableData().then(data =>{
-      console.log(data);
-    }); 
   }
 
   onSignup() {

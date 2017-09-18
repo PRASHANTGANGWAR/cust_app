@@ -99,6 +99,7 @@ export class ProfilePage {
 	   			this.RecName = result.user.recipient_name;
 	   			this.RecNumber = result.user.recipient_number;
 	   			this.hideLoader();
+	   			this.presentToast("Profile updated successfully");
 	   		}else{
 	   			this.hideLoader();
 	   			this.doAlert('Error','Please try again !');

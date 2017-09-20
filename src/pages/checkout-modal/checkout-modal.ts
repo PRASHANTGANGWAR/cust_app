@@ -84,6 +84,7 @@ export class CheckoutModalPage {
 		let div = <HTMLElement>document.querySelector("#toggle"+index);
 		let display = div.style.display;
        	div.style.display = (display ==="block")? "none" : "block";
+       	this.weekday[index].currentNumber = 0;
 	}
 
 	 closeModal(){

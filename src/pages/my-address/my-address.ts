@@ -65,6 +65,7 @@ export class MyAddressPage {
 	    for( var j=0;j < this.cityOption.length;j++ ){
 	    	if (this.cityOption[j].name == value){
 	    		this.areaOption = this.cityOption[j].areas;
+	    		this.local = this.cityOption[j].areas[0].id;
 	    	}
 	    }
 	  }

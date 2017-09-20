@@ -12,17 +12,17 @@
   	<ion-row>
   		<ion-col><h5>Delivery Date</h5></ion-col>
   		<ion-col style="padding: 22px;">
-  		<span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
-	 	clear class="ScheduleDate">
+      <ion-label ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
+	 	   clear class="ScheduleDate round">
 		<span>{{initDate | date:'dd/MM/yyyy'}}</span>
-		</span>
+		</ion-label>
   		</ion-col>
   	</ion-row>
 
   	<ion-row>
   		<ion-col><h5>Delivery Time</h5></ion-col>
   		<ion-col>
-	  		 <ion-label style="border: 1px solid #343434;">5-7 AM</ion-label>
+	  		 <ion-label class="round">5-7 AM</ion-label>
   		</ion-col>
   	</ion-row>
   </div>

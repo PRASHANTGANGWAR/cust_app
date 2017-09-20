@@ -17,10 +17,9 @@
 		<ion-col>From</ion-col>
 		<ion-col>:</ion-col>
 		<ion-col>
-			<span ion-datepicker (ionChanged)="setDate($event);" 
-				[value]="initDate" clear class="ScheduleDate">
-				<span>{{initDate | date:'dd/MM/yyyy'}}</span>
-			</span>
+			<input ion-datepicker (ionChanged)="setDate($event);" 
+				[value]="initDate" clear class="ScheduleDate round" 
+				placeholder="{{initDate | date:'dd/MM/yyyy'}}">
 		</ion-col>
 	</ion-row>
 	</ion-card-content>

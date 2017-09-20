@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content>
-	<ion-slides *ngIf="Deliveries.length;else other_content">
+  <ion-card><h2>{{dataFound}}</h2></ion-card>
+	<ion-slides>
   		<ion-slide *ngFor="let del of Deliveries;let i=index;">
 	<ion-card style="background-color: #a981d3;border:#686868;" responsive-sm>
 			
@@ -97,8 +98,4 @@
   </ion-card>
 		</ion-slide>
 	</ion-slides>
-  
-  <ng-template #other_content>
-    <ion-card><h2>No deliveries data yet</h2></ion-card>
-  </ng-template>
 </ion-content>

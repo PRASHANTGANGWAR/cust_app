@@ -16,9 +16,12 @@
 			<ion-col>From</ion-col>
 			<ion-col>:</ion-col>
 			<ion-col>
-				<input ion-datepicker (ionChanged)="setfromDate($event);" 
-				[value]="fromDate"clear class="ScheduleDate round" 
-				placeholder="{{fromDate | date:'dd/MM/yyyy'}}">
+			  <div class="round">
+		        <span ion-datepicker (ionChanged)="setfromDate($event);" [value]="fromDate"
+		  	 	   clear class="ScheduleDate">
+		  		    <span>{{fromDate | date:'dd/MM/yyyy'}}</span>
+		  		  </span>
+		      </div>
 			</ion-col>
 		</ion-row>
 
@@ -26,8 +29,12 @@
 			<ion-col>To</ion-col>
 			<ion-col>:</ion-col>
 			<ion-col>
-				<input ion-datepicker (ionChanged)="settoDate($event);" 
-				[value]="toDate"clear class="ScheduleDate round" placeholder="{{toDate | date:'dd/MM/yyyy'}}">
+			  <div class="round">
+		        <span ion-datepicker (ionChanged)="settoDate($event);" [value]="toDate"
+		  	 	   clear class="ScheduleDate">
+		  		    <span>{{toDate | date:'dd/MM/yyyy'}}</span>
+		  		  </span>
+		      </div>
 			</ion-col>
 		</ion-row>
 	</ion-card>

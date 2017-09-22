@@ -48,10 +48,6 @@ export class ProfilePage {
 	   	});
 	  }
 
-	  setDate(date: Date) {
-	    this.Profile.dob = date.getFullYear()+'-'+("0" + (date.getMonth() + 1)).slice(-2)+'-'+date.getDate();
-	  }
-
 	  updateValidate(form: NgForm){
 	  	console.log(form);
 	  	var rej = /[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;

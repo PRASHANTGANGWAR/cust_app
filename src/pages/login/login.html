@@ -1,21 +1,22 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>Login</ion-title>
+		<ion-title><b>Login</b></ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
-	<ion-item style="background-color: #e0e0e0;">
+	<ion-item style="background-color: #e0e0e0; padding: 10px 0px 0px 75px;">
 		<ion-row style="color: #df3796;">Already Registered with us? Login!</ion-row>
 		<ion-row style="color: #6b6666;">Order for milk, butter, cheese etc</ion-row>
 	</ion-item>
-<ion-card>
+<ion-card style="border-radius: 10px;">
 	<ion-card-header><h4 style="color: #df3796; font-size: 18px; font-weight: bold;">LOGIN</h4></ion-card-header>
 	<ion-card-content>
 	<form #loginForm="ngForm" novalidate>
 		<ion-list>
-			<ion-item style="border: 1px solid #bdbdbd; margin-bottom: 20px;">
-				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" placeholder="Registration Number" spellcheck="false" autocapitalize="off"
+			<ion-item style="border: 3px solid #e0e0e0; margin-bottom: 20px; border-radius: 5px;">
+				<ion-icon item-left name="contact" style="color: #bdbdbd;"></ion-icon>
+				<ion-input [(ngModel)]="login.username" name="username" type="tel" #username="ngModel" maxlength="10" placeholder="Registered Number" 
 					required>
 				</ion-input>
 			</ion-item>
@@ -23,7 +24,8 @@
 				Username is required
 			</p>
 
-			<ion-item style="border: 1px solid #bdbdbd;">
+			<ion-item style="border: 3px solid #e0e0e0; border-radius: 5px;">
+				<ion-icon item-left name="lock" style="color: #bdbdbd;"></ion-icon>
 				<ion-input [(ngModel)]="login.password" placeholder="Password" name="password" type="password" #password="ngModel" required>
 				</ion-input>
 			</ion-item>
@@ -31,24 +33,13 @@
 				Password is required
 			</p>
 		</ion-list>
-
-		<ion-row>
-			<button ion-button clear (click)="forgotPassword()">Forgot password?</button>
-		</ion-row>
-
-		<ion-row>
-			<button ion-button (click)="onLogin(loginForm)" type="submit" block>Login</button>
-		</ion-row>
+		<button ion-button clear (click)="forgotPassword()" 
+		style="padding: 0px 5px; text-transform:none;">Forgot Password?</button>
 	</form>
 	</ion-card-content>
+	<button ion-button full (click)="onLogin(loginForm)" type="submit" 
+	style="margin:0px; height: 5.6rem;">Login</button>
 	</ion-card>
-	<ion-item style="background-color: #e0e0e0;">
-		<ion-row>
-		<ion-col style="text-align: center">OR</ion-col></ion-row>
-		<ion-row>
-		<ion-col  style="text-align: center">
-			<button ion-button (click)="onSignup()">Create New Account</button>
-		</ion-col>
-		</ion-row>
-	</ion-item>
+	<div style="text-align: center; color: #6b6666; padding:5%;">OR </div>
+	<button ion-button (click)="onSignup()" round style="margin-left: 23%; height: 4.6rem;">Create New Account</button>
 </ion-content>

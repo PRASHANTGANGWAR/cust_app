@@ -55,9 +55,10 @@
             </select>
             </ion-col>
           </ion-row>
-
-          <ion-textarea [(ngModel)]="address.addressinfo" placeholder="Address" name="addressinfo" #addressinfo="ngModel" spellcheck="false" style="border: 1px solid #bdbdbd;
-        min-height: 100px;" required></ion-textarea>
+          <ion-item>
+            <ion-textarea [(ngModel)]="address.addressinfo" placeholder="Address" name="addressinfo" #addressinfo="ngModel" spellcheck="false" style="border: 1px solid #bdbdbd;
+          min-height: 100px;" required></ion-textarea>
+        </ion-item>
         <p ion-text [hidden]="addressinfo.valid || submitted == false" color="danger" padding-left>
             Address is required
         </p>

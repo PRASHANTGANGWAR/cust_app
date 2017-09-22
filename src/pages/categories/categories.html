@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button outline block round icon-left 
-    *ngFor="let cat of categories; let i = index" (click)='showlist(i)'>
+  <button ion-button outline block round icon-left *ngFor="let cat of categories; 
+  let i = index" (click)='showlist(i)' style="margin-top: 5%;">
     <ion-icon name="analytics"></ion-icon>
     {{cat.name}}
   </button>

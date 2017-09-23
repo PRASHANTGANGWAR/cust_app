@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>My Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="form-content" text-center>
 
  <ion-grid>
     <ion-row st>
@@ -28,25 +28,26 @@
     </ion-row>
   </ion-grid>
 
-
+<div class="Loginpage">
+<div class="formContainer">
 <form #userForm="ngForm" novalidate>
-    <ion-list no-lines>
-      <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Name</ion-label>
-        <ion-input [(ngModel)]="Profile.name" class="forminput" name="name" type="text" spellcheck="false" autocapitalize="off"
+    <ion-list class="app-form" no-margin>
+      <ion-item no-lines>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input [(ngModel)]="Profile.name" class="forminput" placeholder="Name" name="name" type="text" spellcheck="false" autocapitalize="off"
           required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Registered Number</ion-label>
-        <ion-input class="forminput" name="phone" [(ngModel)]="Profile.mobile" type="tel" maxlength="10" required>
+        <ion-icon name="md-tablet-portrait" item-left></ion-icon>
+        <ion-input class="forminput" name="phone" placeholder="Registered Mobile Number" [(ngModel)]="Profile.mobile" type="tel" maxlength="10" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Email</ion-label>
-        <ion-input class="forminput" name="email" [(ngModel)]="Profile.email" type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+        <ion-icon name="ios-at-outline" item-left></ion-icon>
+        <ion-input class="forminput" placeholder="Email" name="email" [(ngModel)]="Profile.email" type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
         </ion-input>
       </ion-item>
 
@@ -63,7 +64,7 @@
 
       <ion-item>
         <ion-label stacked style="color:#999999;font-size:17px;">Recipient Name</ion-label>
-        <ion-input class="forminput" name="recName" [(ngModel)]="RecName" min="10" type="text" required>
+        <ion-input class="forminput" name="recName" placeholder="Recipient Name" [(ngModel)]="RecName" min="10" type="text" required>
         </ion-input>
       </ion-item>
 
@@ -75,27 +76,10 @@
 
     </ion-list>
 
-    <ion-row responsive-sm>
-      <ion-col>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="updateValidate(userForm)" type="submit" block style="background:#DF3796;border-radius:17px;">Update</button>
-      </ion-col>
-      <ion-col>
-      </ion-col>
-      
-    </ion-row>
-    <ion-row responsive-sm>
-      <ion-col>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="changePassword(userForm)" type="submit" block style="background:#46ce63;border-radius:17px;">Change Password</button>
-      </ion-col>
-      <ion-col>
-      </ion-col>
-      
-    </ion-row>
+	<button color="primary" ion-button (click)="updateValidate(userForm)" type="submit" round block>Update</button>
+	<button color="primary" ion-button (click)="changePassword(userForm)" type="submit" round block>Change Password</button>
   
   </form>
-
+</div>
+</div>
 </ion-content>

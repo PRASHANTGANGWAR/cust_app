@@ -35,6 +35,15 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { CallNumber } from '@ionic-native/call-number';
 
+var config = {
+  backButtonText: '',
+  backButtonIcon: 'md-arrow-back',
+  tabsPlacement: 'bottom',
+  pageTransition: 'ios',
+  mode:'ios',
+  menuType: 'overlay'
+};
+
 @NgModule({
   declarations: [
     ConferenceApp,
@@ -64,7 +73,7 @@ import { CallNumber } from '@ionic-native/call-number';
     HttpModule,
     NgCalendarModule,
     DatePickerModule,
-    IonicModule.forRoot(ConferenceApp, {}, {
+    IonicModule.forRoot(ConferenceApp, config, {
       links: [
         { component: CategoriesPage, name: 'Categories', segment: 'categories' },
         { component: ProductListPage, name: 'ProductList', segment: 'productList' },

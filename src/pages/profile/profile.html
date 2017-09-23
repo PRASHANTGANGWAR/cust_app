@@ -12,18 +12,22 @@
  <ion-grid>
     <ion-row st>
       <ion-col col-8 text-wrap no-lines text-center class="amount">
-        <b>Due Amount</b>
+         <ion-card-title>Due Amount </ion-card-title>
       </ion-col>
       <ion-col col-4 text-wrap no-lines class="bal">
+         <ion-card-title>
         <span>&#8377;</span> {{Profile.due_balance}}
+         </ion-card-title>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-8 text-wrap no-lines text-center class="amount">
-        <b>Bill Amount</b>
+         <ion-card-title>Bill Amount </ion-card-title>
       </ion-col>
       <ion-col col-4 text-wrap no-lines class="bal">
+         <ion-card-title>
         <span>&#8377;</span> {{Profile.billing_amount}}
+         </ion-card-title>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -52,25 +56,25 @@
       </ion-item>
 
       <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Date of Birth</ion-label>
-        <ion-input  class="forminput"  [(ngModel)]="Profile.dob" name="dob" type="date" placeholder="date of birth(optional)">
+       <ion-icon name="md-calendar" item-left></ion-icon>
+        <ion-input  class="forminput"  [(ngModel)]="Profile.dob" name="dob" type="date" placeholder="Date Of Birth(optional)">
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label style="color:#999999;font-size:17px;">Same as above</ion-label>
-        <ion-checkbox [(ngModel)]="SameRecip" name="check" (click)="sameRec(userForm)" value="SameRecip"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="SameRecip" name="check" (click)="sameRec(userForm)" value="SameRecip">Same as above</ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Recipient Name</ion-label>
-        <ion-input class="forminput" name="recName" placeholder="Recipient Name" [(ngModel)]="RecName" min="10" type="text" required>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input class="forminput" name="recName" placeholder="Recipient Name" [(ngModel)]="RecName" min="10" type="text" placeholder="Recipient Name" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked style="color:#999999;font-size:17px;">Recipient Number</ion-label>
-        <ion-input class="forminput" name="recNumber" [(ngModel)]="RecNumber" type="tel" maxlength="10" required>
+        <ion-icon name="md-tablet-portrait" item-left></ion-icon>
+        <ion-input class="forminput" name="recNumber" [(ngModel)]="RecNumber" type="tel" maxlength="10" placeholder="Recipient Number" required>
         </ion-input>
       </ion-item>
 

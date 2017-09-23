@@ -1,16 +1,16 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Place Order</ion-title>
+    <ion-title text-uppercase>Place Order</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class = "main-content">
   <div class="card" style="min-height: 150px; background-color: #ffffff;">
   	<ion-row>
-  		<ion-col><h5>Delivery Date</h5></ion-col>
+  		<ion-col><p>Delivery Date</p></ion-col>
   		<ion-col style="padding: 22px;">
       <div class="round">
         <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
@@ -22,7 +22,7 @@
   	</ion-row>
 
   	<ion-row>
-  		<ion-col><h5>Delivery Time</h5></ion-col>
+  		<ion-col><p>Delivery Time</p></ion-col>
   		<ion-col>
 	  		 <ion-label class="round">5-7 AM</ion-label>
   		</ion-col>
@@ -40,18 +40,9 @@
  	 </ion-card-content>
    </div>
  </ion-card>
- <ion-row padding>
-    <ion-col>
-     <button ion-button small>
-       <div (click)="addAddressPage()">ADDRESS</div>
-     </button>
-    </ion-col>
-
-    <ion-col>
-     <button ion-button small>
-        <div (click)="checkoutPage()">SELECT</div>
-     </button>
-    </ion-col>
- </ion-row>
+ <div style="padding: 25px">
+    <button color="primary" ion-button round block (click)="addAddressPage()">Edit Address</button>
+    <button color="secondary"  ion-button round block (click)="checkoutPage()">Select</button>
+  </div>
 
 </ion-content>

@@ -1,89 +1,227 @@
-// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
-// Makes the @content apply to the given breakpoint and narrower.
-@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
-  $max: breakpoint-max($name, $breakpoints);
-  @if $max {
-    @media (max-width: $max) {
-      @content;
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+ion-app{
+    [no-margin]{
+        margin: 0 !important;
     }
-  } @else {
-    @content;
-  }
-}
-
-
-// Name of the next breakpoint, or null for the last breakpoint.
-//
-//    >> breakpoint-next(sm)
-//    md
-//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
-//    md
-//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
-//    md
-@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
-  $n: index($breakpoint-names, $name);
-  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
-}
-
-
-// Maximum breakpoint width. Null for the largest (last) breakpoint.
-// The maximum value is calculated as the minimum of the next one less 0.1.
-//
-//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
-//    767px
-@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
-  $next: breakpoint-next($name, $breakpoints);
-  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
-}
-
-
-// Creates text alignment classes based on screen size
-// TODO this would be nice to add to the framework
-@each $breakpoint in map-keys($grid-breakpoints) {
-  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-    // Provide text `[text-{bp}]` attributes for aligning text based on screen size
-    [text#{$infix}-center] {
-      text-align: center;
+    [no-padding]{
+        padding: 0 !important;
     }
-
-    [text#{$infix}-left] {
-      text-align: left;
-    }
-
-    [text#{$infix}-right] {
-      text-align: right;
-    }
-
-    [hidden#{$infix}-up] {
-      display: none;
-    }
-  }
-
-  @include media-breakpoint-down($breakpoint, $grid-breakpoints) {
-    [hidden#{$infix}-down] {
-      display: none;
-    }
-  }
 }
 
-.custom-alert button.alert-button-group {
-    width: 33.33%;
+.bar-button-menutoggle-ios{
+    min-width: 29px;
+    margin: 0;
+    ion-icon{
+        font-size: 2.4rem;
+    }
 }
 
-.custom-alert .alert-button-group .button-inner {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+.back-button-icon-ios{
+    font-size: 2.2rem;
 }
 
-.custom-alert .alert-button-group-vertical {
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row ;
+ion-scroll{
+    height: 45px;
+    white-space: nowrap;
+    .segment-md {
+        display: block;
+        .segment-button {
+            display: inline-block;
+            width: auto !important;
+            max-width: 35% !important;
+            min-width: 23%;
+            color: color($colors , light);
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            font-weight: normal;
+            line-height: 4.67rem;
+            opacity: 1;
+            height: 44px !important;
+            border-bottom-color: rgba(0, 0, 0, 0.00001);
+            &.segment-activated{
+                background: color($colors,secondary);
+                color: color($colors , primary);
+                border-bottom: 2px solid color($colors , primary);
+            }    
+        }
+    }
 }
-.fontColor{
-  color:#DF3796;
+
+.scroll-toolbar{
+    min-height: 45px;
+    .toolbar-background-ios{
+        border: none;
+    }
+}
+
+.stars{
+    ion-icon{
+        font-size: 1.5rem;
+        color: color($colors , notify);
+    }
+    .last-star{
+        color: color($colors , grayColor);
+    }
+}
+
+.active-tab{
+    color: color($colors , primary);
+    border-bottom: 2px solid color($colors , primary);
+}
+
+.activeImg{
+    border: 2px solid color($colors , primary);
+}
+
+.card-ios{
+    margin: 0;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.ActiveLike{
+    background: color($colors , primary) !important;
+}
+
+ion-badge{
+    padding: 3px 6px;
+    font-weight: normal;
+    margin-right: 25px !important;
+}
+
+.item-ios{
+    ion-thumbnail{
+        margin: 0 8px 0 0 !important;
+        img{
+            width: 100px;
+            object-fit: cover;
+            -o-object-fit: cover;
+        }
+    }
+}
+
+.bold{
+    font-weight: 500 !important;
+}
+
+.no-cart{
+    position: absolute;
+    top: 0px;
+    right: -33px;
+    padding: 2px 5px;
+}
+
+// App statusbar-padding Sass
+// --------------------------------------------------
+.ios{
+    ion-nav{
+        .ion-page{
+            ion-header{
+                .toolbar.statusbar-padding{
+                    &:first-child{
+                        padding-top: 24px;
+                    }
+                }
+            }
+        }
+    }
+    ion-menu{
+        .menu-inner{
+            ion-header{
+                .toolbar.statusbar-padding{
+                    &:first-child{
+                        min-height: 210px;
+                        padding-top: 24px;
+                    }
+                    .close-icon{
+                        top: 33px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .ios{
+        .modal-wrapper{
+            .ion-page{
+                ion-header{
+                    .share-toolbar.statusbar-padding{
+                        &:first-child{
+                            padding-top: 4px;
+                            min-height: 60px;
+                            ion-title{
+                                padding-top: 4px;
+                                height: 100%;
+                                min-height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+// App Menu Sass
+// --------------------------------------------------
+ion-menu{
+    .menu-inner{
+        width: 220px;
+    }
+    .content-ios{
+        @extend %cover;
+        background-color: color($colors , dark) !important;
+        background-image: url(../assets/img/menu-bg.png) !important;
+    }
+    .toolbar-ios{
+        min-height: 190px;
+    }
+    .toolbar-background-ios{
+        border: none !important;
+    }
+    img{
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid color($colors , primary);
+        margin: 10px 0;
+    }
+    h4{
+        font-weight: normal;
+        font-size: 1.3rem;
+        color: color($colors,light);
+    }
+    ion-label{
+        font-weight: lighter;
+        font-size: 1.4rem;
+    }
+    .item-ios{
+        ion-icon[item-start]{
+            font-size: 1.6rem;
+            line-height: 1.7;
+            margin: 9px 6px 8px 3px;
+        }
+    }
+}
+@media (max-width: 340px){
+    .menu-inner{
+        width: 220px;
+    }
+}
+
+.close-icon{
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    font-size: 2.3rem;
 }

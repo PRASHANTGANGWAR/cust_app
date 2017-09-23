@@ -20,7 +20,8 @@ export class CheckoutModalPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CheckoutModalPage');
+  	let recieveData = this.navParams.get('result');
+    console.log(recieveData);
   }
 
   	incrementMain(){

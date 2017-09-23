@@ -1,45 +1,47 @@
 <ion-header>
-	<ion-navbar>
+	<ion-navbar color="primary">
 		<ion-title><b>Login</b></ion-title>
 	</ion-navbar>
 </ion-header>
 
-<ion-content>
-	<ion-item style="background-color: #e0e0e0; padding: 10px 0px 0px 75px;">
-		<ion-row style="color: #df3796;">Already Registered with us? Login!</ion-row>
-		<ion-row style="color: #6b6666;">Order for milk, butter, cheese etc</ion-row>
-	</ion-item>
-<ion-card style="border-radius: 10px;">
-	<ion-card-header><h4 style="color: #df3796; font-size: 18px; font-weight: bold;">LOGIN</h4></ion-card-header>
-	<ion-card-content>
-	<form #loginForm="ngForm" novalidate>
-		<ion-list>
-			<ion-item style="border: 3px solid #e0e0e0; margin-bottom: 20px; border-radius: 5px;">
-				<ion-icon item-left name="contact" style="color: #bdbdbd;"></ion-icon>
-				<ion-input [(ngModel)]="login.username" name="username" type="tel" #username="ngModel" maxlength="10" placeholder="Registered Number" 
-					required>
-				</ion-input>
-			</ion-item>
-			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
-				Username is required
-			</p>
+<ion-content class="form-content" text-center>
 
-			<ion-item style="border: 3px solid #e0e0e0; border-radius: 5px;">
-				<ion-icon item-left name="lock" style="color: #bdbdbd;"></ion-icon>
-				<ion-input [(ngModel)]="login.password" placeholder="Password" name="password" type="password" #password="ngModel" required>
-				</ion-input>
-			</ion-item>
-			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
-				Password is required
-			</p>
-		</ion-list>
-		<button ion-button clear (click)="forgotPassword()" 
-		style="padding: 0px 5px; text-transform:none;">Forgot Password?</button>
-	</form>
-	</ion-card-content>
-	<button ion-button full (click)="onLogin(loginForm)" type="submit" 
-	style="margin:0px; height: 5.6rem;">Login</button>
-	</ion-card>
-	<div style="text-align: center; color: #6b6666; padding:5%;">OR </div>
-	<button ion-button (click)="onSignup()" round style="margin-left: 23%; height: 4.6rem;">Create New Account</button>
+  <div class="Loginpage">
+    <div class="formContainer">
+        <div class="logo">
+          <img src="assets/img/logo.png" />
+        </div>
+        <br>
+        <form #loginForm="ngForm" novalidate>
+          <ion-list class="app-form" no-margin>
+            <ion-item no-lines>
+              <ion-icon name="ios-person-outline" item-start></ion-icon>
+              <ion-input [(ngModel)]="login.username" name="username" type="tel"  
+                 #username="ngModel" maxlength="10" placeholder="Registered Number" 
+    					   required>     
+              </ion-input>
+            </ion-item>
+      		  <p ion-text [hidden]="username.valid || submitted == false" color="danger">
+      				Username is required
+      			</p>
+
+            <ion-item no-lines>
+              <ion-icon name="ios-lock-outline" item-start></ion-icon>
+              <ion-input [(ngModel)]="login.password" placeholder="Password" 
+                name="password" type="password" #password="ngModel" required>
+      				</ion-input>
+            </ion-item>
+      		  <p ion-text [hidden]="password.valid || submitted == false" color="danger">
+      				Password is required
+      			</p>
+          </ion-list>
+
+          <button (click)="onLogin(loginForm)" type="button"  color="primary" ion-button round block>Login</button>
+          <button color="secondary" (click)="onSignup()" ion-button round block>Register</button>
+
+          <p (click)="forgotPassword()" margin-top>Forgot Password ?</p>
+      </form>
+    </div>
+  </div>
 </ion-content>
+

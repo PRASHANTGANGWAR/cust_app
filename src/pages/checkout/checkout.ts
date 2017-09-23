@@ -36,8 +36,13 @@ export class CheckoutPage {
 	}
 
 	openModal(index: number) {
-	   //this.indx = index;
-	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage);
+		let sendData:any=[];
+		if(this.allOrders.length){
+			sendData = this.orderPackages;
+		}else{
+			sendData = this.products;
+		}
+	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{result:sendData});
 	   chekoutModal.present();
 	   chekoutModal.onDidDismiss((data)=>{
 	   	if(data){

@@ -1,84 +1,84 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Nutrition Values</ion-title>
+    <ion-title text-uppercase>Nutrition Values</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-slides>
     <ion-slide *ngFor="let pro of Nutrition;let i=index;" style="overflow:scroll;">
-      <ion-card responsive-sm>
+      <ion-card class="shadow" responsive-sm>
         <ion-item class="custom-item">
-          <ion-item>
-            <h2 text-center text-wrap no-lines><b class="fontColor fontSize">Today's Nutrition Values</b></h2>
+          <ion-item color="primary">
+            <h2 text-center text-wrap no-lines>Today's Nutrition Values</h2>
           </ion-item>
               
           <ion-grid class="fontColor">
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>PRODUCTS</b>
+                  <p>PRODUCTS</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  <b>{{pro.name}}</b>
+                  <p>{{pro.name}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Calcium</b>
+                  <p>Calcium</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.calcium}}
+                  <p>{{pro.calcium}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Calories</b>
+                  <p>Calories</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.calories}}
+                  <p>{{pro.calories}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Carbohydrates</b>
+                  <p>Carbohydrates</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.carbohydrates}}
+                  <p>{{pro.carbohydrates}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Fat</b>
+                  <p>Fat</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.fat}}
+                  <p>{{pro.fat}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Minerals</b>
+                  <p>Minerals</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.minerals}}
+                 <p> {{pro.minerals}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Snf</b>
+                  <p>Snf</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.snf}}
+                  <p>{{pro.snf}}</p>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col col-8 text-wrap no-lines>
-                  <b>Vitamins</b>
+                  <p>Vitamins</p>
                 </ion-col>
                 <ion-col col-4 text-wrap no-lines>
-                  {{pro.vitamins}}
+                  <p>{{pro.vitamins}}</p>
                 </ion-col>
               </ion-row>
           </ion-grid>

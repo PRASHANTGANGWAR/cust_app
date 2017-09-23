@@ -1,22 +1,22 @@
-<ion-split-pane>
 
-  <ion-menu id="loggedOutMenu" [content]="content">
 
-    <ion-header>
-      <ion-toolbar>
+  <ion-menu id="loggedOutMenu" [content]="content" small>
+
+    <ion-header text-center>
+      <ion-toolbar color="none" menuClose text-center>
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="outer-content">
+    <ion-content>
       <ion-list [hidden]="!isLogin">
-        <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)" [hidden]="isLogin && disable">
+        <button  ion-item menuClose no-lines *ngFor="let p of appPages" (click)="openPage(p)" color="none" [hidden]="isLogin && disable">
           <ion-icon item-start [name]="p.icon" class="fontColor"></ion-icon>
           {{p.title}}
         </button>
       </ion-list>
       <ion-list [hidden]="isLogin">
-        <button ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" disabled={{p.disable}}>
+        <button ion-item menuClose no-lines *ngFor="let p of cashboyPages" (click)="openPage(p)" color="none" disabled={{p.disable}}>
           <ion-icon item-start [name]="p.icon" class="fontColor"></ion-icon>
           {{p.title}}
         </button>
@@ -27,5 +27,3 @@
 
   <!-- main navigation -->
   <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="app"></ion-nav>
-
-</ion-split-pane>

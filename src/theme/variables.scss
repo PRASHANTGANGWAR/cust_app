@@ -1,30 +1,25 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
-
-// Font path is used to include ionicons,
-// roboto, and noto sans fonts
 $font-path: "../assets/fonts";
-$font-family-md-base: 'Dosis', sans-serif;
-$font-family-ios-base: 'Dosis', sans-serif;
-$font-family-wp-base: 'Dosis', sans-serif;
-
-// The app direction is used to include
-// rtl styles in your app. For more info, please see:
-// http://ionicframework.com/docs/theming/rtl-support/
-$app-direction: ltr;
-
 
 @import "ionic.globals";
 
 
 // Shared Variables
 // --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass variables found in Ionic's source scss files.
-// To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+%cover{
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+}
 
-$headings-font-weight: 300;
+%overflow{
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+
 
 
 // Named Color Variables
@@ -37,21 +32,36 @@ $headings-font-weight: 300;
 
 $colors: (
   primary:    #df3796,
-  secondary:  #32db64,
-  danger:     #f53d3d,
+  secondary:  #413e4c,
+  notify:     #f7931e,
+  danger:     #ee3020,
   light:      #f4f4f4,
-  dark:       #222,
-  favorite:   #69BB7B,
-  twitter:    #1da1f4,
-  google:     #dc4a38,
-  vimeo:      #23b6ea,
-  facebook:   #3b5998
+  grayColor:  #9593a3,
+  dark:       #2a2342,
+  facebook:   #3a5795,
+  none:         transparent
 );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
+$toolbar-ios-height: 60px;
+$toolbar-ios-border-color: color($colors , primary);
+$toolbar-ios-title-font-weight: normal;
+$toolbar-ios-title-font-size: 1.5rem;
+$toolbar-ios-padding: 4px 15px;
+$toolbar-ios-button-font-size: 1.2rem;
+
+$button-ios-height: 5rem;
+$button-ios-margin: 1.2rem 0.2rem;
+$button-ios-font-size: 1.5rem;
+
+$item-ios-avatar-size: 40px;
+$item-ios-thumbnail-size: 90px; 
+
+$segment-button-md-border-bottom-width:0;
+
 
 
 
@@ -59,16 +69,13 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-// Use the primary color as the background for the toolbar-md-background
-$toolbar-md-background:                   color($colors, primary);
 
-// Change the color of the segment button text
-$toolbar-md-active-color:                 #fff;
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+
 
 
 
@@ -92,8 +99,6 @@ $toolbar-md-active-color:                 #fff;
 
 // Fonts
 // --------------------------------------------------
-// Roboto font is used by default for Material Design. Noto sans
-// is used by default for Windows.
 
 @import "roboto";
 @import "noto-sans";

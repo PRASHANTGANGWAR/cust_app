@@ -1,42 +1,36 @@
-<ion-header>
-
-  <ion-navbar style="min-height: 90px !important;">
-    <ion-title style="text-align: center;">
-    	<p>Choose Quantity</p>
-		<ion-icon name="remove-circle" (click)="decrementMain()"></ion-icon>
-						{{mainNumber}}
-		<ion-icon name="add-circle" (click)="incrementMain()"></ion-icon>
-    </ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding class="checkout" style="margin-top: 50px;">
-	<ion-list>
-		<ion-row *ngFor="let day of weekday; let i=index" style="border-bottom: 1px solid #bdbdbd">
-		<ion-col>
-			<ion-checkbox color="dark" (click)= "status(i)" 
-			checked></ion-checkbox>
-		</ion-col>
-		<ion-row style="display:block;" id="toggle{{i}}">
-			<ion-col>
-				{{day.day}}
-			</ion-col>
-			<ion-col>
-			   <ion-icon name="remove-circle" (click)="decrement(i)"></ion-icon>
-					{{day.currentNumber}}
-				<ion-icon name="add-circle" (click)="increment(i)"></ion-icon>
-			</ion-col>
-		</ion-row>
-		</ion-row>
-	</ion-list>
-	<ion-row>
-		<ion-col>
-	    	<button ion-button small round (click)="closeModal()">CANCEL</button>
-		 </ion-col>
-		  <ion-col>
-		  	<button ion-button small round (click)="proceed()">PROCEED</button>
-		  </ion-col>
-	  </ion-row>
+<ion-content>
+	<ion-card class="card-details" [ngSwitch]="det">
+	<ion-card-content>
+      <div class="Qty" text-center>
+        <h3 color="primary" >Choose Quantity</h3>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain()">
+          <ion-icon name="md-remove" color="light"></ion-icon>
+        </button>
+        <button ion-button clear class="op-btn mid-btn">
+          {{mainNumber}}
+        </button>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementMain()">
+          <ion-icon name="md-add" color="light"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+	<ion-card-content>
+	      <div class="Qty" text-center *ngFor="let day of weekday; let i=index">
+			<h3 color="primary" >
+				<ion-checkbox id="toggle{{index}}" color="#849513" (click)= "status(i)" 
+			       checked></ion-checkbox> {{day.day}}</h3>
+	        <button ion-button icon-only class="op-btn" color="primary" (click)="decrement(i)">
+	          <ion-icon name="md-remove" color="light"></ion-icon>
+	        </button>
+	        <button ion-button clear class="op-btn mid-btn">
+	          {{day.currentNumber}}
+	        </button>
+	        <button ion-button icon-only class="op-btn" color="primary" (click)="increment(i)">
+	          <ion-icon name="md-add" color="light"></ion-icon>
+	        </button>
+	      </div>
+	      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>
+			<button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+	</ion-card-content>
+</ion-card>
 </ion-content>

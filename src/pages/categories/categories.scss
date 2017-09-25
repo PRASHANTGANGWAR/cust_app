@@ -25,3 +25,55 @@ categories {
     border-bottom: 1px solid #bdbdbd;
    }
 }
+
+.main-list {
+
+  ion-card {
+    position: relative;
+    img{
+        height: 200px;
+        object-fit: cover;
+        -o-object-fit: cover;
+    }
+  }
+
+  .item-ios{
+    position: absolute;
+    bottom: 0;
+    min-height: 15rem;
+    align-items: flex-end;
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0.01) 1%,rgba(186,184,194,0.01) 0%,rgba(42,36,66,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.01) 1%,rgba(186,184,194,0.01) 0%,rgba(42,36,66,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#2a2442',GradientType=0 ); /* IE6-9 */
+    ion-avatar{
+        margin-right: 10px;
+        margin-bottom: 13px;
+        border-radius: 50%;
+        background: color($colors , primary);
+        border: 2px solid color($colors , grayColor);
+        ion-icon{
+            line-height: 35px;
+            font-size: 2.7rem;
+        }
+    }
+    h2{
+        @extend %overflow;
+        font-weight: 100;
+        color: color($colors,light);
+    }
+  }
+
+  .card-price {
+    position: absolute;
+    top: 17px;
+    right: 0;
+    background: color($colors , primary);
+    padding: 7px 18px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #fff;
+    -webkit-clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 7% 50%, 0% 0%);
+  }
+
+}

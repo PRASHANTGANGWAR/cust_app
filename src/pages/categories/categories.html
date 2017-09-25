@@ -6,11 +6,24 @@
     <ion-title text-uppercase>Place Order</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <button ion-button outline block round icon-left *ngFor="let cat of categories; 
-  let i = index" (click)='showlist(i)' style="margin-top: 5%;">
-    <ion-icon name="analytics"></ion-icon>
-    {{cat.name}}
-  </button>
+<ion-content>
+  <div class="main-list">
+    <ion-card *ngFor="let cat of categories; 
+   let i = index" (click)='showlist(i)'>
+      <img src="assets/img/03.png"/>
+      <div class="card-price">16.50 USD</div>
+      <ion-item>
+        <ion-avatar text-center item-start>
+        <ion-icon name="ios-more" color="light"></ion-icon>
+      </ion-avatar>
+      <h2 color="light" no-margin>{{cat.name}}</h2>
+      <div class="stars">
+        <ion-icon name="md-star"></ion-icon>
+        <ion-icon name="md-star"></ion-icon>
+        <ion-icon name="md-star"></ion-icon>
+        <ion-icon name="md-star"></ion-icon>
+      </div>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

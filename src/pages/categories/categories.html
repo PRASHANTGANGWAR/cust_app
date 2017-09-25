@@ -10,8 +10,8 @@
   <div class="main-list">
     <ion-card *ngFor="let cat of categories; 
    let i = index" (click)='showlist(i)'>
-      <img src="assets/img/03.png"/>
-      <div class="card-price">16.50 USD</div>
+      <img src="{{cat.products[0].image}}"/>
+      <div class="card-price">{{cat.products[0].price | currency:'INR':true}}</div>
       <ion-item>
         <ion-avatar text-center item-start>
         <ion-icon name="ios-more" color="light"></ion-icon>

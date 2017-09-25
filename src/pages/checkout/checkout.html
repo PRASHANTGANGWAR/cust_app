@@ -1,18 +1,33 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Place Order</ion-title>
+    <ion-title text-uppercase>My current Order</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-<ion-row>My current Order</ion-row>
-<ion-item *ngIf="orderPackages.length;else other_content">
-	<ion-card *ngFor="let order of orderPackages; let i= index" (click)="openModal(i)">
-		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
-		{{ order.product.category.name }} - {{order.product.name}}</ion-card-header>
+<ion-list class="cart-list" *ngIf="orderPackages.length;else other_content">
+<ion-item no-lines  *ngFor="let order of orderPackages; let i= index" (click)="openModal(i)">
+	<ion-thumbnail item-start>
+	    <img src="assets/img4.png">
+	</ion-thumbnail>
+	<h4 color="dark">{{ order.product.category.name }} - {{order.product.name}}</h4>
+	  <ion-grid no-padding>
+        <ion-row style="padding-top: 10px">
+         <ion-col text-left col-6>
+        	<p class="bold" text-uppercase>New Order!</p>
+   		 </ion-col>
+          <ion-col text-left col-6>
+          	<button (click)="updateOrder()" ion-button  round color="primary" text-uppercase no-margin>
+              Update
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+	<!-- <ion-card >
+	
 		<ion-card-content style="min-height: 200px;">
 		<ion-row>
 			<ion-col>Mon</ion-col>
@@ -27,11 +42,48 @@
 		 	<ion-col *ngFor="let qty of order.weekdays_qty">{{qty[1]}}</ion-col>
 		</ion-row>
 		</ion-card-content>
-	</ion-card>
+	</ion-card> -->
 </ion-item>
-
+</ion-list> 
 <ng-template #other_content>
-	<ion-card *ngFor="let prod of products; let i= index" (click)="openModal(i)">
+<ion-list class="cart-list">
+<ion-item no-lines  *ngFor="let prod of products; let i= index" (click)="openModal(i)">
+	<ion-thumbnail item-start>
+	    <img src="assets/img/img4.png">
+	</ion-thumbnail>
+	<h4 color="dark">{{ prod.display_name }} - {{prod.name}}</h4>
+	  <ion-grid no-padding>
+        <ion-row style="padding-top: 10px">
+    	<ion-col text-left col-6>
+        	<p class="bold" text-uppercase>New Order!</p>
+   		 </ion-col>
+         <ion-col text-left col-6>
+          	<button (click)="updateOrder()" ion-button  round color="primary" text-uppercase no-margin>
+              Update
+            </button>
+         </ion-col>
+        </ion-row>
+      </ion-grid>
+	<!-- <ion-card >
+	
+		<ion-card-content style="min-height: 200px;">
+		<ion-row>
+			<ion-col>Mon</ion-col>
+			<ion-col>Tue</ion-col>
+			<ion-col>Wed</ion-col>
+			<ion-col>Thu</ion-col>
+			<ion-col>Fri</ion-col>
+			<ion-col>Sat</ion-col>
+			<ion-col>Sun</ion-col>
+		</ion-row>
+		<ion-row>
+		 	<ion-col *ngFor="let qty of order.weekdays_qty">{{qty[1]}}</ion-col>
+		</ion-row>
+		</ion-card-content>
+	</ion-card> -->
+</ion-item>
+</ion-list> 
+	<!-- <ion-card *ngFor="let prod of products; let i= index" (click)="openModal(i)">
 		<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
 		{{ prod.display_name }} - {{prod.name}}</ion-card-header>
 		<ion-card-content style="min-height: 200px;">
@@ -42,7 +94,8 @@
 		 	<ion-col *ngFor="let day of prod.weekday">{{day.currentNumber}}</ion-col>
 		</ion-row>
 		</ion-card-content>
-	</ion-card>
+	</ion-card> -->
 </ng-template>
-<button ion-button round (click)="checkout()">Proceed to checkout</button>
+<!-- <button ion-button round (click)="checkout()">Proceed to checkout</button> -->
+
 </ion-content>

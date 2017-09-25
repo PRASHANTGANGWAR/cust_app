@@ -1,25 +1,26 @@
-
 <ion-header>
-
-  <ion-navbar>
-  <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
-   </button>
-    <ion-title>My Current Order</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>My Current Order</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-<ion-row padding>
-	<h3>Success!</h3>
-	<h6>Thanks for the order.Please Find below the order details</h6>
-</ion-row>
-<ion-card *ngFor="let package of orderPackages">
-	<ion-card-header style="border-bottom: 1px solid #bdbdbd;">
-	{{package.product.category.name}} - {{package.product.name}}</ion-card-header>
-	<ion-card-content style="min-height: 200px;">
+<ion-content>
+	<ion-list class="cart-list" padding>
+		<ion-item no-lines>
+		<h4 class="success">Success!</h4>
+		<h4 color="dark">Thanks for the order.</h4>
+		</ion-item>
+	<ion-item no-lines  *ngFor="let package of orderPackages">
+	<!-- <ion-card *ngFor="let package of orderPackages"> -->
+		<ion-thumbnail item-start>
+		    <img src="assets/img/img4.png">
+		</ion-thumbnail>
+		<h4 color="dark">{{package.product.category.name}} - {{package.product.name}}</h4>
+	<!-- <ion-card-content style="min-height: 200px;">
 	<ion-row>
 		<ion-col>Mon</ion-col>
 		<ion-col>Tue</ion-col>
@@ -39,19 +40,18 @@
 	 	<ion-col>{{package.weekdays_qty[6][1]}}</ion-col>
 	</ion-row>
 	</ion-card-content>
-</ion-card>
+</ion-card> -->
+</ion-item>
+</ion-list>
 <div padding>
-	<ion-list>
-		<ion-row>Address Details</ion-row>
-		<pre>{{currentOrderAddress.name}}, {{currentOrderAddress.area.name}}, {{currentOrderAddress.zone.name}}
-		</pre>
+	<ion-list class="address" padding>
+		<ion-item no-lines><h4 color="dark">Address Details</h4></ion-item>
+		<ion-item no-lines>{{currentOrderAddress.name}},</ion-item> 
+		<ion-item no-lines>{{currentOrderAddress.area.name}},</ion-item>
+		<ion-item no-lines>{{currentOrderAddress.zone.name}}</ion-item>
 	</ion-list>
-
-	<ion-item>
-	<h6>Meanwhile you can:</h6>
-		<button ion-button round (click)="editOrderPage()">TRACK YOUR ORDER</button>
-		<button ion-button round (click)="mainMenu()">BACK TO MENU </button>
-	</ion-item>	
+	<button color="primary" ion-button (click)="editOrderPage()" round block>TRACK YOUR ORDER</button>
+	<button color="secondary" ion-button (click)="mainMenu()" round block>BACK TO MENU </button>
 </div>
 
 

@@ -1,23 +1,61 @@
 <ion-header>
-
-  <ion-navbar>
-  <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
-   </button>
-    <ion-title>EditOrder</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>Edit Order</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-	<ion-list padding *ngIf="hasOrders;else other_content">
-		<ion-row ion-button round (click)="nonAvialability()">Set non availability</ion-row>
-		<ion-row  ion-button round (click)="editOrderDuration()">Edit order for a duration</ion-row >
-		<ion-row  ion-button round (click)="editDailyOrder()">Edit daily order
-    </ion-row>
-	</ion-list>
-  <ng-template #other_content>
+<ion-content>
+    <ion-list class="cart-list" *ngIf="hasOrders;else other_content">
+    <ion-item no-lines>
+      <ion-thumbnail item-start>
+        <img src="assets/img/img4.png">
+      </ion-thumbnail>
+      <h4 color="dark">Set non availability</h4>
+      <ion-grid no-padding>
+        <ion-row style="padding-top: 10px">
+          <ion-col text-left col-6>
+            <button (click)="nonAvialability()" ion-button  round color="primary" text-uppercase no-margin>
+              Update
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-thumbnail item-start>
+        <img src="assets/img/img4.png">
+      </ion-thumbnail>
+      <h4 color="dark">Edit order for a duration</h4>
+      <ion-grid no-padding>
+        <ion-row style="padding-top: 10px">
+          <ion-col text-left col-6>
+            <button (click)="editOrderDuration()" ion-button  round color="primary" text-uppercase no-margin>
+              Update
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-thumbnail item-start>
+        <img src="assets/img/img4.png">
+      </ion-thumbnail>
+      <h4 color="dark">Edit daily order</h4>
+      <ion-grid no-padding>
+        <ion-row style="padding-top: 10px">
+          <ion-col text-left col-6>
+            <button (click)="editDailyOrder()" ion-button  round color="primary" text-uppercase no-margin>
+              Update
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list> 
+    <ng-template #other_content>
     <div><h2>No order yet</h2></div>
   </ng-template>
 </ion-content>

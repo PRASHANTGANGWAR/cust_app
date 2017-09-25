@@ -7,42 +7,36 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class = "main-content">
-  <div class="card" style="min-height: 150px; background-color: #ffffff;">
-  	<ion-row>
-  		<ion-col><p>Delivery Date</p></ion-col>
-  		<ion-col style="padding: 22px;">
-      <div class="round">
+<ion-content>
+  <ion-card class=address-card *ngIf="address" padding>
+    <ion-list class="selection" padding>
+      <ion-item no-lines>
+         <ion-icon name="md-calendar" item-left></ion-icon>Delivery Date : 
         <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
   	 	   clear class="ScheduleDate">
   		    <span>{{initDate | date:'dd/MM/yyyy'}}</span>
   		  </span>
-      </div>
-  		</ion-col>
-  	</ion-row>
+      </ion-item>
 
-  	<ion-row>
-  		<ion-col><p>Delivery Time</p></ion-col>
-  		<ion-col>
-	  		 <ion-label class="round">5-7 AM</ion-label>
-  		</ion-col>
-  	</ion-row>
-  </div>
-	<ion-row padding>CHOOSE ADDRESS</ion-row>
- <ion-card>
- <div *ngIf="address">
- 	<ion-card-header style="border-bottom: 1px solid #bdbdbd; text-align: center;">{{address.address_type}}</ion-card-header>
- 	 <ion-card-content  style="min-height: 200px;">
- 	 <p>{{address.name}}</p>
-   <p>{{address.area.name}},</p>
-   <p>{{address.area.city.name}}</p>
-   <p>{{address.area.state.name}}</p>
- 	 </ion-card-content>
-   </div>
+      <ion-item no-lines>
+        <ion-icon name="md-alarm" item-left></ion-icon>Delivery Time : 5-7 AM
+      </ion-item>
+    </ion-list>
+  <br>
+    <ion-card-content>
+      <ion-list class="address" padding>
+        <ion-card-title padding class="address-type">{{address.address_type}}</ion-card-title>
+       	 <ion-item no-lines>{{address.name}}</ion-item>
+         <ion-item no-lines>{{address.area.name}},</ion-item>
+         <ion-item no-lines>{{address.area.city.name}}</ion-item>
+         <ion-item no-lines>{{address.area.state.name}}</ion-item>
+        </ion-list>
+   	</ion-card-content>
  </ion-card>
  <div style="padding: 25px">
     <button color="primary" ion-button round block (click)="addAddressPage()">Edit Address</button>
-    <button color="secondary"  ion-button round block (click)="checkoutPage()">Select</button>
+    <button color="secondary"  ion-button round block (click)="checkoutPage()">Select
+    Address</button>
   </div>
 
 </ion-content>

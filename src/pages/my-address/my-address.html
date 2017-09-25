@@ -1,74 +1,62 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>My Address</ion-title>
+    <ion-title text-uppercase>My Address</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <form #addressForm="ngForm" novalidate>
-    <ion-card>
-    <ion-card-header style="text-align: center;
-    border-bottom: 1px solid grey;">{{title}}</ion-card-header>
-      <ion-card-content>
-        <ion-row>
-          <ion-col>Choose Type</ion-col>
-          <ion-col radio-group [(ngModel)]="type" name="type">
-            <ion-item>
-              <ion-label>Home</ion-label>
-              <ion-radio value="Home"></ion-radio>
+<ion-content class="form-content" text-center>
+  <ion-title text-uppercase>{{title}}</ion-title>
+  <div class="Loginpage">
+    <div class="formContainer">
+      <form #addressForm="ngForm" novalidate>
+           <ion-list class="app-form" no-margin>
+            <div no-lines radio-group [(ngModel)]="type" name="type">
+              <ion-item no-lines>
+              <ion-label text-uppercase>home</ion-label>
+               <ion-radio value="Home"></ion-radio>
             </ion-item>
-            <ion-item>
-              <ion-label>Office</ion-label>
+            <ion-item no-lines>
+              <ion-label text-uppercase>office</ion-label>
               <ion-radio value="Office"></ion-radio>
             </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Choose City</ion-col>
-          <ion-col>
-        		 <select [ngModel]="city" name="city"
-             (ngModelChange)="selectOption($event,'null','null')" style="background-color: #bdbdbd;">
-                  <option *ngFor="let state of states">{{state.name}}</option>
-              </select>
-            </ion-col>
-          </ion-row>
+            </div>
+            <ion-item no-lines>
+              <select [ngModel]="city" name="city"
+                 (ngModelChange)="selectOption($event,'null','null')">
+                      <option *ngFor="let state of states">{{state.name}}</option>
+                  </select>
+            </ion-item>
 
-          <ion-row>
-            <ion-col>Choose Area</ion-col>
-            <ion-col>
-              <select [ngModel]="area" name="area"
-              (ngModelChange)="selectOptionCity($event)" style="background-color: 
-                #bdbdbd;">
+            <ion-item no-lines>
+              <select [ngModel]="area" name="area"(ngModelChange)="selectOptionCity($event)">
                 <option *ngFor="let city of cityOption">{{city.name}}</option>
               </select>
-            </ion-col>
-          </ion-row>
+            </ion-item>
 
-          <ion-row>
-            <ion-col>Choose Locality</ion-col>
-            <ion-col>
-            <select [ngModel]="local" name="local" style="background-color: #bdbdbd;">
-              <option *ngFor="let area of areaOption" [attr.value]="area.id">{{area.name}}</option>
-            </select>
-            </ion-col>
-          </ion-row>
-          <ion-item>
-            <ion-textarea [(ngModel)]="address.addressinfo" placeholder="Address" name="addressinfo" #addressinfo="ngModel" spellcheck="false" style="border: 1px solid #bdbdbd;
-          min-height: 100px;" required></ion-textarea>
-        </ion-item>
-        <p ion-text [hidden]="addressinfo.valid || submitted == false" color="danger" padding-left>
-            Address is required
-        </p>
-      </ion-card-content>
-    </ion-card>
-      <div padding [hidden]="!isAddress">
-          <button ion-button (click)="onUpdate(addressForm,addressForm.value)" type="submit" block>UPDATE</button>
-      </div>
-      <div padding [hidden]="isAddress">
-          <button ion-button (click)="onSubmit(addressForm,addressForm.value)" type="submit" block>Save</button>
-      </div>
-  </form>
+            <ion-item no-lines>
+              <select [ngModel]="local" name="local">
+                <option *ngFor="let area of areaOption" [attr.value]="area.id">{{area.name}}</option>
+              </select>
+            </ion-item>
+
+            <ion-item no-lines>
+              <ion-textarea [(ngModel)]="address.addressinfo" placeholder="Address" name="addressinfo" #addressinfo="ngModel" style=" min-height: 100px;" spellcheck="false" required></ion-textarea>
+            </ion-item>
+            <p ion-text [hidden]="addressinfo.valid || submitted == false" color="danger" padding-left>
+                Address is required
+            </p>
+          </ion-list>
+          <div padding [hidden]="!isAddress">
+              <button color="primary" (click)="onUpdate(addressForm,addressForm.value)" type="submit" ion-button block round text-uppercase>update</button>
+          </div>
+
+          <div padding [hidden]="isAddress">
+              <button color="secondary" (click)="onSubmit(addressForm,addressForm.value)" type="submit" ion-button block round text-uppercase>save</button>
+          </div>
+      </form>
+    </div>
+  </div>
 </ion-content>

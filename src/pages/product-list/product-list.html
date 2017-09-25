@@ -6,16 +6,19 @@
     <ion-title text-uppercase>Place Order</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content>
-  <ion-card class="card-details" *ngFor="let prod of products; let i = index">
+  <ion-card class="card-details" *ngFor="let prod of products; let i = index" 
+  (click)="additionalData()">
     <img src="assets/img/det-img.png"/>
     <div>
       <ion-card-content>
         <ion-card-title>
-          {{prod.display_name}}
+          {{prod.display_name}} - {{prod.name}}
         </ion-card-title>
-
-        <h4 class="price">{{prod.price | currency:'INR':true}}</h4>
+	    <h4 class="price">MRP:{{prod.price | currency:'INR':true}}</h4>
+	    <h3>{{'Save:'+prod.discount}}</h3>
+	    <h3 class="price">{{prod.price_with_discount | currency:'INR':true}}</h3>
         <p>
          {{prod.description}}
         </p>

@@ -12,7 +12,7 @@
     <div class="formContainer">
            <ion-list class="app-form" no-margin>
             <ion-item no-lines>
-            	<ion-icon name="ios-calendar" item-left></ion-icon>
+            	<ion-icon name="ios-calendar" item-left></ion-icon>From: 
               <span ion-datepicker (ionChanged)="setfromDate($event);" [value]="fromDate"
 		  	 	   clear class="ScheduleDate">
 		  		    <span>{{fromDate | date:'dd/MM/yyyy'}}</span>
@@ -20,7 +20,7 @@
             </ion-item>
 
             <ion-item no-lines>
-            	<ion-icon name="ios-calendar" item-left></ion-icon>
+            	<ion-icon name="ios-calendar" item-left></ion-icon>To:
               <span ion-datepicker (ionChanged)="settoDate($event);" [value]="toDate"
 		  	 	   clear class="ScheduleDate">
 		  		    <span>{{toDate | date:'dd/MM/yyyy'}}</span>

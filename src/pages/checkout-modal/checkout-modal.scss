@@ -16,11 +16,15 @@ page-details {
 
 .Qty{
     h3{
-        border-top: 1px solid #000;
+        border-top:none !important;
         padding-top: 25px;
         width: 175px;
         margin: 0 auto;
     }
+}
+
+.Qty.main{
+    border-bottom: 1px solid #000000 !important;
 }
 
 // Info Section

@@ -1,8 +1,8 @@
 <ion-content>
 	<ion-card class="card-details" [ngSwitch]="det">
 	<ion-card-content>
-      <div class="Qty" text-center>
-        <h3 color="primary" >Choose Quantity</h3>
+      <div class="Qty main" text-center>
+        <h4 class="bold"> {{title}}</h4>
         <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain()">
           <ion-icon name="md-remove" color="light"></ion-icon>
         </button>
@@ -16,9 +16,7 @@
     </ion-card-content>
 	<ion-card-content>
 	      <div class="Qty" text-center *ngFor="let day of weekday; let i=index">
-			<h3 color="primary" >
-				<ion-checkbox id="toggle{{index}}" color="#849513" (click)= "status(i)" 
-			       checked></ion-checkbox> {{day.day}}</h3>
+			<h3 color="primary"> {{day.day}}</h3>
 	        <button ion-button icon-only class="op-btn" color="primary" (click)="decrement(i)">
 	          <ion-icon name="md-remove" color="light"></ion-icon>
 	        </button>

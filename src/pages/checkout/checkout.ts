@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Modal, ModalController, NavController, NavParams } from 'ionic-angular';
-import { ConferenceData } from '../../providers/conference-data';
-import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
-import { CurrentOrderPage } from '../current-order/current-order';
+import {  NavController, NavParams } from 'ionic-angular';
+//import { ConferenceData } from '../../providers/conference-data';
+//import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
+//import { CurrentOrderPage } from '../current-order/current-order';
+import { OrderChoicePage } from '../order-choice/order-choice';
 import { Alerts } from '../../providers/alerts-provider';
 
 declare var window:any;
@@ -15,34 +16,35 @@ export class CheckoutPage {
 	private categories:any =[];
 	private products:any =[];
 	private deliveryDate:any;
-	private orderPackages:any =[];
-	private allOrders:any;
+	//private orderPackages:any =[];
+	//private allOrders:any;
 	constructor(
-		private modalCtrl: ModalController,
+		//private modalCtrl: ModalController,
 		public navCtrl: NavController,
-		private confData: ConferenceData,
+		//private confData: ConferenceData,
 		public navParams: NavParams,
 		public alerts: Alerts){
-		this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
-		if(this.allOrders.length){
+		//this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
+		/*if(this.allOrders.length){
 			this.alerts.showLoader();
 			this.orderPackages = this.allOrders[0].order_packages
 			this.alerts.hideLoader();
 		}else{
 			this.getCategories();
-		}
+		}*/
+		this.getCategories();
 		let selectedDate = this.navParams.get('deliveryDate');
 		this.deliveryDate = selectedDate.getFullYear()+'-'+("0" + (selectedDate.getMonth() + 1)).slice(-2)+'-'+selectedDate.getDate();
 	}
 
-	openModal(index: number) {
+	/*openModal(index: number) {
 		let sendData:any=[];
 		if(this.allOrders.length){
 			sendData = this.orderPackages;
 		}else{
 			sendData = this.products;
 		}
-	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{result:sendData});
+	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage);
 	   chekoutModal.present();
 	   chekoutModal.onDidDismiss((data)=>{
 	   	if(data){
@@ -60,7 +62,7 @@ export class CheckoutPage {
 	   	}
 
 	   });
-	}
+	}*/
 
 	getCategories(){
 		this.alerts.showLoader();
@@ -76,14 +78,13 @@ export class CheckoutPage {
 	getProducts() {
 	    this.categories.forEach((x:any)=> { 
 	      x.forEach((y:any) => {
-	      	y.weekday = [{"day":"Mon","currentNumber":0}, {"day":"Tue","currentNumber":0}, {"day":"Wed","currentNumber":0}, {"day":"Thu","currentNumber":0}, {"day":"Fri","currentNumber":0}, {"day":"Sat","currentNumber":0}, {"day":"Sun","currentNumber":0}];
 	        this.products.push(y);
 	        console.log(this.products);
 	      })
 	    })
 	}
 
-	checkout(){
+	/*checkout(){
 		this.alerts.showLoader();
 		//this.validation();
 		if(this.allOrders.length){
@@ -161,8 +162,8 @@ export class CheckoutPage {
 				this.alerts.presentToast("Please choose atleast one product quantity.");
 			}
 		}
-	}
-
+	}*/
+	/*
 	validationNewOrder(){
 		for(var m=0;m<this.products.length;m++){
 			for(var n=0;n<this.products[m].weekday.length;n++){
@@ -171,8 +172,8 @@ export class CheckoutPage {
 				}
 			}
 		}
-	}
-
+	}*/
+	/*
 	validationEditOrder(){
 		for(var p=0;p<this.orderPackages.length;p++){
 			for(var q=0;q<this.orderPackages[p].weekdays_qty.length;q++){
@@ -181,5 +182,9 @@ export class CheckoutPage {
 				}
 			}
 		}
+	}*/
+
+	orderChoice(product_id:number){
+		this.navCtrl.push(OrderChoicePage,{data:product_id});
 	}
 }

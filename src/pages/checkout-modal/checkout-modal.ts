@@ -14,14 +14,33 @@ import { NavParams,ViewController } from 'ionic-angular';
 })
 export class CheckoutModalPage {
 	checked:boolean = true;
-	private mainNumber = 2;
-	private weekday = [{"day":"Monday","currentNumber":2}, {"day":"Tuesday","currentNumber":2}, {"day":"Wednesday","currentNumber":2}, {"day":"Thursday","currentNumber":2}, {"day":"Friday","currentNumber":2}, {"day":"Saturday","currentNumber":2}, {"day":"Sunday","currentNumber":2}];
+	public title = "";
+	private mainNumber = 0;
+	private weekday:any = [];
   constructor( public navParams: NavParams, private view: ViewController ) {
   }
 
   ionViewDidLoad() {
-  	let recieveData = this.navParams.get('result');
-    console.log(recieveData);
+  	let recieveChoice = this.navParams.get('data');
+   	console.log(recieveChoice);
+   	if(recieveChoice=="everyday"){
+   		this.title = "Everyday";
+   	} else if(recieveChoice == "alternate"){
+   		this.title = "Alternate Day";
+   		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Wednesday","currentNumber":0},  {"day":"Friday","currentNumber":0}, {"day":"Sunday","currentNumber":0}];
+  	} else if(recieveChoice == "mwf"){
+  		this.title = "Mon-Wed-Fri";
+  		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Friday","currentNumber":0}];
+  	} else if(recieveChoice == "mf"){
+  		this.title = "Mon-Fri";
+  		this.weekday=[{"day":"Monday","currentNumber":0},{"day":"Friday","currentNumber":0}];
+  	} else if(recieveChoice == "tts"){
+  		this.title = "Tue-Thu-Sat";
+  		this.weekday=[{"day":"Tuesday","currentNumber":0}, {"day":"Thursday","currentNumber":0}, {"day":"Saturday","currentNumber":0}];
+  	} else if(recieveChoice == "custom"){
+  		this.title = "Custom";
+  		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Tuesday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Thursday","currentNumber":0}, {"day":"Friday","currentNumber":0}, {"day":"Saturday","currentNumber":0}, {"day":"Sunday","currentNumber":0}];
+  	}
   }
 
   	incrementMain(){
@@ -80,20 +99,12 @@ export class CheckoutModalPage {
 		}
 	}
 
-	status(index:number){
-		console.log(index);
-		let div = <HTMLElement>document.querySelector("#toggle"+index);
-		let display = div.style.display;
-       	div.style.display = (display ==="block")? "none" : "block";
-       	this.weekday[index].currentNumber = 0;
+	closeModal(){
+	  	this.view.dismiss(null);
 	}
 
-	 closeModal(){
-	  	this.view.dismiss(null);
-	  }
-
 	proceed(){
-		this.view.dismiss(this.weekday);
+		this.view.dismiss("Hello modal");
 	}
 
 }

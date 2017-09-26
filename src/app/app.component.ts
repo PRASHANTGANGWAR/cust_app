@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, MenuController, Nav, Platform } from 'ionic-angular';
+import { Events, MenuController, Nav, Platform,ModalController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
@@ -14,7 +14,7 @@ import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Alerts } from '../providers/alerts-provider';
-
+import { Splash } from '../pages/splash/splash';
 
 declare var window: any;
 export interface PageInterface {
@@ -80,12 +80,13 @@ export class ConferenceApp {
     public platform: Platform,
     public confData: ConferenceData,
     public alerts: Alerts, 
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public modalCtrl: ModalController
   ) {
       if(window.localStorage.getItem('login_details')){
         this.isLogin = true;
       }
-      this.rootPage = CategoriesPage;
+      //this.rootPage = CategoriesPage;
       this.platformReady()
       this.listenToUserEvents();
    }
@@ -157,7 +158,9 @@ export class ConferenceApp {
   platformReady() {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
+      //this.splashScreen.hide();
+      let splash = this.modalCtrl.create(Splash);
+            splash.present();
       if(this.platform.is('android')){
         window.localStorage.setItem('deviceType',"android");
       }

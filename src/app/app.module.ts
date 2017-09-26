@@ -21,6 +21,7 @@ import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { ProfilePage } from '../pages/profile/profile';
 import { ChangePasPage } from '../pages/change-pas/change-pas';
 import { CheckoutPage } from '../pages/checkout/checkout';
+import { OrderChoicePage } from '../pages/order-choice/order-choice'; 
 import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
 import { EditOrderPage } from '../pages/edit-order/edit-order';
@@ -34,6 +35,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { CallNumber } from '@ionic-native/call-number';
+import { Splash } from '../pages/splash/splash';
 
 var config = {
   backButtonText: '',
@@ -61,12 +63,14 @@ var config = {
     ProfilePage,
     LastFiveOrder,
     CheckoutPage,
+    OrderChoicePage, 
     CheckoutModalPage,
     CurrentOrderPage,
     EditOrderPage,
     SetNonavailabilityPage,
     EditDailyOrderPage,
-    EditOrderDurationPage
+    EditOrderDurationPage,
+    Splash
   ],
   imports: [
     BrowserModule,
@@ -85,6 +89,7 @@ var config = {
         { component: ContactPage, name: 'ContactPage', segment: 'contactUs' },
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
         { component: CheckoutPage, name: 'Checkout', segment: 'checkout' },
+         { component: OrderChoicePage, name: 'OrderChoice', segment: 'orderChoice' }, 
         { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
         { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
@@ -116,12 +121,14 @@ var config = {
     ContactPage,
     LastFiveOrder,
     CheckoutPage,
+    OrderChoicePage,
     CheckoutModalPage,
     CurrentOrderPage,
     EditOrderPage,
     SetNonavailabilityPage,
     EditDailyOrderPage,
-    EditOrderDurationPage
+    EditOrderDurationPage,
+    Splash
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

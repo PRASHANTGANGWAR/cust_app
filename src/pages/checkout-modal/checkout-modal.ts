@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, NavController, ViewController,AlertController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
-import { CurrentOrderPage } from '../current-order/current-order';
 import { ConferenceData } from '../../providers/conference-data';
 
 /**
@@ -218,7 +217,7 @@ export class CheckoutModalPage {
 	    this.confData.updateOrder(order).then((data:any)=>{
 			this.alerts.hideLoader();
 			if (data.status == 200){
-				this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data.json()});
+        this.view.dismiss(data.json());
 			}else{
 				this.alerts.presentToast(data.statusText);
 			}
@@ -240,7 +239,7 @@ export class CheckoutModalPage {
 	    this.confData.newOrder(order).then((data:any)=>{
 			this.alerts.hideLoader();
 			if (data.status == 201){
-				this.navCtrl.push(CurrentOrderPage,{currentOrder: data.json()});
+				this.view.dismiss(data.json());
 			}else{
 				this.alerts.presentToast(data.statusText);
 			}

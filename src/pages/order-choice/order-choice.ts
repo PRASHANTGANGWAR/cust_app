@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, Modal, ModalController, NavParams } from 'ionic-angular';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
+import { CurrentOrderPage } from '../current-order/current-order';
 
 @Component({
   selector: 'page-order-choice',
@@ -27,7 +28,7 @@ export class OrderChoicePage {
 	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:this.order_data});
 	  	chekoutModal.present();
 		chekoutModal.onDidDismiss((data)=>{
-		   	console.log(data);
+		   	this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data});
 		});
   }
 

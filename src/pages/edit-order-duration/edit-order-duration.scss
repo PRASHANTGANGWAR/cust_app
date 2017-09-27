@@ -166,3 +166,12 @@ rating{
         }
     }
 }
+.selection{
+        border:none !important;
+        ion-item{
+            border: 1px solid #c8c7cc !important;
+            border-radius: 25px;
+            min-height: 5rem;
+            margin-bottom: 12px;
+        }
+}

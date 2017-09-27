@@ -166,3 +166,12 @@ rating{
         }
     }
 }
+    .selection{
+        margin:0px !important;
+        item{
+            border: 1px solid #c8c7cc !important;
+            border-radius: 25px;
+            min-height: 5rem;
+            margin-bottom: 12px;
+        }
+    }

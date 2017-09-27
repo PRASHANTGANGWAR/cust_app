@@ -16,6 +16,7 @@ export class CheckoutPage {
 	private categories:any =[];
 	private products:any =[];
 	private deliveryDate:any;
+	private ctData:any ={};
 	//private orderPackages:any =[];
 	//private allOrders:any;
 	constructor(
@@ -185,6 +186,8 @@ export class CheckoutPage {
 	}*/
 
 	orderChoice(product_id:number){
-		this.navCtrl.push(OrderChoicePage,{data:product_id});
+		this.ctData.product_id=product_id;
+		this.ctData.deliveryDate=this.deliveryDate;
+		this.navCtrl.push(OrderChoicePage,{data:this.ctData});
 	}
 }

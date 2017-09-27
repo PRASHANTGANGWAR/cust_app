@@ -7,6 +7,7 @@ import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
   templateUrl: 'order-choice.html',
 })
 export class OrderChoicePage {
+	public order_data:any = {};
 
   constructor(
   	public navCtrl: NavController,
@@ -15,13 +16,15 @@ export class OrderChoicePage {
   }
 
   ionViewDidLoad() {
-  	let product_id=this.navParams.get('data');
-    console.log('ionViewDidLoad OrderChoicePage'+product_id);
+  	let product_data=this.navParams.get('data');
+    console.log('ionViewDidLoad OrderChoicePage');
+    this.order_data.product_data = product_data;
   }
 
   openModal(choice:string) {
   	console.log(choice);
-	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:choice});
+  		this.order_data.choice = choice;
+	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:this.order_data});
 	  	chekoutModal.present();
 		chekoutModal.onDidDismiss((data)=>{
 		   	console.log(data);

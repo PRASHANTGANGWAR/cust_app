@@ -86,7 +86,7 @@ export class ConferenceApp {
       if(window.localStorage.getItem('login_details')){
         this.isLogin = true;
       }
-      //this.rootPage = CategoriesPage;
+      this.rootPage = CategoriesPage;
       this.platformReady()
       this.listenToUserEvents();
    }

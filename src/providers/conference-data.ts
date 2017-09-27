@@ -126,23 +126,18 @@ export class ConferenceData {
 
   orderData(data:any){
     let userAddress = JSON.parse(window.localStorage.getItem('user_address'));
-    let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
     let user = JSON.parse(window.localStorage.getItem('login_details'));
       let order:any={};
       order.address_id = userAddress.addresses[0].id;
-      order.alter_from = data.alter_from
-      if(allOrders.length){
-         order.alternate = "false";
-      }else{
-          order.alternate = "true";
-      }
+      order.alter_from = "";
+      order.alternate = "true";
       order.app_version = "2.1";
       order.customer_id = user.id;
       order.delivery_date = data.delivery_date
-      order.isNew = data.isNew
+      order.isNew = "1";
       order.order_packages_attributes = data.order_packages_attributes
-      order.pickup = data.pickup;
-      order.recurring = data.recurring;
+      order.pickup = "false";
+      order.recurring = "true";
       
       return {order};
   }

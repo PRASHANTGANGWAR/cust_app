@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController,NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
- import { CategoriesPage } from '../categories/categories';
 
 @Component({
   selector: 'page-splash',
@@ -19,7 +18,6 @@ export class Splash {
  
     setTimeout(() => {
       this.viewCtrl.dismiss();
-      this.navCtrl.setRoot(CategoriesPage);
     }, 4000);
  
   }

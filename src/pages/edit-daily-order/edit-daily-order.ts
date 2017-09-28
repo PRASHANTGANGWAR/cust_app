@@ -35,8 +35,8 @@ export class EditDailyOrderPage {
 
   setDate(date:Date){
   	let today = new Date();
-  	today.setDate(today.getDate()+1);
-  	if(date.getDate() >= today.getDate()){
+  	today.setDate(today.getDate());
+  	if(date.getTime() >= today.getTime()){
   		this.initDate = date;
   	}else{
   		this.alerts.presentToast("Please choose correct date");

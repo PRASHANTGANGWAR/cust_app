@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class=address-card *ngIf="address" padding>
+  <ion-card *ngIf="address" padding>
     <ion-list class="selection" padding>
       <ion-item no-lines>
          <ion-icon name="md-calendar" item-left></ion-icon>Delivery Date : 
@@ -22,7 +22,7 @@
         <ion-icon name="md-alarm" item-left></ion-icon>Delivery Time : 5-7 AM
       </ion-item>
     </ion-list>
-  <br>
+
     <ion-card-content>
       <ion-list class="address" padding>
         <ion-card-title padding class="address-type">{{address.address_type}}</ion-card-title>
@@ -33,7 +33,7 @@
         </ion-list>
    	</ion-card-content>
  </ion-card>
- <div style="padding: 25px">
+ <div style="padding: 0 25px">
     <button color="primary" ion-button round block (click)="addAddressPage()">Edit Address</button>
     <button color="secondary"  ion-button round block (click)="checkoutPage()">Select
     Address</button>

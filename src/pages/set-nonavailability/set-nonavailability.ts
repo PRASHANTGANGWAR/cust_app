@@ -45,10 +45,10 @@ export class SetNonavailabilityPage {
 
   setfromDate(date: Date) {
   	let today = new Date();
-    today.setDate(today.getDate()+1);
-    if(date.getDate() >= today.getDate()){
+    today.setDate(today.getDate());
+    if(date.getTime() >= today.getTime()){
     	this.fromDate = date;
-      if(this.toDate.getDate() < this.fromDate.getDate()){
+      if(this.toDate.getTime() < this.fromDate.getTime()){
         this.toDate = this.fromDate;
       } 
     }else{
@@ -58,8 +58,8 @@ export class SetNonavailabilityPage {
 
   settoDate(date: Date) {
     let today = new Date();
-    today.setDate(today.getDate()+1);
-    if(date.getDate() >= today.getDate() && date.getDate() >= this.fromDate.getDate()){
+    today.setDate(today.getDate());
+    if(date.getTime() >= today.getTime() && date.getTime() >= this.fromDate.getTime()){
     	 this.toDate = date;
     }else{
     	this.alerts.presentToast("Please choose correct date");

@@ -28,7 +28,9 @@ export class OrderChoicePage {
 	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:this.order_data});
 	  	chekoutModal.present();
 		chekoutModal.onDidDismiss((data)=>{
-		   	this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data});
+        if(data){
+		   	  this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data});
+        }
 		});
   }
 

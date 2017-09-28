@@ -53,7 +53,7 @@
             <p class="status deliver" >New Order</p>
           </ion-col>
           <ion-col col-6>
-          	<button ion-button  round color="primary" text-uppercase no-margin>
+          	<button (click)="orderChoice(order.product_id)" ion-button  round color="primary" text-uppercase no-margin>
               Update
             </button>
           </ion-col>

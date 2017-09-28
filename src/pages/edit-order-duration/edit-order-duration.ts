@@ -4,6 +4,7 @@ import { Alerts } from '../../providers/alerts-provider';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { ConferenceData } from '../../providers/conference-data';
 import { EditOrderPage } from '../edit-order/edit-order';
+import { OrderChoicePage } from '../order-choice/order-choice';
 
 declare var window:any;
 @Component({
@@ -35,10 +36,10 @@ export class EditOrderDurationPage {
 
   setfromDate(date: Date) {
   	let today = new Date();
-    today.setDate(today.getDate()+1);
-    if(date.getDate() >= today.getDate()){
+    today.setDate(today.getDate());
+    if(date.getTime() >= today.getTime()){
     	this.fromDate = date;
-      if(this.toDate.getDate() < this.fromDate.getDate()){
+      if(this.toDate.getTime() < this.fromDate.getTime()){
         this.toDate = this.fromDate;
       } 
     }else{
@@ -48,8 +49,8 @@ export class EditOrderDurationPage {
 
   settoDate(date: Date) {
     let today = new Date();
-    today.setDate(today.getDate()+1);
-    if(date.getDate() >= today.getDate() && date.getDate() >= this.fromDate.getDate()){
+    today.setDate(today.getDate());
+    if(date.getTime() >= today.getTime() && date.getTime() >= this.fromDate.getTime()){
     	 this.toDate = date;
     }else{
     	this.alerts.presentToast("Please choose correct date");
@@ -105,6 +106,16 @@ export class EditOrderDurationPage {
         }
       });
     }
+
+  orderChoice(product_id:number){
+    let editData:any={};
+    let dFrom = this.fromDate.getFullYear()+'-'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'-'+this.fromDate.getDate();
+    let dTo = this.toDate.getFullYear()+'-'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'-'+this.toDate.getDate();
+    editData.product_id=product_id;
+    editData.deliveryDate=dFrom;
+    editData.end_date = dTo;
+    this.navCtrl.push(OrderChoicePage,{data:editData});
+  }
 
   getAllOrders(){
     this.confData.getAllOrders().then((res:any)=>{

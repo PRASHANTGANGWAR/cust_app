@@ -130,12 +130,18 @@ export class ConferenceData {
       let order:any={};
       order.address_id = userAddress.addresses[0].id;
       order.alter_from = "";
-      order.alternate = "true";
       order.app_version = "2.1";
       order.customer_id = user.id;
-      order.delivery_date = data.delivery_date
+      order.delivery_date = data.delivery_date;
+      if(data.end_date){
+        order.end_date = data.end_date;
+      }
       order.isNew = "1";
-      order.order_packages_attributes = data.order_packages_attributes
+      order.alternate = data.alternate;
+      order.order_packages_attributes = data.order_packages_attributes;
+      if(data.parent_order_id){
+        order.parent_order_id=data.parent_order_id;
+      }
       order.pickup = "false";
       order.recurring = "true";
       
@@ -164,19 +170,13 @@ export class ConferenceData {
     });
   }
 
-  createChildOrder(order:any){
+  createChildOrder(data:any){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
-    let userAddress = JSON.parse(window.localStorage.getItem('user_address'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
-    order.address_id = userAddress.addresses[0].id;
-    order.alternate = "false";
-    order.app_version = "2.1";
-    order.customer_id = user.id;
-    //add required data to send wiht post request in order object 
     let options = new RequestOptions({ 
       method: RequestMethod.Post,
       headers: headers,
-      body: JSON.stringify({order}),
+      body: JSON.stringify(this.orderData(data)),
       url: this.baseUrl+'/orders'
     });
     return new Promise(resolve => {

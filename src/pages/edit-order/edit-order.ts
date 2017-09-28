@@ -42,18 +42,18 @@ export class EditOrderPage {
   }
 
   nonAvialability(){
-  	this.navCtrl.setRoot(SetNonavailabilityPage);
+  	this.navCtrl.push(SetNonavailabilityPage);
   }
 
   editDailyOrder(){
     this.alerts.showLoader();
-    this.navCtrl.setRoot(EditDailyOrderPage);
+    this.navCtrl.push(EditDailyOrderPage);
     this.alerts.hideLoader();
   }
 
   editOrderDuration(){
     this.alerts.showLoader();
-    this.navCtrl.setRoot(EditOrderDurationPage);
+    this.navCtrl.push(EditOrderDurationPage);
     this.alerts.hideLoader();
   }
 

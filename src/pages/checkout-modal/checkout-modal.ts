@@ -34,22 +34,61 @@ export class CheckoutModalPage {
    	console.log(this.recieveChoice);
    	if(this.recieveChoice.choice=="everyday"){
    		this.title = "Everyday";
+      this.everydayData();
    	} else if(this.recieveChoice.choice == "alternate"){
    		this.title = "Alternate Day";
-   		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Wednesday","currentNumber":0},  {"day":"Friday","currentNumber":0}, {"day":"Sunday","currentNumber":0}];
+      this.everydayData();
   	} else if(this.recieveChoice.choice == "mwf"){
   		this.title = "Mon-Wed-Fri";
-  		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Friday","currentNumber":0}];
+      this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Friday","currentNumber":0}];
+      this.fillQuantityData(this.weekday);
   	} else if(this.recieveChoice.choice == "mf"){
   		this.title = "Mon-Fri";
-  		this.weekday=[{"day":"Monday","currentNumber":0},{"day":"Friday","currentNumber":0}];
-  	} else if(this.recieveChoice.choice == "tts"){
+  		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Tuesday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Thursday","currentNumber":0}, {"day":"Friday","currentNumber":0}];
+  	  this.fillQuantityData(this.weekday);
+    } else if(this.recieveChoice.choice == "tts"){
   		this.title = "Tue-Thu-Sat";
   		this.weekday=[{"day":"Tuesday","currentNumber":0}, {"day":"Thursday","currentNumber":0}, {"day":"Saturday","currentNumber":0}];
-  	} else if(this.recieveChoice.choice == "custom"){
+  	  this.fillQuantityData(this.weekday);
+    } else if(this.recieveChoice.choice == "custom"){
   		this.title = "Custom";
   		this.weekday=[{"day":"Monday","currentNumber":0}, {"day":"Tuesday","currentNumber":0}, {"day":"Wednesday","currentNumber":0}, {"day":"Thursday","currentNumber":0}, {"day":"Friday","currentNumber":0}, {"day":"Saturday","currentNumber":0}, {"day":"Sunday","currentNumber":0}];
-  	}
+  	  this.fillQuantityData(this.weekday);
+    }
+  }
+
+  fillQuantityData(weekday:any){
+    let allOrders=JSON.parse(window.localStorage.getItem('allOrders'));
+    if(allOrders.length){
+       for(var i=0;i<allOrders[0].order_packages.length;i++){
+          if(allOrders[0].order_packages[i].product_id == this.recieveChoice.product_data.product_id){
+            for(var j=0;j<weekday.length;j++){
+              for(var k=0;k<allOrders[0].order_packages[i].weekdays_qty.length;k++){
+                if(weekday[j].day==allOrders[0].order_packages[i].weekdays_qty[k][0]){
+                  weekday[j].currentNumber=allOrders[0].order_packages[i].weekdays_qty[k][1];
+                }
+              }
+            }
+        }
+      }
+    }
+  }
+
+  everydayData(){
+    let allOrders=JSON.parse(window.localStorage.getItem('allOrders'));
+    if(allOrders.length){
+       for(var i=0;i<allOrders[0].order_packages.length;i++){
+          if(allOrders[0].order_packages[i].product_id == this.recieveChoice.product_data.product_id){
+              for(var k=1;k<allOrders[0].order_packages[i].weekdays_qty.length;k++){
+                if(allOrders[0].order_packages[i].weekdays_qty[0][1]!==allOrders[0].order_packages[i].weekdays_qty[k][1]){
+                 this.mainNumber = 0;
+                }else{
+                  this.mainNumber = allOrders[0].order_packages[i].weekdays_qty[0][1];
+                }
+              }
+            }
+        }
+      }
   }
 
   	incrementMain(){
@@ -118,13 +157,9 @@ export class CheckoutModalPage {
 	   			this.apiWeek[i].currentNumber=this.mainNumber;
 	   		}
    		} else if(this.recieveChoice.choice == "alternate"){
-   			for(var j=0;j<this.weekday.length;j++){
-   				for(var k=0;k<this.apiWeek.length;k++){
-   					if(this.weekday[j].day==this.apiWeek[k].day){
-   						this.apiWeek[k].currentNumber = this.weekday[j].currentNumber;
-   					}
-   				}
-   			}
+   			for(var j=0;j<this.apiWeek.length;j++){
+          this.apiWeek[j].currentNumber=this.mainNumber;
+        }
    		}else if(this.recieveChoice.choice == "mwf"){
    			for(var l=0;l<this.weekday.length;l++){
    				for(var m=0;m<this.apiWeek.length;m++){
@@ -191,17 +226,16 @@ export class CheckoutModalPage {
   	let allOrders=JSON.parse(window.localStorage.getItem('allOrders'));
     let order:any={"order_packages_attributes":{}};
     order.delivery_date = this.recieveChoice.product_data.deliveryDate;
+    if(this.recieveChoice.choice == "alternate"){
+       order.alternate = "true";
+    }else{
+      order.alternate = "false";
+    }
     order["order_packages_attributes"][0] = {};
     order["order_packages_attributes"][0]["id"] = "";
     //check if there is an existing order
     if(allOrders.length){
     	//update order
-    	for(var t=0;t<allOrders[0].order_packages.length;t++){
-    		if(allOrders[0].order_packages[t].product_id == this.recieveChoice.product_data.product_id){
-    			order["order_packages_attributes"][0]["id"]= allOrders[0].order_packages[t].id;
-    		}
-    	}
-    	
 		order["order_packages_attributes"][0]["default _qty"] = "3";
 		order["order_packages_attributes"][0]["friday"] = this.apiWeek[4].currentNumber;
 		order["order_packages_attributes"][0]["monday"] = this.apiWeek[0].currentNumber;
@@ -214,14 +248,33 @@ export class CheckoutModalPage {
 		order["order_packages_attributes"][0]["tuesday"] = this.apiWeek[1].currentNumber;
 		order["order_packages_attributes"][0]["wednesday"] = this.apiWeek[2].currentNumber;
 		order.order_id = allOrders[0].id;
-	    this.confData.updateOrder(order).then((data:any)=>{
-			this.alerts.hideLoader();
-			if (data.status == 200){
-        this.view.dismiss(data.json());
-			}else{
-				this.alerts.presentToast(data.statusText);
-			}
-		});
+      if(this.recieveChoice.product_data.end_date){
+         //update order for a duration
+          order.end_date=this.recieveChoice.product_data.end_date;
+          order.parent_order_id = allOrders[0].id;
+          this.confData.createChildOrder(order).then((data:any)=>{
+          this.alerts.hideLoader();
+          if (data.status == 201){
+            this.view.dismiss(data.json());
+          }else{
+            this.alerts.presentToast(data.statusText);
+          }
+        });
+      } else{
+          for(var t=0;t<allOrders[0].order_packages.length;t++){
+            if(allOrders[0].order_packages[t].product_id == this.recieveChoice.product_data.product_id){
+              order["order_packages_attributes"][0]["id"]= allOrders[0].order_packages[t].id;
+            }
+          }
+    	    this.confData.updateOrder(order).then((data:any)=>{
+      			this.alerts.hideLoader();
+      			if (data.status == 200){
+              this.view.dismiss(data.json());
+      			}else{
+      				this.alerts.presentToast(data.statusText);
+      			}
+    		  });
+      }
 	} else{
 		//create new order
 		order["order_packages_attributes"][0] = {};

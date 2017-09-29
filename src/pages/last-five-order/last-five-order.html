@@ -1,14 +1,14 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Last Five Deliveries</ion-title>
+    <ion-title text-uppercase>Last Five Deliveries</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-card><h2>{{dataFound}}</h2></ion-card>
+  <ion-card padding><b>{{dataFound}}</b></ion-card>
 	<ion-slides>
   		<ion-slide *ngFor="let del of Deliveries;let i=index;">
 	<ion-card style="background-color: #a981d3;border:#686868;" responsive-sm>

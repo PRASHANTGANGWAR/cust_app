@@ -20,7 +20,7 @@
   <ion-list class="cart-list">
     <ion-item *ngFor="let order of orderPackages; let i= index" no-lines>
       <ion-thumbnail item-start>
-        <img src="assets/img/img4.png">
+        <img src="assets/img/{{order.product_id}}.png">
       </ion-thumbnail>
       <h4 color="dark">{{ order.product.category.name }} - {{order.product.name}}</h4>
 

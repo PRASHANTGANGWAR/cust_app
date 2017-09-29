@@ -10,8 +10,8 @@
 <ion-content>
   <ion-card *ngIf="address" padding>
     <ion-list class="selection" padding>
-      <ion-item no-lines>
-         <ion-icon name="md-calendar" item-left></ion-icon>Delivery Date : 
+      <ion-item no-lines *ngIf="showDate">
+         <ion-icon name="md-calendar" item-left></ion-icon>Date : 
         <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
   	 	   clear class="ScheduleDate">
   		    <span>{{initDate | date:'dd/MM/yyyy'}}</span>

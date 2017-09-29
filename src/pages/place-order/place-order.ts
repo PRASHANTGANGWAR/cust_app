@@ -16,24 +16,32 @@ declare var window: any;
 export class PlaceOrderPage {
 	public address: Array<any>;
  	public initDate: Date = new Date();
+ 	public showDate: boolean = true;
 	constructor(private navCtrl: NavController,
 	private _alert: AlertController,
 	private confData: ConferenceData,
 	public alerts: Alerts){
+		this.getAllOrders();
 		let data = JSON.parse(window.localStorage.getItem('user_address'));
 		this.initDate.setDate(this.initDate.getDate()+1);
 		this.showAddress(data);
-		this.getAllOrders();
 	}
 
 	getAllOrders(){
 		this.confData.getAllOrders().then((data:any)=>{
 			if(data.status == 200){
-				//do nothing
+				this.checkOrder();
 			}else{
 				this.alerts.presentToast(data.statusText);
 			}
 		});
+	}
+
+	checkOrder(){
+		let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
+		if(allOrders.length){
+			this.showDate = false;
+		}
 	}
 
 	showAddress(data: any){

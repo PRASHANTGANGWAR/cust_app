@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Modal, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
-import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { ConferenceData } from '../../providers/conference-data';
-import { EditOrderPage } from '../edit-order/edit-order';
 import { OrderChoicePage } from '../order-choice/order-choice';
 
 declare var window:any;
@@ -57,55 +55,6 @@ export class EditOrderDurationPage {
     }
   }
 
-  	openModal(index: number) {
-	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage);
-	   chekoutModal.present();
-	   chekoutModal.onDidDismiss((data)=>{
-	   	if(data){
-	   		for(var i=0;i<data.length;i++){
-			   	this.orderPackages[index].weekdays_qty[i][1] = data[i].currentNumber;
-			}
-	   	} else{
-	   		console.log("cancel clicked");
-	   	}
-	   });
-    }
-
-    childOrder(){
-      let order:any={"order_packages_attributes":{}};
-      let dFrom = this.fromDate.getFullYear()+'-'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'-'+this.fromDate.getDate();
-      let dTo = this.toDate.getFullYear()+'-'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'-'+this.toDate.getDate();
-      order.alter_from = "";
-      order.delivery_date = dFrom;
-      order.end_date = dTo;
-      order.isNew = "1";
-      for(var i=0;i<this.orderPackages.length;i++){
-        order["order_packages_attributes"][i] = {};
-        order["order_packages_attributes"][i]["default _qty"] = "3";
-        order["order_packages_attributes"][i]["friday"] = this.orderPackages[i].weekdays_qty[4][1];
-        order["order_packages_attributes"][i]["monday"] = this.orderPackages[i].weekdays_qty[0][1];
-        order["order_packages_attributes"][i]["package_type"] = "1";
-        order["order_packages_attributes"][i]["product_id"] = this.orderPackages[i].product_id;
-        order["order_packages_attributes"][i]["saturday"] = this.orderPackages[i].weekdays_qty[5][1];
-        order["order_packages_attributes"][i]["sunday"] = this.orderPackages[i].weekdays_qty[6][1];
-        order["order_packages_attributes"][i]["thursday"] = this.orderPackages[i].weekdays_qty[3][1];
-        order["order_packages_attributes"][i]["time_slot_id"] = "5";
-        order["order_packages_attributes"][i]["tuesday"] = this.orderPackages[i].weekdays_qty[1][1];
-        order["order_packages_attributes"][i]["wednesday"] = this.orderPackages[i].weekdays_qty[2][1];
-      }
-      order.parent_order_id = this.allOrders[0].id;
-      order.pickup = "false";
-      order.recurring = "true";
-      this.confData.createChildOrder(order).then((res:any)=>{
-        if(res.status == 201){
-          this.getAllOrders();
-           this.navCtrl.setRoot(EditOrderPage);
-           this.alerts.presentToast("Order updated successfully!");
-        }else{
-          this.alerts.presentToast(res.statusText);
-        }
-      });
-    }
 
   orderChoice(product_id:number){
     let editData:any={};

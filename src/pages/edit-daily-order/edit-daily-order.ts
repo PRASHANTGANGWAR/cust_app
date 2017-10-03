@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Modal, ModalController, AlertController } from 'ionic-angular';
-import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
+import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { EditOrderPage } from '../edit-order/edit-order';
@@ -43,49 +42,6 @@ export class EditDailyOrderPage {
   	}
   }
 
-	openModal(index: number) {
-	   const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage);
-	   chekoutModal.present();
-	   chekoutModal.onDidDismiss((data)=>{
-	   	if(data){
-	   		for(var i=0;i<data.length;i++){
-			   	this.orderPackages[index].weekdays_qty[i][1] = data[i].currentNumber;
-			}
-	   	} else{
-	   		console.log("cancel clicked");
-	   	}
-	   });
-	}
-
-	updateOrder(){
-    let order:any={"order_packages_attributes":{}};
-     let dFrom = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
-      order.alter_from = "";
-      order.delivery_date = dFrom;
-      order.isNew = "1";
-      for(var i=0;i<this.orderPackages.length;i++){
-        order["order_packages_attributes"][i] = {};
-        order["order_packages_attributes"][i]["default _qty"] = "3";
-        order["order_packages_attributes"][i]["friday"] = this.orderPackages[i].weekdays_qty[4][1];
-        order["order_packages_attributes"][i]["id"] = this.orderPackages[i].id;
-        order["order_packages_attributes"][i]["monday"] = this.orderPackages[i].weekdays_qty[0][1];
-        order["order_packages_attributes"][i]["package_type"] = "6";
-        order["order_packages_attributes"][i]["product_id"] = this.orderPackages[i].product_id;
-        order["order_packages_attributes"][i]["saturday"] = this.orderPackages[i].weekdays_qty[5][1];
-        order["order_packages_attributes"][i]["sunday"] = this.orderPackages[i].weekdays_qty[6][1];
-        order["order_packages_attributes"][i]["thursday"] = this.orderPackages[i].weekdays_qty[3][1];
-        order["order_packages_attributes"][i]["time_slot_id"] = "5";
-        order["order_packages_attributes"][i]["tuesday"] = this.orderPackages[i].weekdays_qty[1][1];
-        order["order_packages_attributes"][i]["wednesday"] = this.orderPackages[i].weekdays_qty[2][1];
-      }
-      order.pickup = "false";
-          order.recurring = "true";
-          order.order_id = this.allOrders[0].id;
-          console.log(order);
-          let msg = "Are you sure you want to update order?"
-          this.presentConfirm(msg,order);
-	}
-
   orderChoice(product_id:number){
     let editData:any={};
     let dFrom = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
@@ -97,38 +53,6 @@ export class EditDailyOrderPage {
 	cancelOrder(){
     this.cancelConfirm("Are you sure you want to cancel the order?");
 	}
-
-  presentConfirm(msg:any,order:any) {
-    let alert = this.alertCtrl.create({
-      title: '',
-      message: msg,
-      buttons: [
-        {
-          text: 'CANCEL',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'CONFIRM',
-          handler: () => {
-            this.alerts.showLoader();
-            this.confData.updateOrder(order).then((res:any)=>{
-              this.alerts.hideLoader();
-              if (res.status == 200){
-                this.navCtrl.setRoot(EditOrderPage);
-                this.alerts.presentToast("Order updated succesfully");
-              }else{
-                this.alerts.presentToast(res.statusText);
-              }
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
 
   cancelConfirm(msg:any) {
     let alert = this.alertCtrl.create({

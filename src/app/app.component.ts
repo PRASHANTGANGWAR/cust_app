@@ -17,6 +17,7 @@ import { Alerts } from '../providers/alerts-provider';
 import { Splash } from '../pages/splash/splash';
 
 declare var window: any;
+declare let cordova: any;
 export interface PageInterface {
   title: string;
   name?: string;
@@ -166,6 +167,10 @@ export class ConferenceApp {
       }
       if(this.platform.is('ios')){
         window.localStorage.setItem('deviceType',"ios");
+      }
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       }
     });
   }

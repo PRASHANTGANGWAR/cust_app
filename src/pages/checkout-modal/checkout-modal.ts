@@ -214,7 +214,12 @@ export class CheckoutModalPage {
           text: 'CONFIRM',
           handler: () => {
             this.alerts.showLoader();
-            this.placeOrder();
+            if(this.validationEditOrder()){
+              this.placeOrder();
+            } else{
+              this.alerts.hideLoader();
+              this.alerts.presentToast("Please choose atleast one quantity");
+            }
           }
         }
       ]
@@ -299,5 +304,13 @@ export class CheckoutModalPage {
 		});
 
 	}
+  }
+
+  validationEditOrder(){
+    for(var i=0;i<this.apiWeek.length;i++){
+      if(this.apiWeek[i].currentNumber != 0){
+        return true;
+      }
+    }
   }
 }

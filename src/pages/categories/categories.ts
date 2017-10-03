@@ -50,6 +50,6 @@ export class CategoriesPage {
     }
 
     showlist(number: any){
-      this.navCtrl.setRoot(ProductListPage,{id: number});
+      this.navCtrl.push(ProductListPage,{id: number});
     }
 }

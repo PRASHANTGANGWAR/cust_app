@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
-import { CheckoutPage } from '../checkout/checkout';
 import { Alerts } from '../../providers/alerts-provider';
+import { OrderChoicePage } from '../order-choice/order-choice';
 
 
 declare var window: any; 
@@ -17,14 +17,19 @@ export class PlaceOrderPage {
 	public address: Array<any>;
  	public initDate: Date = new Date();
  	public showDate: boolean = true;
+ 	private ctData:any ={};
+ 	public productId:number;
+
 	constructor(private navCtrl: NavController,
 	private _alert: AlertController,
 	private confData: ConferenceData,
-	public alerts: Alerts){
+	public alerts: Alerts,
+	public navParams: NavParams){
 		this.getAllOrders();
 		let data = JSON.parse(window.localStorage.getItem('user_address'));
 		this.initDate.setDate(this.initDate.getDate()+1);
 		this.showAddress(data);
+		this.productId = this.navParams.get('productId');
 	}
 
 	getAllOrders(){
@@ -70,8 +75,10 @@ export class PlaceOrderPage {
 		this.navCtrl.setRoot(MyAddressPage,{isAddress: true});
 	}
 
-	checkoutPage(){
-		this.navCtrl.setRoot(CheckoutPage,{deliveryDate: this.initDate});
+	orderChoice(){
+		this.ctData.product_id = this.productId;
+		this.ctData.deliveryDate = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
+		this.navCtrl.push(OrderChoicePage,{data:this.ctData});
 	}
 
 	presentConfirm() {

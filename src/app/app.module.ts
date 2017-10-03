@@ -20,7 +20,6 @@ import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { ProfilePage } from '../pages/profile/profile';
 import { ChangePasPage } from '../pages/change-pas/change-pas';
-import { CheckoutPage } from '../pages/checkout/checkout';
 import { OrderChoicePage } from '../pages/order-choice/order-choice'; 
 import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
@@ -62,7 +61,6 @@ var config = {
     ContactPage,
     ProfilePage,
     LastFiveOrder,
-    CheckoutPage,
     OrderChoicePage,
     CheckoutModalPage,
     CurrentOrderPage,
@@ -88,7 +86,6 @@ var config = {
         { component: PaymentDue, name: 'PaymentDue', segment: 'paymentDue' },
         { component: ContactPage, name: 'ContactPage', segment: 'contactUs' },
         { component: LastFiveOrder, name: 'LastFiveOrder', segment: 'lastFiveOrder' },
-        { component: CheckoutPage, name: 'Checkout', segment: 'checkout' },
         { component: OrderChoicePage, name: 'OrderChoice', segment: 'orderChoice' },
         { component: CheckoutModalPage, name: 'CheckoutModal', segment: 'checkoutModal' },
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
@@ -120,7 +117,6 @@ var config = {
     ProfilePage,
     ContactPage,
     LastFiveOrder,
-    CheckoutPage,
     OrderChoicePage,
     CheckoutModalPage,
     CurrentOrderPage,

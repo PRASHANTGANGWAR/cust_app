@@ -32,10 +32,11 @@ export class ProductListPage {
 		this.alerts.hideLoader();
 	}
 
-	additionalData(){
+	additionalData(product_id:number){
 		let user = JSON.parse(window.localStorage.getItem('login_details'));
+		console.log(product_id);
 		if(user){
-			this.navCtrl.setRoot(PlaceOrderPage);
+			this.navCtrl.push(PlaceOrderPage, { productId:product_id });
 		}
 		else{
 			this.alerts.showLoader();

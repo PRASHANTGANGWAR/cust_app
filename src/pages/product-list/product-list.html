@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card class="card-details" *ngFor="let prod of products; let i = index" 
-  (click)="additionalData()">
+  (click)="additionalData(prod.id)">
     <img src="{{prod.image}}"/>
     <div>
       <ion-card-content>

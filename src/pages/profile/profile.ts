@@ -31,6 +31,11 @@ export class ProfilePage {
 	    this.onLoad();
 	}
 
+	 setDate(date:Date){
+	 	let dob = date.getFullYear()+'-'+("0" + (date.getMonth() + 1)).slice(-2)+'-'+date.getDate();
+	 	this.Profile.dob = dob;
+	 }
+
 	  onLoad(){	
 	   	this.userData.getProfile().then(data => {
 	   		this.showLoader();

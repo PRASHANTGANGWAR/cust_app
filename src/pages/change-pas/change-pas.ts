@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
-import { ProfilePage } from '../profile/profile';
+import { Events } from 'ionic-angular';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { ProfilePage } from '../profile/profile';
 export class ChangePasPage {
 	password: any={};
 	private loading :any;
-  constructor(private _alert: AlertController, public navCtrl: NavController,public userData: UserData, private _loading: LoadingController, private toastCtrl: ToastController, public navParams: NavParams) {
+  constructor(private _alert: AlertController, public navCtrl: NavController,public userData: UserData, private _loading: LoadingController, private toastCtrl: ToastController, public navParams: NavParams,
+  	public events: Events) {
   }
 
   ionViewDidLoad() {
@@ -44,8 +45,8 @@ export class ChangePasPage {
 	   		result = data;
 	   		if(result.user && result.user.authentication_token){
 	   			this.hideLoader();
+	   			this.events.publish('user:loggedOut');
 	   			this.presentToast("Password is changed");
-	   			this.navCtrl.setRoot(ProfilePage);
 	   		}else if(result.current_password){
 	   			this.hideLoader();
 	   			this.doAlert('Error','Current password does not match');

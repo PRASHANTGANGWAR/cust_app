@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
@@ -23,13 +23,12 @@ export class PlaceOrderPage {
 	constructor(private navCtrl: NavController,
 	private _alert: AlertController,
 	private confData: ConferenceData,
-	public alerts: Alerts,
-	public navParams: NavParams){
+	public alerts: Alerts){
 		this.getAllOrders();
 		let data = JSON.parse(window.localStorage.getItem('user_address'));
 		this.initDate.setDate(this.initDate.getDate()+1);
 		this.showAddress(data);
-		this.productId = this.navParams.get('productId');
+		this.productId = window.localStorage.getItem('prod_id');
 	}
 
 	getAllOrders(){

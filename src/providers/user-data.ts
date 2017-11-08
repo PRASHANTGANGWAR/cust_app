@@ -76,7 +76,8 @@ export class UserData {
   };
 
   resetPassword(password: any){
-    let headers = new Headers({ "Accept": "application/json",'Content-Type': 'application/json' });
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ "Accept": "application/json",'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     let options = new RequestOptions({ 
       method: RequestMethod.Put,
       headers: headers,

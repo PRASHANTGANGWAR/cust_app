@@ -35,8 +35,9 @@ export class ProductListPage {
 	additionalData(product_id:number){
 		let user = JSON.parse(window.localStorage.getItem('login_details'));
 		console.log(product_id);
+		window.localStorage.setItem('prod_id',product_id);
 		if(user){
-			this.navCtrl.push(PlaceOrderPage, { productId:product_id });
+			this.navCtrl.push(PlaceOrderPage);
 		}
 		else{
 			this.alerts.showLoader();

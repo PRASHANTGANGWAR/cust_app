@@ -123,18 +123,7 @@ export class ConferenceApp {
     // don't setRoot again, this maintains the history stack of the
     // tabs even if changing them from the menupage.
     if (page.logsOut === true) {
-      this.alerts.showLoader();
-      this.isLogin = false;
-      window.localStorage.removeItem('login_details');
-      window.localStorage.removeItem('user_address');
-      window.localStorage.removeItem('add_address');
-      window.localStorage.removeItem('states');
-      window.localStorage.removeItem('prescriptions');
-      window.localStorage.removeItem('current_page');
-      window.localStorage.removeItem('_qrcode');
-      window.localStorage.removeItem('device_token');
-      this.nav.setRoot(CategoriesPage);
-      this.alerts.hideLoader();
+      this.logoutPassChange();
     } else {
       if(page.index != 3){
           if (this.nav.getActiveChildNavs().length && page.index != undefined) {
@@ -154,6 +143,25 @@ export class ConferenceApp {
       this.events.subscribe('user:loggedin', () => {
         this.isLogin = true;
       });
+      //user logged out after password change
+      this.events.subscribe('user:loggedOut', () => {
+        this.logoutPassChange();
+      });
+  }
+
+  logoutPassChange(){
+    this.alerts.showLoader();
+    this.isLogin = false;
+    window.localStorage.removeItem('login_details');
+    window.localStorage.removeItem('user_address');
+    window.localStorage.removeItem('add_address');
+    window.localStorage.removeItem('states');
+    window.localStorage.removeItem('prescriptions');
+    window.localStorage.removeItem('current_page');
+    window.localStorage.removeItem('_qrcode');
+    window.localStorage.removeItem('device_token');
+    this.nav.setRoot(CategoriesPage);
+    this.alerts.hideLoader();
   }
 
   platformReady() {
@@ -172,6 +180,13 @@ export class ConferenceApp {
 
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       }
+      this.platform.registerBackButtonAction(() => {
+         if(this.nav.canGoBack()){
+           this.nav.pop();
+         }else{
+          
+         }
+      });
     });
   }
 }

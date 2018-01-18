@@ -1,54 +1,47 @@
 <ion-header>
-	<ion-navbar>
-		<ion-title>Login</ion-title>
+	<ion-navbar color="primary">
+		<ion-title><b>Login</b></ion-title>
 	</ion-navbar>
 </ion-header>
 
-<ion-content>
-	<ion-item style="background-color: #e0e0e0;">
-		<ion-row style="color: #df3796;">Already Registered with us? Login!</ion-row>
-		<ion-row style="color: #6b6666;">Order for milk, butter, cheese etc</ion-row>
-	</ion-item>
-<ion-card>
-	<ion-card-header><h4 style="color: #df3796; font-size: 18px; font-weight: bold;">LOGIN</h4></ion-card-header>
-	<ion-card-content>
-	<form #loginForm="ngForm" novalidate>
-		<ion-list>
-			<ion-item style="border: 1px solid #bdbdbd; margin-bottom: 20px;">
-				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" placeholder="Registration Number" spellcheck="false" autocapitalize="off"
-					required>
-				</ion-input>
-			</ion-item>
-			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
-				Username is required
-			</p>
+<ion-content class="form-content" text-center>
 
-			<ion-item style="border: 1px solid #bdbdbd;">
-				<ion-input [(ngModel)]="login.password" placeholder="Password" name="password" type="password" #password="ngModel" required>
-				</ion-input>
-			</ion-item>
-			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
-				Password is required
-			</p>
-		</ion-list>
+  <div class="Loginpage">
+    <div class="formContainer">
+        <div class="logo">
+          <img src="assets/img/logo.png" />
+        </div>
+        <br>
+        <form #loginForm="ngForm" novalidate>
+          <ion-list class="app-form" no-margin>
+            <ion-item no-lines>
+              <ion-icon name="ios-person-outline" item-start></ion-icon>
+              <ion-input [(ngModel)]="login.username" name="username" type="tel"  
+                 #username="ngModel" maxlength="10" placeholder="Registered Number" 
+    					   required>     
+              </ion-input>
+            </ion-item>
+      		  <p ion-text [hidden]="username.valid || submitted == false" color="danger">
+      				Username is required
+      			</p>
 
-		<ion-row>
-			<button ion-button clear (click)="forgotPassword()">Forgot password?</button>
-		</ion-row>
+            <ion-item no-lines>
+              <ion-icon name="ios-lock-outline" item-start></ion-icon>
+              <ion-input [(ngModel)]="login.password" placeholder="Password" 
+                name="password" type="password" #password="ngModel" required>
+      				</ion-input>
+            </ion-item>
+      		  <p ion-text [hidden]="password.valid || submitted == false" color="danger">
+      				Password is required
+      			</p>
+          </ion-list>
 
-		<ion-row>
-			<button ion-button (click)="onLogin(loginForm)" type="submit" block>Login</button>
-		</ion-row>
-	</form>
-	</ion-card-content>
-	</ion-card>
-	<ion-item style="background-color: #e0e0e0;">
-		<ion-row>
-		<ion-col style="text-align: center">OR</ion-col></ion-row>
-		<ion-row>
-		<ion-col  style="text-align: center">
-			<button ion-button (click)="onSignup()">Create New Account</button>
-		</ion-col>
-		</ion-row>
-	</ion-item>
+          <button (click)="onLogin(loginForm)" type="button"  color="primary" ion-button round block>Login</button>
+          <button color="secondary" (click)="onSignup()" ion-button round block>Register</button>
+
+          <p (click)="forgotPassword()" margin-top>Forgot Password ?</p>
+      </form>
+    </div>
+  </div>
 </ion-content>
+

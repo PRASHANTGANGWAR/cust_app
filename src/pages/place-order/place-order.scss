@@ -1,5 +1,38 @@
 place-order{
-	.scroll-content {
-	    background: #e0e0e0;
+	.round{
+		border: 2px solid #bdbdbd;
+	    border-radius: 4px;
+	    text-align: center;
+	}
+	.address-type{
+		color: #df3796;
+	}
+	.address{
+	    border: 1px solid #c8c7cc !important;
+	    border-radius: 25px;
+	    .item-block{
+	        min-height: 3rem;
+	        font-size: 1.55rem;
+	    }
+	    span{
+	        display: inline-block;
+	        width: 10px;
+	        height: 10px;
+	        background: #c7c7c7;
+	        border-radius: 50%;
+	        margin-right: 5px !important;
+	    }
+	    ion-label{
+	        color: #6c6c6c;
+	        margin: 0 8px 0 0;
+	    }
+	}
+	.selection{
+		ion-item{
+			border: 1px solid #c8c7cc !important;
+	        border-radius: 25px;
+	        min-height: 5rem;
+    		margin-bottom: 12px;
+        }
 	}
 }

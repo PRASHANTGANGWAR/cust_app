@@ -1,19 +1,56 @@
-login-user {
-  .logo {
-    padding: 20px 0;
-    min-height: 200px;
-    text-align: center;
-
-    img {
-      max-width: 150px;
+.form-content{
+    .scroll-content{
+        padding: 25px 25px 0 25px !important;
     }
-  }
+}
 
-  .list {
-    margin-bottom: 0;
-  }
-  
-  .scroll-content {
-    background: #e0e0e0;
-  }
+.Loginpage{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer{
+    width: 100%;
+}
+
+.logo{
+    img{
+        height: 60px;
+        max-width: 130px;
+        object-fit: contain;
+        -o-object-fit: contain;
+    }
+}
+
+.fb-btn{
+    height: 3.4rem;
+    font-size: 1.2rem;
+    padding: 0 1.5em;
+    ion-icon{
+        margin-right: 4px;
+    }
+}
+
+.or{
+    margin-bottom: 23px;
+}
+
+.app-form{
+    .item-ios{
+        border: 1px solid #c8c7cc !important;
+        border-radius: 25px;
+        min-height: 5rem;
+        margin-bottom: 12px;
+        ion-icon{
+            font-size: 2.2rem;
+            min-height: 2.2rem;
+            margin-right: 6px;
+        }
+    }
+    .text-input{
+        font-size: 1.45rem;
+    }
 }

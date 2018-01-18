@@ -1,39 +1,29 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Place Order</ion-title>
+    <ion-title text-uppercase>Place Order</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	<div *ngFor="let prod of products; let i = index">
-		<ion-card (click)="additionalData()">
-			<ion-card-content>
-			<ion-item>
-				<div class="row">
-		          <div class="col-10">
-		            <ion-avatar item-start>
-		              <img style="width: 100px; height: 100px;" src="assets/img/farm-fresh-milk.jpg">
-		            </ion-avatar>
-		          </div>
-		          <div class="col" style="margin-left: 10px;">
-		            <h2>{{prod.display_name}}</h2>
-		             <h3>{{prod.name}}</h3>
-		             <p>MRP:{{prod.price | currency:'INR':true}}</p>
-		             <p>{{'Save:'+prod.discount}}</p>
-		             <p>{{prod.price_with_discount | currency:'INR':true}}</p>
-		          </div>
-		        </div>
-			</ion-item>
-			</ion-card-content>
-		</ion-card>
-		<ion-row padding>Additional Info:</ion-row>
-		<ion-card>
-			<ion-card-content (click)="additionalData()">
-				<pre style="font-family: 'Dosis', sans-serif; white-space: pre-line;">{{prod.description}}</pre>
-			</ion-card-content>
-		</ion-card>
-	</div>
+<ion-content>
+  <ion-card class="card-details" *ngFor="let prod of products; let i = index" 
+  (click)="additionalData(prod.id)">
+    <img src="{{prod.image}}"/>
+    <div>
+      <ion-card-content>
+        <ion-card-title>
+          {{prod.display_name}} - {{prod.name}}
+        </ion-card-title>
+	    <h4 class="price">MRP:{{prod.price | currency:'INR':true}}</h4>
+	    <h3>{{'Save:'+prod.discount}}</h3>
+	    <h3 class="price">{{prod.price_with_discount | currency:'INR':true}}</h3>
+        <p>
+         {{prod.description}}
+        </p>
+      </ion-card-content>
+      
+    </div>
+  </ion-card>
 </ion-content>

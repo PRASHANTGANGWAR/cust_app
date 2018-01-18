@@ -1,3 +1,10 @@
-.paymentFont{
-	color:#6d6d6d;
+.font{
+	color:#686868;
+	font-size: 15px;
 }
+
+	.table{
+		.list:nth-child(even){
+			background:#dcdde2;
+		}
+	}

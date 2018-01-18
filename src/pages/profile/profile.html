@@ -1,0 +1,98 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="form-content" text-center>
+
+ <ion-grid>
+    <ion-row>
+      <ion-col  class="amount">
+         <ion-card-title>Due Amount </ion-card-title>
+      </ion-col>
+      <ion-col col-4 text-wrap no-lines class="bal">
+         <ion-card-title>
+        <span>&#8377;</span> {{Profile.due_balance}}
+         </ion-card-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="amount">
+         <ion-card-title>Bill Amount </ion-card-title>
+      </ion-col>
+      <ion-col col-4 text-wrap no-lines class="bal">
+         <ion-card-title>
+        <span>&#8377;</span> {{Profile.billing_amount}}
+         </ion-card-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<div class="Loginpage">
+<div class="formContainer">
+<form #userForm="ngForm" novalidate>
+    <ion-list class="app-form" no-margin>
+      <ion-item no-lines>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input [(ngModel)]="Profile.name" class="forminput" placeholder="Name" name="name" type="text" spellcheck="false" autocapitalize="off"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="md-tablet-portrait" item-left></ion-icon>
+        <ion-input class="forminput" name="phone" placeholder="Registered Mobile Number" [(ngModel)]="Profile.mobile" type="tel" maxlength="10" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="ios-at-outline" item-left></ion-icon>
+        <ion-input class="forminput" placeholder="Email" name="email" [(ngModel)]="Profile.email" type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+        </ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-icon name="md-calendar" item-left></ion-icon>
+        <ion-input ion-datepicker class="forminput" placeholder="date of birth(optional)" 
+        (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob" name="dob" type="date">
+        </ion-input>
+      </ion-item>
+
+<!-- 
+      <ion-item>
+       <ion-icon name="md-calendar" item-left></ion-icon>
+        <ion-input  class="forminput"  [(ngModel)]="Profile.dob" name="dob" type="date" placeholder="Date Of Birth(optional)">
+        </ion-input>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label style="color:#999999;font-size:17px;">Same as above</ion-label>
+        <ion-checkbox [(ngModel)]="SameRecip" name="check" (click)="sameRec(userForm)" value="SameRecip">Same as above</ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="ios-person-outline" item-left></ion-icon>
+        <ion-input class="forminput" name="recName" placeholder="Recipient Name" [(ngModel)]="RecName" min="10" type="text" placeholder="Recipient Name" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="md-tablet-portrait" item-left></ion-icon>
+        <ion-input class="forminput" name="recNumber" [(ngModel)]="RecNumber" type="tel" maxlength="10" placeholder="Recipient Number" required>
+        </ion-input>
+      </ion-item>
+
+    </ion-list>
+
+	<button color="primary" ion-button (click)="updateValidate(userForm)" type="submit" round block>Update</button>
+	<button color="primary" ion-button (click)="changePassword(userForm)" type="submit" round block>Change Password</button>
+  
+  </form>
+</div>
+</div>
+</ion-content>

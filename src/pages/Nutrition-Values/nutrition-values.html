@@ -1,79 +1,63 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Nutrition Values</ion-title>
+    <ion-title text-uppercase>Nutrition Values</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-slides>
+    <ion-slide *ngFor="let pro of Nutrition;let i=index;" style="overflow:scroll;">
+      <ion-card class="card-details">
+        <ion-card-content>
+        <ion-card-title>
+          {{pro.name}}
+        </ion-card-title>
+       </ion-card-content>
+        <div>
+          <ion-list class="ingredient-list">
+            <ion-item>
+                <span item-start></span>
+                  <p>PRODUCT {{pro.name}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Calcium {{pro.calcium}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Calories {{pro.calories}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Carbohydrates {{pro.carbohydrates}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Fat {{pro.fat}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Minerals {{pro.minerals}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Snf {{pro.snf}}</p>
+            </ion-item>
+            <ion-item>
+                <span item-start></span>
+                  <p>Vitamins {{pro.vitamins}}</p>
+            </ion-item>
 
-  <ion-card style="background-color: #a981d3;" *ngFor="let pro of Nutrition" responsive-sm>
-    <ion-item class="custom-item">
-    <ion-item>
-    <h2 text-center><b class="fontColor">{{pro.name}}</b></h2>
-    </ion-item>
-        
-      <ion-grid class="fontColor">
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Calcium</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.calcium}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Calories</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.calories}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Carbohydrates</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.carbohydrates}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Fat</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.fat}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Minerals</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.minerals}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Snf</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.snf}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col col-8 text-wrap no-lines>
-            <b>Vitamins</b>
-          </ion-col>
-          <ion-col col-4 text-wrap no-lines>
-            :{{pro.vitamins}}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-card>
+         </ion-list>
+        </div>            
+        <ion-item>
+          <h3 class="pageNo">{{i+1}}/{{Nutrition.length}}</h3>
+        </ion-item>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>

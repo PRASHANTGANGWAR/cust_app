@@ -1,20 +1,23 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Place Order</ion-title>
+    <ion-title text-uppercase>Place Order</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <button ion-button outline block round icon-left (click)='showlist(1)'>
-    <ion-icon name="analytics"></ion-icon>
-    DESI COW MILK
-  </button>
-
-  <button ion-button outline block round icon-left (click)='showlist(4)'>
-    <ion-icon name="analytics"></ion-icon>
-    DESI BUFFALO MILK
-  </button>
+<ion-content>
+  <div class="main-list">
+    <ion-card *ngFor="let cat of categories; 
+   let i = index" (click)='showlist(i)'>
+      <img src="{{cat.products[0].image}}"/>
+      <div class="card-price">{{cat.products[0].price | currency:'INR':true}}</div>
+      <ion-item>
+        <ion-avatar text-center item-start>
+        <ion-icon name="ios-more" color="light"></ion-icon>
+      </ion-avatar>
+      <h2 color="light" no-margin>{{cat.name}}</h2>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

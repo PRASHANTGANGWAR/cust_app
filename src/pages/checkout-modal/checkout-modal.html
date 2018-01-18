@@ -1,0 +1,34 @@
+<ion-content>
+	<ion-card class="card-details" [ngSwitch]="det">
+	<ion-card-content>
+      <div class="Qty main" text-center>
+        <h4 class="bold"> {{title}}</h4>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain()">
+          <ion-icon name="md-remove" color="light"></ion-icon>
+        </button>
+        <button ion-button clear class="op-btn mid-btn">
+          {{mainNumber}}
+        </button>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementMain()">
+          <ion-icon name="md-add" color="light"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+	<ion-card-content>
+	      <div class="Qty" text-center *ngFor="let day of weekday; let i=index">
+			<h3 color="primary"> {{day.day}}</h3>
+	        <button ion-button icon-only class="op-btn" color="primary" (click)="decrement(i)">
+	          <ion-icon name="md-remove" color="light"></ion-icon>
+	        </button>
+	        <button ion-button clear class="op-btn mid-btn">
+	          {{day.currentNumber}}
+	        </button>
+	        <button ion-button icon-only class="op-btn" color="primary" (click)="increment(i)">
+	          <ion-icon name="md-add" color="light"></ion-icon>
+	        </button>
+	      </div>
+	      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>
+			<button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+	</ion-card-content>
+</ion-card>
+</ion-content>

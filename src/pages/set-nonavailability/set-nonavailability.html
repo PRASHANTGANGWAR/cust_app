@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>Set Non Availability</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="form-content" text-center>
+  <div class="Loginpage">
+    <div class="formContainer">
+           <ion-list class="app-form" no-margin>
+            <ion-item no-lines>
+            	<ion-icon name="ios-calendar" item-left></ion-icon>From: 
+              <span ion-datepicker (ionChanged)="setfromDate($event);" [value]="fromDate"
+		  	 	   clear class="ScheduleDate">
+		  		    <span>{{fromDate | date:'dd/MM/yyyy'}}</span>
+		  		  </span>
+            </ion-item>
+
+            <ion-item no-lines>
+            	<ion-icon name="ios-calendar" item-left></ion-icon>To:
+              <span ion-datepicker (ionChanged)="settoDate($event);" [value]="toDate"
+		  	 	   clear class="ScheduleDate">
+		  		    <span>{{toDate | date:'dd/MM/yyyy'}}</span>
+		  		  </span>
+            </ion-item>
+
+          </ion-list>
+         	 <button *ngIf="!isDnd;else other_buttons" ion-button block primary round text-uppercase
+		(click)="setDnd()">create DND</button>
+			<ng-template #other_buttons>
+				<button ion-button block round text-uppercase primary (click)="setDnd()">Update DND</button>
+				<button ion-button block round text-uppercase secondary (click)="removeDnd()">Remove DND</button>
+			</ng-template>
+    </div>
+  </div>
+</ion-content>

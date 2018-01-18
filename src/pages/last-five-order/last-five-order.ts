@@ -8,8 +8,9 @@ import { UserData } from '../../providers/user-data';
 })
 
 export class LastFiveOrder {
-		Payment: any=[];
+		Deliveries: any=[];
 		private loading :any;
+		private dataFound: string;
 
 	constructor(
 		public userData: UserData,
@@ -20,15 +21,17 @@ export class LastFiveOrder {
 	}
 
 	  onLoad(){	
+	  	this.showLoader();
 	   	this.userData.lastOrders().then(data => {
-	   		this.showLoader();
+	   		this.hideLoader();
 	   		let result: any = {};
 	   		result = data;
 	   		if(result.status == 200){
-	   			this.Payment = JSON.parse(result._body).user;
-	   			this.hideLoader();
+	   			this.Deliveries = result.json().deliveries;
+	   			if(!this.Deliveries.length){
+	   				this.dataFound = "No deliveries data yet";
+	   			}
 	   		}else{
-	   			this.hideLoader();
 	   			this.doAlert('Error','Please try again !');
 	   		}
 	   	});

@@ -1,28 +1,31 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
-      <ion-icon name="menu"></ion-icon>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="md-menu"></ion-icon>
     </button>
-    <ion-title>Contact Us</ion-title>
+    <ion-title text-uppercase>contact us</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content text-center padding>
 
-  <ion-card style="margin-top:50px;" *ngFor="let pro of Nutrition" responsive-sm>
+   <div class="logo">
+    <img  class="logoImg" src="assets/img/logo.png" />
+    </div>
+    <br>
+    <ion-card class="shadow">
     <ion-item class="custom-item">
-    <ion-item>
-    <h2 text-center text-wrap no-lines><b class="fontColor">Contact Us</b></h2>
-    </ion-item>
-        <h2 text-center text-wrap no-lines><b class="gray">Timings: 6am - 2pm(7 days)</b></h2>
-      <ion-item teappable ion-item text-wrap no-lines class="fontColor" (click)="call()">
+    <ion-item color="primary"><b>Contact Us</b></ion-item>
+      <ion-item><b class="gray">Timings: 6am - 2pm(7 days)</b></ion-item>
+      <ion-item teappable ion-item text-wrap no-lines (click)="call()">
           <ion-icon item-start name="call" class="Phone"></ion-icon><b class="PhoneNo">011-61616161</b>
       </ion-item>
-      <ion-item teappable ion-item text-wrap no-lines class="fontColor marg2" (click)="sendFeedback()">
+      <ion-item teappable ion-item text-wrap no-lines class="marg2" (click)="sendFeedback()">
           <ion-icon item-start name="mail" class="Phone"></ion-icon><b>contactus@dairylac.com</b>
       </ion-item>
       <ion-item>
-        <h2 text-center text-wrap no-lines><b class="gray">H.O.:B 9/2 2nd Floor, Ring Road, Rajouri Garden<br>New Delhi-110027</b></h2>
+        <b text-wrap class="gray">H.O.:B 9/2 2nd Floor, Ring Road,<br> Rajouri Garden,
+          <br>New Delhi-110027</b>
       </ion-item>  
       
     </ion-item>

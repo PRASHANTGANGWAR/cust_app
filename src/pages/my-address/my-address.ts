@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NavController, AlertController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { ConferenceData } from '../../providers/conference-data';
 import { AddressOptions } from '../../interfaces/user-options';
 import { PlaceOrderPage } from '../place-order/place-order';
+import { Alerts } from '../../providers/alerts-provider';
 
 declare var window:any;
 @Component({
@@ -31,8 +32,7 @@ export class MyAddressPage {
 		public userData: UserData,
 		private navCtrl: NavController,
 		public navParams: NavParams,
-		private toastCtrl: ToastController,
-		private _alert: AlertController){
+		private alerts: Alerts){
 		this.isAddress = navParams.get('isAddress');
 	    this.onLoad();
 	}
@@ -65,18 +65,21 @@ export class MyAddressPage {
 	    for( var j=0;j < this.cityOption.length;j++ ){
 	    	if (this.cityOption[j].name == value){
 	    		this.areaOption = this.cityOption[j].areas;
+	    		this.local = this.cityOption[j].areas[0].id;
 	    	}
 	    }
 	  }
 
 
 	  onLoad(){	
+	  	this.alerts.showLoader();
 	   	this.confData.states().then(data => {
 	   		console.log(data);
 	   		this.states = JSON.parse(window.localStorage.getItem('states'));
 	   		let result = JSON.parse(window.localStorage.getItem('user_address'));
 	   		let st = "";
 	   		if(this.isAddress){
+	   			this.alerts.hideLoader();
 	   			this.city = result.addresses[0].area.state.name;
 	   			this.area = result.addresses[0].area.city.name;
 	   			this.local = result.addresses[0].area.id;
@@ -85,6 +88,7 @@ export class MyAddressPage {
 	   			this.title = "Update Address";
 	   			this.selectOption(this.city,this.area,this.local);
    			}else{
+   				this.alerts.hideLoader();
    				this.title = "Add New Address";
    				st = this.states[0].name;
 		   		this.selectOption(st,"null","null");
@@ -94,6 +98,7 @@ export class MyAddressPage {
 	  }
 
 	onSubmit(form: NgForm,value: any) {
+		this.alerts.showLoader();
 	    this.submitted = true;
 	    console.log(value);
 	    if (form.valid) {
@@ -102,18 +107,20 @@ export class MyAddressPage {
 	    	address.area_id = value.local;
 	    	address.name = value.addressinfo;
 	    	this.userData.addAddress(address).then(result=> {
+	    	this.alerts.hideLoader();
 	    	let data : any = {};
               data = result;
               if(data.status == 201){
               	this.navCtrl.setRoot(PlaceOrderPage);
               } else{
-                  this.doAlert('Error','something went wrong.');
+                  this.alerts.doAlert('Error','something went wrong.');
                 }
     		});
 	    }
 	}
 
 	onUpdate(form: NgForm,value: any){
+		this.alerts.showLoader();
 		this.submitted = true;
 		console.log(value);
 	    if (form.valid) {
@@ -122,32 +129,16 @@ export class MyAddressPage {
 	    	address.area_id = value.local;
 	    	address.name = value.addressinfo;
 	    	this.userData.updateAddress(address).then(result=> {
+	    	this.alerts.hideLoader();
 	    	let data : any = {};
               data = result;
               if(data.status == 200){
-              	this.presentToast("Address updated successfully.")
+              	this.alerts.presentToast("Address updated successfully.")
               	this.navCtrl.setRoot(PlaceOrderPage);
               } else{
-                  this.doAlert('Error','something went wrong.');
+                  this.alerts.doAlert('Error','something went wrong.');
                 }
     		});
 	    }
-	}
-
-	 doAlert(type: string,message: string) {
-	    let alert = this._alert.create({
-	      title: type,
-	      subTitle: message,
-	      buttons: ['OK']
-	    });
-	    alert.present();
-	  }
-
-	presentToast(msg: any) {
-	  this.toastCtrl.create({
-	    message: msg,
-	    duration: 2000,
-	    position: 'bottom'
-	  }).present();
 	}
 }

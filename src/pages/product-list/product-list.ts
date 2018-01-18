@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import { Database } from '../../providers/db-provider';
 import { LoginPage } from '../login/login';
 import { PlaceOrderPage } from '../place-order/place-order';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { Alerts } from '../../providers/alerts-provider';
 
 
 declare var window: any; 
@@ -17,39 +17,33 @@ export class ProductListPage {
 
 	constructor(
 		public navParams: NavParams,
-		public dataBase: Database,
 		private navCtrl: NavController,
-		private toastCtrl: ToastController) {
+		private alerts: Alerts) {
 		let id = navParams.get('id');
-		console.log("this is id" +" "+id);
 		this.getProducts(id);
 
 	}
 
 
 	getProducts(id: any){
-		this.dataBase.getProducts(id).then(results =>{
-			console.log(results);
-			this.products = JSON.parse(results[0].products);
-		});	
+		this.alerts.showLoader();
+		let categories = JSON.parse(window.localStorage.getItem('categories'));
+		this.products = categories[id].products;
+		this.alerts.hideLoader();
 	}
 
-	additionalData(){
+	additionalData(product_id:number){
 		let user = JSON.parse(window.localStorage.getItem('login_details'));
+		console.log(product_id);
+		window.localStorage.setItem('prod_id',product_id);
 		if(user){
-			this.navCtrl.setRoot(PlaceOrderPage);
+			this.navCtrl.push(PlaceOrderPage);
 		}
 		else{
-			this.presentToast();
+			this.alerts.showLoader();
+			this.alerts.presentToast('Please login first');
 			this.navCtrl.push(LoginPage);
+			this.alerts.hideLoader();
 		}
-	}
-
-	presentToast() {
-	  this.toastCtrl.create({
-	    message: 'Please login first',
-	    duration: 2000,
-	    position: 'bottom'
-	  }).present();
 	}
 }

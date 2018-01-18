@@ -1,21 +1,23 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, MenuController, AlertController, Nav, LoadingController, Platform } from 'ionic-angular';
+import { Events, MenuController, Nav, Platform,ModalController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
-import { CalendarPage } from '../pages/calendar/calendar';
 import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
 import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
+import { ProfilePage } from '../pages/profile/profile';
+import { ViewAddressPage } from '../pages/view-address/view-address';
+import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
-import { EmailComposer } from '@ionic-native/email-composer';
-import { Database } from '../providers/db-provider';
+import { Alerts } from '../providers/alerts-provider';
+import { Splash } from '../pages/splash/splash';
 
 declare var window: any;
+declare let cordova: any;
 export interface PageInterface {
   title: string;
   name?: string;
@@ -26,20 +28,21 @@ export interface PageInterface {
   tabName?: string;
   tabComponent?: any;
   categories?: boolean;
-  calendar?: boolean;
+  viewAddress?:boolean;
+  editOrder?:boolean;
   nutritionValues?: boolean;
   paymentdue?: boolean;
   lastOrders?: boolean;
   contactUs?: boolean;
-  
+  login?: boolean;
+  disable?: boolean;
+  profile?: boolean;
 }
 
 @Component({
   templateUrl: 'app.template.html'
 })
 export class ConferenceApp {
-  private loading :any;
-  // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
 
@@ -48,18 +51,25 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
-    { title: 'My Profile', icon: 'md-contact' },
-    { title: 'My Orders', icon: 'basket' },
-    { title: 'My Address', icon: 'locate' },
+    { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
+    { title: 'My Orders',name:'EditOrderPage',component:EditOrderPage, icon: 'basket',editOrder:true },
+    { title: 'My Address', name:'ViewAddressPage',component: ViewAddressPage, icon: 'locate',viewAddress:true },
     { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
-   // { title: 'Prescriptions', name: 'PrescriptionListPage', component: PrescriptionListPage, icon: 'contacts', prescription: true },
-    //{ title: 'Calendar', name: 'CalendarPage', component: CalendarPage, icon: 'calendar', calendar: true },
-    //{ title: 'Feedback', name: '', component: null, index: 3, icon: 'information-circle' },
-    { title: 'Logout', name: '', component: null, icon: 'log-out', logsOut: true },
-    //{ title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
+    { title: 'Logout', name: '', component: null, icon: 'log-out', logsOut: true }
+  ];
+  cashboyPages: PageInterface[] = [
+    { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
+    { title: 'My Profile', icon: 'md-contact', disable: true },
+    { title: 'My Orders', icon: 'basket', disable: true  },
+    { title: 'My Address', icon: 'locate', disable: true  },
+    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
+    { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true, disable: true },
+    { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true, disable: true },
+    { title: 'Login', name: '', component: LoginPage, icon: 'log-in', login: true }
   ];
   rootPage: any;
   userId: any;
@@ -70,25 +80,19 @@ export class ConferenceApp {
     public menu: MenuController,
     public platform: Platform,
     public confData: ConferenceData,
-    public dataBase: Database,
-    public push: Push,
+    public alerts: Alerts, 
     public splashScreen: SplashScreen,
-    public _alert: AlertController,
-    public _loading: LoadingController,
-    private emailComposer: EmailComposer
+    public modalCtrl: ModalController
   ) {
+      if(window.localStorage.getItem('login_details')){
+        this.isLogin = true;
+      }
       this.rootPage = CategoriesPage;
       this.platformReady()
       this.listenToUserEvents();
    }
 
   openPage(page: PageInterface) {
-    // let user = JSON.parse(window.localStorage.getItem('login_details'));
-    if(page.index === 3){
-      this.showLoader();
-      this.hideLoader();
-      this.sendFeedback();
-    }
     let params = {};
 
     // the nav component was found using @ViewChild(Nav)
@@ -97,46 +101,29 @@ export class ConferenceApp {
     if (page.index) {
       params = { tabIndex: page.index };
     }
+
     if(page.categories === true){
-      this.showLoader();
       this.nav.setRoot(CategoriesPage);
-      this.hideLoader();
-    }
-    if(page.calendar=== true){ 
-      this.showLoader();
-      this.nav.setRoot(CalendarPage);
-      this.hideLoader();
-    }
-    if(page.nutritionValues=== true){ 
-      this.nav.setRoot(NutritionValues);
-    }
-    if(page.paymentdue=== true){ 
-        this.nav.setRoot(PaymentDue);
-    }
-    if(page.lastOrders=== true){
-        this.nav.setRoot(LastFiveOrder);
-    }
-    if(page.contactUs=== true){ 
-        this.nav.setRoot(ContactPage);
     }
 
+    if(page.login=== true){ 
+        this.nav.push(LoginPage);
+    }
+
+    if(page.viewAddress === true){
+      this.alerts.showLoader();
+      this.nav.setRoot(ViewAddressPage);
+      this.alerts.hideLoader();
+    }
+
+    if(page.editOrder === true){
+      this.nav.setRoot(EditOrderPage);
+    }
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the
     // tabs even if changing them from the menupage.
     if (page.logsOut === true) {
-      this.showLoader();
-      this.isLogin = false;
-      window.localStorage.removeItem('login_details');
-      window.localStorage.removeItem('user_address');
-      window.localStorage.removeItem('add_address');
-      window.localStorage.removeItem('states');
-      window.localStorage.removeItem('prescriptions');
-      window.localStorage.removeItem('current_page');
-      window.localStorage.removeItem('_qrcode');
-      window.localStorage.removeItem('device_token');
-      window.localStorage.removeItem('deviceType');
-      this.nav.setRoot(CategoriesPage);
-      this.hideLoader();
+      this.logoutPassChange();
     } else {
       if(page.index != 3){
           if (this.nav.getActiveChildNavs().length && page.index != undefined) {
@@ -151,213 +138,55 @@ export class ConferenceApp {
     }
 
   }
-
-  login(){
-     this.nav.setRoot(LoginPage);
-  }
   
-  sendFeedback() {
-    this.emailComposer.isAvailable().then((available: boolean) =>{
-     if(available) {
-       //Now we know we can send
-     }
-    });
-
-    let email = {
-      to: 'yahya.akilan@outlook.com',
-      subject: 'Dwak Test Mail',
-      isHtml: true
-    };
-
-    // Send a text message using default options
-    this.emailComposer.open(email);
-  }
-
   listenToUserEvents() {
       this.events.subscribe('user:loggedin', () => {
-        let user = JSON.parse(window.localStorage.getItem('login_details'));
         this.isLogin = true;
-        this.userId = user.serial;
       });
+      //user logged out after password change
+      this.events.subscribe('user:loggedOut', () => {
+        this.logoutPassChange();
+      });
+  }
+
+  logoutPassChange(){
+    this.alerts.showLoader();
+    this.isLogin = false;
+    window.localStorage.removeItem('login_details');
+    window.localStorage.removeItem('user_address');
+    window.localStorage.removeItem('add_address');
+    window.localStorage.removeItem('states');
+    window.localStorage.removeItem('prescriptions');
+    window.localStorage.removeItem('current_page');
+    window.localStorage.removeItem('_qrcode');
+    window.localStorage.removeItem('device_token');
+    this.nav.setRoot(CategoriesPage);
+    this.alerts.hideLoader();
   }
 
   platformReady() {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      this.splashScreen.hide();
-      this.initPushNotification();
+      //this.splashScreen.hide();
+      let splash = this.modalCtrl.create(Splash);
+            splash.present();
       if(this.platform.is('android')){
-        window.localStorage.setItem('deviceType',"isandroid");
+        window.localStorage.setItem('deviceType',"android");
       }
       if(this.platform.is('ios')){
-        window.localStorage.setItem('deviceType',"isIOS");
+        window.localStorage.setItem('deviceType',"ios");
       }
-    });
-  }
+      if(window.cordova && window.cordova.plugins.Keyboard) {
 
-  initPushNotification() {
-    if (!this.platform.is('cordova')) {
-      console.warn('Push notifications not initialized. Cordova is not available - Run in physical device');
-      return;
-    }
-    const options: PushOptions = {
-      android: {
-        senderID: '981155431666'
-      },
-      ios: {},
-      windows: {}
-    };
-    const pushObject: PushObject = this.push.init(options);
-
-    pushObject.on('registration').subscribe((data: any) => {
-      //alert('device token -> ' + data.registrationId);
-      window.localStorage.setItem('device_token',data.registrationId);
-      //TODO - send device token to server
-    });
-    let that = this;
-    pushObject.on('notification').subscribe((data: any) => {
-      console.log('message -> ' + data.message);
-      let event;
-      //if user using app and push notification comes
-      if (data.additionalData.foreground) {
-        // if application open, show popup
-        let confirmAlert = that._alert.create({
-          title: 'Confirm Action',
-          message: 'Take '+data.additionalData.name+' at '+data.additionalData.time,
-          buttons: [
-            {
-              text: 'MISS',
-              handler: () => {
-                event = "missed";
-                let presData :any ={};
-                  presData.userid = data.additionalData.userid;
-                  presData.prescription_id = data.additionalData.pres_id;
-                  presData.status = event;
-                  presData.dose_time = data.additionalData.time;
-                  presData.time = null;
-                  that.showLoader();
-                  that.confData.eventScheduler(presData).then(results=>{
-                    let resultData : any ={};
-                    resultData = results;
-                    if(resultData.status == 200){
-                      that.hideLoader();
-                    }else{
-                      that.hideLoader();
-                      that.doAlert('Error','something went wrong.');
-                    }
-                  });
-              }
-            },
-            {
-              text: 'POSTPONE', 
-              handler: () =>{
-                that.presentPrompt(data);
-              }
-            },
-            {
-              text: 'TAKE', 
-              handler: () =>{
-                event = "taken";
-                let presData :any ={};
-                  presData.userid = data.additionalData.userid;
-                  presData.prescription_id = data.additionalData.pres_id;
-                  presData.status = event;
-                  presData.dose_time = data.additionalData.time;
-                  presData.time = null;
-                  that.showLoader();
-                  that.confData.eventScheduler(presData).then(results=>{
-                    let resultData : any ={};
-                    resultData = results;
-                    if(resultData.status == 200){
-                      that.hideLoader();
-                    }else{
-                      that.hideLoader();
-                      that.doAlert('Error','something went wrong.');
-                    }
-                  });
-              }
-            }
-          ],
-          cssClass: 'custom-alert'
-        });
-        confirmAlert.present();
-      } else {
-        //if user NOT using app and push notification comes
-        //TODO: Your logic on click of push notification directly
-        //that.nav.push(PrescriptionListPage, { message: data.message });
-        console.log('Push notification clicked');
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       }
+      this.platform.registerBackButtonAction(() => {
+         if(this.nav.canGoBack()){
+           this.nav.pop();
+         }else{
+          
+         }
+      });
     });
-
-    pushObject.on('error').subscribe(error => console.error('Error with Push plugin' + error));
-  }
-
-  presentPrompt(presdata: any) {
-      this._alert.create({
-      title: 'Postpone Medicine',
-      inputs: [
-        {
-          name: 'postpone_time',
-          placeholder: 'In Minutes',
-          type: 'number'
-        }
-      ],
-      buttons: [
-        {
-          text: 'CANCEL',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked'+data);
-          }
-        },
-        {
-          text: 'POSTPONE',
-          handler: data => {
-          let post_time = data.postpone_time;
-            if (post_time >=1 && post_time <= 120){
-              let presData :any ={};
-                presData.userid = presdata.additionalData.userid;
-                presData.prescription_id = presdata.additionalData.pres_id;
-                presData.status = "reschedule";
-                presData.dose_time = presdata.additionalData.time;
-                presData.time = null;
-                this.showLoader();
-                this.confData.eventScheduler(presData).then(results=>{
-                  let resultData : any ={};
-                  resultData = results;
-                  if(resultData.status == 200){
-                    this.hideLoader();
-                  }else{
-                    this.hideLoader();
-                    this.doAlert('Error','something went wrong.');
-                  }
-                });
-            } else {
-              return false;
-            }
-          }
-        }
-      ]
-    }).present();
-  }
-
-  doAlert(type: string,message: string) {
-    let alert = this._alert.create({
-      title: type,
-      subTitle: message,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  showLoader(){
-    this.loading = this._loading.create({
-      content: 'Please wait...',
-    });
-    this.loading.present();
-  }
-
-  hideLoader(){
-    this.loading.dismiss();
   }
 }

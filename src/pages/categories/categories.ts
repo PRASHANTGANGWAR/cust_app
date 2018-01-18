@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { UserData } from '../../providers/user-data';
 import { ProductListPage } from '../product-list/product-list';
-import { Database } from '../../providers/db-provider';
 
-import { NavController, LoadingController, AlertController, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
+import { Alerts } from '../../providers/alerts-provider';
 
 declare var window: any;
 
@@ -21,16 +21,14 @@ export interface ActionSheetButton {
   templateUrl: 'categories.html'
 })
 export class CategoriesPage {
-  private loading :any;
+  private categories:any=[];
 
   constructor(
     public navCtrl: NavController,
     private viewCtrl: ViewController,
     public confData: ConferenceData,
-    private _alert: AlertController,
-    private _loading: LoadingController,
     public userData: UserData,
-    public dataBase: Database
+    private alert:Alerts
   ) {
       window.localStorage.setItem('current_page',this.viewCtrl.name);
       console.log(this.viewCtrl.name);
@@ -38,35 +36,20 @@ export class CategoriesPage {
     }
 
     productList(){
-      this.confData.categories().then(results=>{
-           console.log(results);
-           this.dataBase.insertProducts(results).then(data =>{
-            console.log(data);
-           });
+      this.alert.showLoader();
+      this.confData.categories().then((res:any)=>{
+         this.alert.hideLoader();
+         if(res.status == 200){
+             let result = res.json();
+             this.categories = result.categories;
+             window.localStorage.setItem('categories',JSON.stringify(this.categories));
+          }else{
+              this.alert.presentToast("something went wrong!");
+          }
       });
     }
 
     showlist(number: any){
-      this.navCtrl.setRoot(ProductListPage,{id: number});
+      this.navCtrl.push(ProductListPage,{id: number});
     }
-
-  doAlert(type: string,message: string) {
-    let alert = this._alert.create({
-      title: type,
-      subTitle: message,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-  showLoader(){
-    this.loading = this._loading.create({
-      content: 'Please wait...',
-    });
-    this.loading.present();
-  }
-
-  hideLoader(){
-    this.loading.dismiss();
-  }
 }

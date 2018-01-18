@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>Change Password</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="form-content" text-center>
+  <div class="Loginpage">
+    <div class="formContainer">
+      <div class="logo">
+        <img src="assets/img/logo.png" />
+      </div>
+      <br>
+      <form #userForm="ngForm" novalidate>
+          <ion-list class="app-form" no-margin>
+            <ion-item no-lines>
+              <ion-icon name="ios-lock-outline" item-start></ion-icon>
+              <ion-input name="oldPass" [(ngModel)]="password.old" type="text" placeholder="Current Password" required>
+              </ion-input>
+            </ion-item>
+
+            <ion-item no-lines>
+              <ion-icon name="ios-lock" item-start></ion-icon>
+              <ion-input name="newPass" [(ngModel)]="password.new" type="text" placeholder="New Password" required>
+              </ion-input>
+            </ion-item>
+
+            <ion-item no-lines>
+              <ion-icon name="ios-lock" item-start></ion-icon>
+              <ion-input name="confirmPass" [(ngModel)]="password.confirm" placeholder="Cofirm Password" type="text" required>
+              </ion-input>
+            </ion-item>
+          </ion-list>
+          <button color="primary" ion-button (click)="changePassword()" type="submit" round block>Change Password</button>
+        </form>
+    </div>
+  </div>
+</ion-content>

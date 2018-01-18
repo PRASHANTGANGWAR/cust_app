@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 
-//import { Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 
 declare var window: any;
 @Injectable()
 export class UserData {
-  baseUrl = 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com';
-
+  baseUrl = 'http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com';
   constructor(
-   // public events: Events,
+    public events: Events,
     private http: Http
   ) {}
 
   login(username: string,password: string){
+    let deviceType = window.localStorage.getItem('deviceType');
     console.log(username+""+password);
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
     let data :any = {};
     data.app_version = "2.1";
     data.login = username;
     data.mobile_key = "";
-    data.mobile_type = "android";
+    data.mobile_type = deviceType;
     data.password= password;
     console.log(JSON.stringify({user:data}));
     let options = new RequestOptions({ 
@@ -36,7 +36,7 @@ export class UserData {
         res => {
           resolve(res);
           window.localStorage.setItem('login_details', JSON.stringify(res.json().user));
-          //this.events.publish('user:loggedin');
+          this.events.publish('user:loggedin');
         },
         err => {
           resolve(err);
@@ -75,14 +75,14 @@ export class UserData {
     });
   };
 
-  resetPassword(email: string){
-    console.log(email);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+  resetPassword(password: any){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ "Accept": "application/json",'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     let options = new RequestOptions({ 
-      method: RequestMethod.Post,
+      method: RequestMethod.Put,
       headers: headers,
-      body: JSON.stringify({email}),
-      url: this.baseUrl+'/forgetPassword'
+      body: password,
+      url: this.baseUrl+'/users/change_password'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -96,6 +96,54 @@ export class UserData {
       );
     });
   };
+
+  updateProfile(userData: any){
+    console.log(userData);
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      body: userData,
+      url: this.baseUrl+'/users/update_details'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
+   forgotPassword(phone: string){
+      let data: any = {};
+      data.user = {
+        mobile: phone
+      };
+      let headers = new Headers({ "Accept": "application/json", 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ 
+        method: RequestMethod.Put,
+        headers: headers,
+        body: data,
+        url: this.baseUrl+'/users/forgot_password'
+      });
+      return new Promise(resolve => {
+        this.http.request(new Request(options))
+        .subscribe(
+          res => {
+            resolve(res);
+          },
+          err => {
+            resolve(err);
+          }
+        );
+      });
+  }
 
   userAddress(){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
@@ -197,6 +245,28 @@ export class UserData {
 
   }
 
+  getProfile(){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      url: this.baseUrl+'/current_customer'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          // window.localStorage.setItem('user_address', JSON.stringify(res.json().user));
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  }
+
   paymentDue(){
 
     let user = JSON.parse(window.localStorage.getItem('login_details'));
@@ -226,7 +296,8 @@ export class UserData {
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      url: this.baseUrl+'deliveries/customer_recent_delivered_deliveries'
+      params: null,
+      url: this.baseUrl+'/deliveries/customer_recent_delivered_deliveries'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

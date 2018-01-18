@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>order choice</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<ion-grid xl class="choices-grid">
+		<ion-row>
+			<ion-col auto text-center (click)="openModal('everyday')"><img src="assets/img/everyday.png"><h5 color="light">Everyday</h5></ion-col>
+			<ion-col auto offset-1 text-center (click)="openModal('alternate')"><img src="assets/img/alternate.png"><h5 color="light">Alternate Day</h5></ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col auto text-center (click)="openModal('mwf')"><img src="assets/img/mon-wed-fri.png"><h5 color="light">Mon-Wed-Fri</h5></ion-col>
+			<ion-col auto offset-1 text-center (click)="openModal('mf')"><img src="assets/img/mon-fri.png"><h5 color="light">Mon-Fri</h5></ion-col>
+		</ion-row>
+			
+		<ion-row>
+			<ion-col auto text-center (click)="openModal('tts')"><img src="assets/img/tue-thu-sat.png"><h5 color="light">Tue-Thu-Sat</h5></ion-col>
+			<ion-col auto offset-1 text-center (click)="openModal('custom')"><img src="assets/img/custom.png"><h5 color="light">Custom</h5></ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

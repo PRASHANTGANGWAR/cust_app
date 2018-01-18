@@ -6,7 +6,7 @@ import { LoginPage } from '../pages/login/login';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
 import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
-import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
+// import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { ProfilePage } from '../pages/profile/profile';
 import { ViewAddressPage } from '../pages/view-address/view-address';
@@ -15,6 +15,8 @@ import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Alerts } from '../providers/alerts-provider';
 import { Splash } from '../pages/splash/splash';
+import { AlertController } from 'ionic-angular';
+
 
 declare var window: any;
 declare let cordova: any;
@@ -53,8 +55,8 @@ export class ConferenceApp {
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
     { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
     { title: 'My Orders',name:'EditOrderPage',component:EditOrderPage, icon: 'basket',editOrder:true },
-    { title: 'My Address', name:'ViewAddressPage',component: ViewAddressPage, icon: 'locate',viewAddress:true },
-    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    // { title: 'My Address', name:'ViewAddressPage',component: ViewAddressPage, icon: 'locate',viewAddress:true },
+    // { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
@@ -64,8 +66,8 @@ export class ConferenceApp {
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
     { title: 'My Profile', icon: 'md-contact', disable: true },
     { title: 'My Orders', icon: 'basket', disable: true  },
-    { title: 'My Address', icon: 'locate', disable: true  },
-    { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    // { title: 'My Address', icon: 'locate', disable: true  },
+    // { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true, disable: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true, disable: true },
@@ -75,6 +77,7 @@ export class ConferenceApp {
   userId: any;
   isLogin: boolean = false;
   constructor(
+    private alertCtrl: AlertController,
     public events: Events,
     public userData: UserData,
     public menu: MenuController,
@@ -122,8 +125,29 @@ export class ConferenceApp {
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the
     // tabs even if changing them from the menupage.
-    if (page.logsOut === true) {
-      this.logoutPassChange();
+    if (page.logsOut === true) {     
+    let alert = this.alertCtrl.create({
+      title: 'Logout',
+      message: 'Do you want to logout?',
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'CONFIRM',
+          handler: () => {
+            this.alerts.showLoader();
+            this.logoutPassChange();
+          }
+        }
+      ]
+    });
+    alert.present();
+    
     } else {
       if(page.index != 3){
           if (this.nav.getActiveChildNavs().length && page.index != undefined) {
@@ -150,7 +174,6 @@ export class ConferenceApp {
   }
 
   logoutPassChange(){
-    this.alerts.showLoader();
     this.isLogin = false;
     window.localStorage.removeItem('login_details');
     window.localStorage.removeItem('user_address');

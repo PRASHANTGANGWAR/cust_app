@@ -1,5 +1,18 @@
 <ion-content>
 	<ion-card class="card-details" [ngSwitch]="det">
+    <ion-list class="selection" padding *ngIf="recieveChoice.choice == ''">
+      <ion-item no-lines >
+         <ion-icon name="md-calendar" item-left></ion-icon>Date : 
+        <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
+  	 	   clear class="ScheduleDate">
+  		    <span>{{initDate | date:'dd/MM/yyyy'}}</span>
+  		  </span>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon name="md-alarm" item-left></ion-icon>Delivery Time : 5-7 AM
+      </ion-item>
+    </ion-list>
 	<ion-card-content>
       <div class="Qty main" text-center>
         <h4 class="bold"> {{title}}</h4>
@@ -27,8 +40,9 @@
 	          <ion-icon name="md-add" color="light"></ion-icon>
 	        </button>
 	      </div>
+	      <button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
 	      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>
-			<button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+			
 	</ion-card-content>
 </ion-card>
 </ion-content>

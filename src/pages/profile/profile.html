@@ -1,9 +1,9 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<button ion-button menuToggle>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>My Profile</ion-title>
+    <ion-title>MY PROFILE</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -45,7 +45,7 @@
 
       <ion-item>
         <ion-icon name="md-tablet-portrait" item-left></ion-icon>
-        <ion-input class="forminput" name="phone" placeholder="Registered Mobile Number" [(ngModel)]="Profile.mobile" type="tel" maxlength="10" required>
+        <ion-input class="forminput" name="phone" placeholder="Mobile Number" [(ngModel)]="Profile.mobile" type="tel" maxlength="10" required>
         </ion-input>
       </ion-item>
 
@@ -58,8 +58,8 @@
 
       <ion-item>
         <ion-icon name="md-calendar" item-left></ion-icon>
-        <ion-input ion-datepicker class="forminput" placeholder="date of birth(optional)" 
-        (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob" name="dob" type="date">
+        <ion-input  ion-datepicker class="forminput" placeholder="Date of birth(optional)" 
+        (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob" name="dob" disabled="true">
         </ion-input>
       </ion-item>
 
@@ -88,11 +88,22 @@
       </ion-item>
 
     </ion-list>
-
-	<button color="primary" ion-button (click)="updateValidate(userForm)" type="submit" round block>Update</button>
-	<button color="primary" ion-button (click)="changePassword(userForm)" type="submit" round block>Change Password</button>
+      <ion-card  *ngIf="address" class=address-card>
+      <ion-list class="address" padding>
+        <!-- <ion-card-title padding class="address-type">{{address.address_type}}</ion-card-title> -->
+        <ion-item no-lines> {{address.name}}</ion-item>
+          <ion-item no-lines>{{address.area.name}},</ion-item>
+          <ion-item no-lines> {{address.area.city.name}},</ion-item>
+          <ion-item no-lines>{{address.area.state.name}}</ion-item>
+        </ion-list>
+  </ion-card>
+  <button color="primary" (click)="addAddressPage()" ion-button block round padding>Edit Address</button>
+  <button color="primary" ion-button (click)="updateValidate(userForm)" type="submit" round block>Update</button>
+  <button color="primary" ion-button (click)="changePassword(userForm)" type="submit" round block>Change Password</button>
   
   </form>
 </div>
 </div>
+
+
 </ion-content>

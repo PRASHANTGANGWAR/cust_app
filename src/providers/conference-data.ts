@@ -132,7 +132,8 @@ export class ConferenceData {
       order.alter_from = "";
       order.app_version = "2.1";
       order.customer_id = user.id;
-      order.delivery_date = data.delivery_date;
+     // order.delivery_date = data.delivery_date;
+        order.delivery_date = data.delivery_date.toString();
       if(data.end_date){
         order.end_date = data.end_date;
       }
@@ -143,8 +144,7 @@ export class ConferenceData {
         order.parent_order_id=data.parent_order_id;
       }
       order.pickup = "false";
-      order.recurring = "true";
-      
+      order.recurring = data.recurring;
       return {order};
   }
 

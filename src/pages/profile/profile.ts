@@ -4,17 +4,20 @@ import { DatePipe } from '@angular/common';
 import { AlertController, NavController, LoadingController, ToastController } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { ChangePasPage } from '../change-pas/change-pas';
-
+import { MyAddressPage } from '../my-address/my-address';
+import { CategoriesPage } from '../categories/categories';
+declare var window: any; 
 @Component({
   selector: 'profile',
   templateUrl: 'profile.html'
 })
 
 export class ProfilePage {
+	public address: Array<any>;
 		Profile: any={};
 		RecName: string;
 		RecNumber: string;
-		SameRecip: boolean =true;
+		SameRecip: boolean =false;
 		check: boolean;
 		private loading :any;
 		public initDate: Date = new Date();
@@ -29,6 +32,42 @@ export class ProfilePage {
 		){
 		this.check = true;
 	    this.onLoad();
+	    let data = JSON.parse(window.localStorage.getItem('user_address'));
+		this.showAddress(data);
+	}
+	
+		showAddress(data: any){
+		if(data.addresses.length == 0){
+				this.presentConfirm();
+			}
+			else{
+				this.address = data.addresses[0];
+			}
+	}
+
+	addAddressPage(){
+	 	this.navCtrl.setRoot(MyAddressPage,{isAddress: true});
+	}
+
+	presentConfirm() {
+	    let alert = this._alert.create({
+	      message: 'Please add one address.',
+	      buttons: [
+	        {
+	          text: 'CANCEL',
+	          handler: () => {
+	            this.navCtrl.setRoot(CategoriesPage);
+	          }
+	        },
+	        {
+	          text: 'ADD',
+	          handler: () => {
+	            this.navCtrl.setRoot(MyAddressPage);
+	          }
+	        }
+	      ]
+	    });
+	    alert.present();
 	}
 
 	 setDate(date:Date){
@@ -43,8 +82,8 @@ export class ProfilePage {
 	   		result = data;
 	   		if(result.status == 200){
 	   			this.Profile = JSON.parse(result._body).user;
-	   			this.RecName = this.Profile.name;
-	   			this.RecNumber = this.Profile.mobile;
+	   			this.RecName = this.Profile.recipient_name;
+	   			this.RecNumber = this.Profile.recipient_number;
 	   			this.hideLoader();
 	   		}else{
 	   			this.hideLoader();

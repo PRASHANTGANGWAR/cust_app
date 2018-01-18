@@ -4,8 +4,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { ConferenceData } from '../../providers/conference-data';
 import { AddressOptions } from '../../interfaces/user-options';
-import { PlaceOrderPage } from '../place-order/place-order';
 import { Alerts } from '../../providers/alerts-provider';
+import { ProfilePage } from '../profile/profile';
+import { PlaceOrderPage } from '../place-order/place-order';
 
 declare var window:any;
 @Component({
@@ -26,6 +27,8 @@ export class MyAddressPage {
 	  local: string = "";
 	  type : string = "Home";
 	  isAddress: boolean = false;
+	  isPlaceorder:boolean;
+	  isproductId:number;
 
 	constructor(
 		public confData: ConferenceData,
@@ -34,6 +37,8 @@ export class MyAddressPage {
 		public navParams: NavParams,
 		private alerts: Alerts){
 		this.isAddress = navParams.get('isAddress');
+		this.isPlaceorder=navParams.get('placeorder');
+		this.isproductId=navParams.get('productId')		
 	    this.onLoad();
 	}
 
@@ -97,11 +102,10 @@ export class MyAddressPage {
 	   	});
 	  }
 
-	onSubmit(form: NgForm,value: any) {
-		this.alerts.showLoader();
+	onSubmit(form: NgForm,value: any) {		
 	    this.submitted = true;
-	    console.log(value);
 	    if (form.valid) {
+	    	this.alerts.showLoader();
 	    	let address:any = {};
 	    	address.address_type = value.type;
 	    	address.area_id = value.local;
@@ -111,7 +115,11 @@ export class MyAddressPage {
 	    	let data : any = {};
               data = result;
               if(data.status == 201){
-              	this.navCtrl.setRoot(PlaceOrderPage);
+              	if(this.isPlaceorder){
+   					this.navCtrl.setRoot(PlaceOrderPage,{productId:this.isproductId});
+              	}else{
+              		this.navCtrl.setRoot(ProfilePage);
+              	}
               } else{
                   this.alerts.doAlert('Error','something went wrong.');
                 }
@@ -134,7 +142,11 @@ export class MyAddressPage {
               data = result;
               if(data.status == 200){
               	this.alerts.presentToast("Address updated successfully.")
-              	this.navCtrl.setRoot(PlaceOrderPage);
+              	if(this.isPlaceorder){
+   					this.navCtrl.setRoot(PlaceOrderPage,{productId:this.isproductId});
+              	}else{
+              		this.navCtrl.setRoot(ProfilePage);
+              	}
               } else{
                   this.alerts.doAlert('Error','something went wrong.');
                 }

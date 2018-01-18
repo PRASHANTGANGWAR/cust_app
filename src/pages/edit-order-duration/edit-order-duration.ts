@@ -13,6 +13,7 @@ export class EditOrderDurationPage {
 	public fromDate: Date = new Date();
 	public toDate:Date = new Date();
 	private allOrders:any;
+
 	private orderPackages:any =[];
   private child_orders:any =[];
 
@@ -21,10 +22,12 @@ export class EditOrderDurationPage {
       public confData: ConferenceData,
 	  	public alerts:Alerts,
 	  	public modalCtrl: ModalController) {
-	  	this.fromDate.setDate(this.fromDate.getDate()+1);
-	    this.toDate.setDate(this.toDate.getDate()+1);
 	    this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
   		this.orderPackages = this.allOrders[0].order_packages;
+      var datefrom=new Date(this.allOrders[0].delivery_date)
+      var dateto=new Date(this.allOrders[0].delivery_date)
+      this.fromDate.setDate(datefrom.getDate());
+      this.toDate.setDate(dateto.getDate());
       this.getAllOrders();
 	}
 

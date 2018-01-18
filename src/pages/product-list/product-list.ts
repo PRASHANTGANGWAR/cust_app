@@ -19,6 +19,7 @@ export class ProductListPage {
 		public navParams: NavParams,
 		private navCtrl: NavController,
 		private alerts: Alerts) {
+		window.localStorage.removeItem('changed_date');
 		let id = navParams.get('id');
 		this.getProducts(id);
 
@@ -37,8 +38,9 @@ export class ProductListPage {
 		console.log(product_id);
 		window.localStorage.setItem('prod_id',product_id);
 		if(user){
-			this.navCtrl.push(PlaceOrderPage);
+			this.navCtrl.push(PlaceOrderPage,{ productId:product_id });
 		}
+
 		else{
 			this.alerts.showLoader();
 			this.alerts.presentToast('Please login first');

@@ -104,3 +104,24 @@ page-details {
         margin: 0 8px 0 0;
     }
 }
+.card-c-vh .card{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.card-c-vh .card .card-content:last-child{
+    display:flex;
+    width:100%;
+}
+.card-c-vh .card .card-content:last-child button:first-child{
+    width:49%;
+    float:left;
+    margin-right:10px;
+}
+.card-c-vh .card .card-content:last-child button:last-child{
+    width:49%;
+    float:right;
+}

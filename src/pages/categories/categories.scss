@@ -77,3 +77,25 @@ categories {
   }
 
 }
+.half-b .card{
+    width: 48.9%;
+    float: left;
+    margin: 3px 0 0px 3px;
+}
+.main-list .item-ios h2 {
+    font-weight: normal;
+    color: #ffffff;
+    white-space: inherit !important;
+    text-overflow: inherit !important;
+}
+.main-list ion-card img{
+  height:176px;
+}
+.main-list .item-ios {
+    min-height: auto;
+}
+
+.label-ios{
+  white-space: inherit !important;
+  text-overflow: inherit !important;
+}

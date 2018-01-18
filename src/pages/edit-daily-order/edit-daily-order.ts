@@ -23,8 +23,9 @@ export class EditDailyOrderPage {
     public confData: ConferenceData,
     public alertCtrl: AlertController
   	) {
-  	this.initDate.setDate(this.initDate.getDate()+1);
   	this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
+    var date=new Date(this.allOrders[0].delivery_date)
+    this.initDate.setDate(date.getDate());
   	this.orderPackages = this.allOrders[0].order_packages;
   }
 

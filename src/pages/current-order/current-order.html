@@ -11,14 +11,14 @@
 <ion-content>
 	<ion-list class="cart-list" padding>
 		<ion-item no-lines>
-		<h4 class="success">Success!</h4>
+		<h4 class="success stn">Success!</h4>
 		<h4 color="dark">Thanks for the order.</h4>
 		</ion-item>
-	<ion-item no-lines  *ngFor="let package of orderPackages">
+	<ion-item class="w-bg-box" no-lines  *ngFor="let package of orderPackages">
 		<ion-thumbnail item-start>
 		    <img src="assets/img/{{package.product_id}}.png">
 		</ion-thumbnail>
-		<h4 color="dark" style="margin: 30px 0px;">{{package.product.category.name}} - {{package.product.name}}</h4>
+		<h4 color="dark" style="margin: 30px 0px;">{{package.product.category.name}}<br>{{package.product.name}}</h4>
 </ion-item>
 </ion-list>
 <div padding>
@@ -28,8 +28,10 @@
 		<ion-item no-lines>{{currentOrderAddress.area.name}},</ion-item>
 		<ion-item no-lines>{{currentOrderAddress.zone.name}}</ion-item>
 	</ion-list>
+	<div class="">
 	<button color="primary" ion-button (click)="editOrderPage()" round block>TRACK YOUR ORDER</button>
 	<button color="secondary" ion-button (click)="mainMenu()" round block>BACK TO MENU </button>
+	</div>
 </div>
 
 

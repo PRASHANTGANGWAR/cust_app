@@ -193,3 +193,29 @@ rating{
         }
     }
 }
+.co-bot{
+    width:100%;
+    display:flex;
+}
+.co-bot button:first-child{
+    width:49%;
+    float:left;
+    margin-right:10px;
+}
+.co-bot button:last-child{
+    float:right;
+    width:49%;
+}
+.w-bg-box{
+    background: #f1f1f1;
+    margin-top: 10px;
+    padding: 10px !important;
+}
+.success.stn{
+    font-size: 2em;
+}
+page-current-order .item-ios ion-thumbnail img {
+    width: 83px;
+    height: 100%;
+    margin-bottom: 10px;
+}

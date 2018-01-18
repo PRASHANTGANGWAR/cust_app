@@ -3,12 +3,24 @@
     <button ion-button menuToggle start>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title text-uppercase>order choice</ion-title>
+    <ion-title text-uppercase>ORDER CHOICE</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+	<ion-list class="selection" padding>
+      <ion-item no-lines>
+         <ion-icon name="md-calendar" item-left></ion-icon>Date : 
+        <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"
+  	 	   clear class="ScheduleDate">
+  		    <span>{{initDate | date:'dd/MM/yyyy'}}</span>
+  		  </span>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-icon name="md-alarm" item-left></ion-icon>Delivery Time : 5-7 AM
+      </ion-item>
+    </ion-list>
 	<ion-grid xl class="choices-grid">
 		<ion-row>
 			<ion-col auto text-center (click)="openModal('everyday')"><img src="assets/img/everyday.png"><h5 color="light">Everyday</h5></ion-col>

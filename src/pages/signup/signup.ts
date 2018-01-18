@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component,OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
 
@@ -15,25 +15,32 @@ import { Alerts } from '../../providers/alerts-provider';
   selector: 'page-user',
   templateUrl: 'signup.html'
 })
-export class SignupPage {
-  signup: SignupOptions = { username: '', email: '', phone:''};
+export class SignupPage implements OnInit {
+  myForm: FormGroup;
+  signup: SignupOptions = { name: '', mobile:'', email: ''};
   submitted = false;
+  userForm:any;
 
   constructor(
     public navCtrl: NavController,
     public userData: UserData,
-    private alerts : Alerts
-  ) { }
+    private alerts : Alerts,
+    private fb: FormBuilder
+  ) {}
 
-  onSignup(form: NgForm) {
-    this.submitted = true;
-    if (form.valid) {
+ ngOnInit() {
+    this.myForm = this.fb.group({
+      'name':['',[Validators.required]],
+      'mobile':['',[Validators.required,Validators.minLength(10),Validators.pattern(/[0-9\+\-\ ]/)]],
+      'email':['',[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]]
+    });
+  }
+
+  onSignup() {
+    // this.submitted = true;
+    if (this.myForm.valid) {
       this.alerts.showLoader();
-        this.userData.signup(
-          this.signup.username,
-          this.signup.email,
-          this.signup.phone
-        ).then((res:any)=>{
+      this.userData.signup(this.signup).then((res:any)=>{
             this.alerts.hideLoader();
             if(res.status == 200){
             this.alerts.doAlert('Success!','Please login to continue.');
@@ -47,6 +54,8 @@ export class SignupPage {
               this.alerts.doAlert('Error','something went wrong');
           }
         });
+    }else{
+      return false
     }
   }
 }

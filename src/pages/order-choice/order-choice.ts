@@ -25,7 +25,6 @@ export class OrderChoicePage {
     getAllOrders(){
      this.confData.getAllOrders().then((data:any)=>{
         if(data.status == 200){
-         console.log(data)
         }else{
           this.alerts.presentToast(data.statusText);
         }

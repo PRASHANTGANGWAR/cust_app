@@ -1,10 +1,10 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<button ion-button menuToggle>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-		<ion-title>SIGNUP</ion-title>
-	</ion-navbar>
+    <ion-title>SIGNUP</ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content class="form-content" text-center>
 
@@ -15,34 +15,39 @@
         <img src="assets/img/logo.png" />
       </div>
       <br>
-      <form #signupForm="ngForm" novalidate>
-      		<ion-list class="app-form" no-margin>
+      <form [formGroup]="myForm" (ngSubmit)="onSignup()" novalidate>
+          <ion-list class="app-form" no-margin>
+
             <ion-item no-lines>
               <ion-icon name="ios-person-outline" item-left></ion-icon>
-              <ion-input [(ngModel)]="signup.username" placeholder = "Name" name="username" type="text" #username="ngModel" required>
-      				</ion-input>
+              <ion-input [(ngModel)]="signup.name" placeholder = "Name" name="name" type="text" formControlName="name">
+              </ion-input>
             </ion-item>
-      		  <p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
-      				Username is required
-      			</p>
+             <div *ngIf="myForm.get('name').hasError('required') && myForm.get('name').touched" class="danger">
+              Enter your name
+            </div>
 
             <ion-item no-lines>
               <ion-icon name="md-tablet-portrait" item-left></ion-icon>
-              <ion-input [(ngModel)]="signup.phone" placeholder = "Phone number" name="phone" type="tel" maxlength="10" #phone="ngModel" required>
+              <ion-input [(ngModel)]="signup.mobile" placeholder = "Mobile number" name="mobile" type="tel" minlength="1" maxlength="10" formControlName="mobile">
               </ion-input>
             </ion-item>
-            <p ion-text [hidden]="phone.valid || submitted == false" color="danger" padding-left>
-              Phone number is required
-            </p>
+            <div *ngIf="myForm.get('mobile').hasError('required') && myForm.get('mobile').touched" class="danger" padding-bottom> Mobile number is required
+             </div>
+             <div *ngIf="myForm.get('mobile').hasError('pattern') && myForm.get('mobile').touched" class="danger" padding-bottom> Please enter numbers only
+             </div>
 
             <ion-item no-lines>
               <ion-icon name="ios-at-outline" item-left></ion-icon>
-              <ion-input [(ngModel)]="signup.email" placeholder="Email" name="email" type="email" #email="ngModel">
-      			  </ion-input>
-            </ion-item> 
+              <ion-input [(ngModel)]="signup.email" placeholder="Email" name="email"      type="email" formControlName="email" >
+              </ion-input>
+            </ion-item>
+            <div *ngIf="myForm.get('email').hasError('pattern') && myForm.get('email').touched" class="danger" padding-bottom> Not a valid email
+             </div>
+
           </ion-list>
-      		<button color="primary" ion-button (click)="onSignup(signupForm)" type="submit" round block>Register</button>
-  		</form>
+          <button color="primary" ion-button  type="submit" round block>Register</button>
+      </form>
     </div>
   </div>
 </ion-content>

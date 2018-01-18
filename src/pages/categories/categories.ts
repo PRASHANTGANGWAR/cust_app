@@ -37,7 +37,6 @@ export class CategoriesPage {
     public alertCtrl: AlertController
   ) {
       window.localStorage.setItem('current_page',this.viewCtrl.name);
-      console.log(this.viewCtrl.name);
       this.productList();
     }
 

@@ -5,10 +5,11 @@ export interface UserOptions {
 }
 
 export interface SignupOptions {
-  username: string,
+  name: string,
   email: string,
-  phone: string
+  mobile: string
 }
+//todo: check hy this is needed in first place
 export interface resetOptions {
   email: string
 }

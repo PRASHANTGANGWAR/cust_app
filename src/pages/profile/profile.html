@@ -59,16 +59,9 @@
       <ion-item>
         <ion-icon name="md-calendar" item-left></ion-icon>
         <ion-input  ion-datepicker class="forminput" placeholder="Date of birth(optional)" 
-        (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob" name="dob" disabled="true">
+        (ionChanged)="setDate($event);" [(ngModel)]="Profile.dob"   name="dob" disabled="true">
         </ion-input>
       </ion-item>
-
-<!-- 
-      <ion-item>
-       <ion-icon name="md-calendar" item-left></ion-icon>
-        <ion-input  class="forminput"  [(ngModel)]="Profile.dob" name="dob" type="date" placeholder="Date Of Birth(optional)">
-        </ion-input>
-      </ion-item> -->
 
       <ion-item>
         <ion-label style="color:#999999;font-size:17px;">Same as above</ion-label>
@@ -90,7 +83,6 @@
     </ion-list>
       <ion-card  *ngIf="address" class=address-card>
       <ion-list class="address" padding>
-        <!-- <ion-card-title padding class="address-type">{{address.address_type}}</ion-card-title> -->
         <ion-item no-lines> {{address.name}}</ion-item>
           <ion-item no-lines>{{address.area.name}},</ion-item>
           <ion-item no-lines> {{address.area.city.name}},</ion-item>

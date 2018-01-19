@@ -129,7 +129,6 @@ export class MyAddressPage {
 
 	onUpdate(form: NgForm,value: any){	
 		this.submitted = true;
-		console.log(value);
 	    if (form.valid) {
 	    	this.alerts.showLoader();
 	    	let address:any = {};

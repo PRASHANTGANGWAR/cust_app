@@ -92,7 +92,6 @@ export class UserData {
   };
 
   updateProfile(userData: any){
-    console.log(userData);
     let user = JSON.parse(window.localStorage.getItem('login_details'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     let options = new RequestOptions({ 

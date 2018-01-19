@@ -20,7 +20,7 @@
       {{package.quantity}}
       </p>
       <ion-col col-2 text-left>
-      <button (click)="orderChoice(package)" ion-button  round color="primary" text-uppercase no-margin>
+      <button *ngIf="order.recurring"  (click)="orderChoice(package)" ion-button  round color="primary" text-uppercase no-margin>
         Update
       </button>
     </ion-col>
@@ -29,7 +29,7 @@
     </ion-list>
 
 <!-- if one time then cancel back -->
-  <button *ngIf="!order.recurring" color="primary" ion-button (click)="cancelOrder()" round block>Cancel Order</button>
+  <button *ngIf="!order.recurring" color="primary" ion-button (click)="cancelOrder(order.id)" round block>Cancel Order</button>
 
 <!-- if recurring then dnd and duration -->
     <ion-list *ngIf="order.recurring" class="cart-list">

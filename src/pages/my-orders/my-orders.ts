@@ -10,7 +10,6 @@ declare var window:any;
   templateUrl: 'my-orders.html',
 })
 export class MyOrdersPage {
-	private initDate:Date = new Date();
 	private allOrders:any;
 	private allOrderPackages:any = [];
 
@@ -39,56 +38,8 @@ export class MyOrdersPage {
     });  	
   }
 
-  ionViewDidLoad() {  }
-
-  setDate(date:Date){
-  	let today = new Date();
-  	today.setDate(today.getDate());
-  	if(date.getTime() >= today.getTime()){
-  		this.initDate = date;
-  	}else{
-  		this.alerts.presentToast("Please choose correct date");
-  	}
-  }
-
   orderChoice(order:any) {
       this.navCtrl.setRoot(EditOrderPage, {order_id: order.id});
-  }
-
-	cancelOrder(){
-    this.cancelConfirm("Are you sure you want to cancel the order?");
-	}
-
-  cancelConfirm(msg:any) {
-    let alert = this.alertCtrl.create({
-      title: 'Cancel Order',
-      message: msg,
-      buttons: [
-        {
-          text: 'CANCEL',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'CONFIRM',
-          handler: () => {
-            this.alerts.showLoader();
-            this.confData.cancelOrder().then((res:any)=>{
-              this.alerts.hideLoader();
-              if(res.status == 204){
-                this.navCtrl.setRoot(EditOrderPage);
-                this.alerts.presentToast("Order cancelled succesfully");
-              }else{
-                this.alerts.presentToast(res.statusText);
-              }
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
 }

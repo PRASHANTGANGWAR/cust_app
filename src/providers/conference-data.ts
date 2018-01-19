@@ -158,14 +158,13 @@ export class ConferenceData {
       return {order};
   }
 
-  cancelOrder(){
+  cancelOrder(id:number){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
-    let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     let options = new RequestOptions({ 
       method: RequestMethod.Delete,
       headers: headers,
-      url: this.baseUrl+'/orders/'+allOrders[0].id
+      url: this.baseUrl+'/orders/'+id
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

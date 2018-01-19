@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>One Time Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+	<ion-list class="cart-list" padding>
+	<ion-item class="w-bg-box" no-lines  *ngFor="let package of oneTimeOreder.order_packages">
+		<ion-thumbnail item-start>
+		    <img src="assets/img/{{package.product_id}}.png">
+		</ion-thumbnail>
+		<p color="dark" style="margin: 30px 0px;">
+		{{package.product.name}}<br>
+		{{oneTimeOreder.delivery_date | date:'dd/MM/yyyy'}}<br>
+		{{package.quantity}}
+		</p>
+</ion-item>
+</ion-list>
+<div padding>
+	<div class="">
+	<button *ngIf="showCancel" color="primary" ion-button (click)="cancelOrder()" round block>Cancel Order</button>
+	<button color="secondary" ion-button (click)="back()" round block>Back </button>
+	</div>
+</div>
+
+
+</ion-content>

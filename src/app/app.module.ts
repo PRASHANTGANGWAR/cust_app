@@ -24,6 +24,7 @@ import { OrderChoicePage } from '../pages/order-choice/order-choice';
 import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
 import { EditOrderPage } from '../pages/edit-order/edit-order';
+import { OneTimeOrderPage } from '../pages/one-time-order/one-time-order.module';
 import { SetNonavailabilityPage } from '../pages/set-nonavailability/set-nonavailability';
 import { EditDailyOrderPage } from '../pages/edit-daily-order/edit-daily-order';
 import { EditOrderDurationPage } from '../pages/edit-order-duration/edit-order-duration';
@@ -65,6 +66,7 @@ var config = {
     OrderChoicePage,
     CurrentOrderPage,
     EditOrderPage,
+    OneTimeOrderPage,
     SetNonavailabilityPage,
     EditDailyOrderPage,
     EditOrderDurationPage,
@@ -121,6 +123,7 @@ var config = {
     OrderChoicePage,
     CurrentOrderPage,
     EditOrderPage,
+    OneTimeOrderPage,
     SetNonavailabilityPage,
     EditDailyOrderPage,
     EditOrderDurationPage,

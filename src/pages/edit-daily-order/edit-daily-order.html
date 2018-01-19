@@ -24,7 +24,7 @@
             <p class="bold">{{orders.delivery_date  | date:'dd/MM/yyyy'}}</p>    
             </ion-col>
             <ion-col text-left col-6>
-              <button (click)="orderChoice(order.product_id)" ion-button  round color="primary" text-uppercase no-margin>
+              <button (click)="orderChoice(order.product_id,orders)" ion-button  round color="primary" text-uppercase no-margin>
                 Update
               </button>
             </ion-col>

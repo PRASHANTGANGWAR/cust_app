@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ConferenceData } from '../../providers/conference-data';
 import { SetNonavailabilityPage } from '../set-nonavailability/set-nonavailability';
-import{ EditDailyOrderPage } from '../edit-daily-order/edit-daily-order';
+import{ MyOrdersPage } from '../my-orders/my-orders';
 import { EditOrderDurationPage } from '../edit-order-duration/edit-order-duration';
 import { Alerts } from '../../providers/alerts-provider';
 
@@ -47,7 +47,7 @@ export class EditOrderPage {
 
   editDailyOrder(){
     this.alerts.showLoader();
-    this.navCtrl.push(EditDailyOrderPage);
+    this.navCtrl.push(MyOrdersPage);
     this.alerts.hideLoader();
   }
 

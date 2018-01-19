@@ -3,15 +3,14 @@ import { NavController, NavParams, ModalController, AlertController } from 'ioni
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { EditOrderPage } from '../edit-order/edit-order';
-import { OrderChoicePage } from '../order-choice/order-choice';
 import { OneTimeOrderPage } from '../one-time-order/one-time-order.module';
 
 declare var window:any;
 @Component({
-  selector: 'page-edit-daily-order',
-  templateUrl: 'edit-daily-order.html',
+  selector: 'my-orders',
+  templateUrl: 'my-orders.html',
 })
-export class EditDailyOrderPage {
+export class MyOrdersPage {
 	private initDate:Date = new Date();
 	private allOrders:any;
 	private allOrderPackages:any = [];
@@ -45,15 +44,11 @@ export class EditDailyOrderPage {
   	}
   }
 
-  orderChoice(product_id:number, oPackage:any){
+  orderChoice(oPackage:any) {
     if(!oPackage.recurring) {
       this.navCtrl.setRoot(OneTimeOrderPage,{order: oPackage})
     } else {
-      let editData:any={};
-      let dFrom = this.initDate.getFullYear()+'-'+("0" + (this.initDate.getMonth() + 1)).slice(-2)+'-'+this.initDate.getDate();
-      editData.product_id=product_id;
-      editData.deliveryDate=dFrom;
-      this.navCtrl.push(OrderChoicePage,{data:editData});      
+      this.navCtrl.setRoot(EditOrderPage)      
     }
   }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { EditDailyOrderPage } from '../edit-daily-order/edit-daily-order';
+import { MyOrdersPage } from '../my-orders/my-orders';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 
@@ -33,13 +33,13 @@ export class OneTimeOrderPage {
 					this.showCancel = true;
 				}	
 			} else {
-				this.navCtrl.setRoot(EditDailyOrderPage);	
+				this.navCtrl.setRoot(MyOrdersPage);	
 			}
 			this.alert.hideLoader();
 		}
 
 	back() {
-		this.navCtrl.setRoot(EditDailyOrderPage);
+		this.navCtrl.setRoot(MyOrdersPage);
 	}
 
 	cancelOrder() {
@@ -47,7 +47,7 @@ export class OneTimeOrderPage {
 		this.confData.cancelOrder().then((res:any)=> {
               this.alert.hideLoader();
               if(res.status == 204){
-                this.navCtrl.setRoot(EditDailyOrderPage);
+                this.navCtrl.setRoot(MyOrdersPage);
                 this.alert.presentToast("Order cancelled succesfully");
               }else{
                 this.alert.presentToast(res.statusText);

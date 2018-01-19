@@ -13,7 +13,7 @@ declare var window:any;
 export class EditDailyOrderPage {
 	private initDate:Date = new Date();
 	private allOrders:any;
-	private orderPackages:any;
+	private allOrderPackages:any = [];
 
   constructor(
   	public navCtrl: NavController,
@@ -24,9 +24,10 @@ export class EditDailyOrderPage {
     public alertCtrl: AlertController
   	) {
   	this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
-    var date=new Date(this.allOrders[0].delivery_date)
-    this.initDate.setDate(date.getDate());
-  	this.orderPackages = this.allOrders[0].order_packages;
+    let self = this;
+    self.allOrders.forEach(function(order:any){
+      self.allOrderPackages.push(order);
+    })
   }
 
   ionViewDidLoad() {

@@ -3,7 +3,6 @@ import { NavController, NavParams, ModalController, AlertController } from 'ioni
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { EditOrderPage } from '../edit-order/edit-order';
-import { OneTimeOrderPage } from '../one-time-order/one-time-order.module';
 
 declare var window:any;
 @Component({
@@ -23,16 +22,24 @@ export class MyOrdersPage {
     public confData: ConferenceData,
     public alertCtrl: AlertController
   	) {
-  	this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
-    let self = this;
-    self.allOrders.forEach(function(order:any){
-      self.allOrderPackages.push(order);
-    })
+
+    this.alerts.showLoader();
+    this.confData.getAllOrders().then((data:any)=>{
+    if(data.status == 200){
+        this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
+        let self = this;
+        self.allOrders.forEach(function(order:any) {
+          self.allOrderPackages.push(order);
+        });
+        this.alerts.hideLoader();
+    } else {
+      this.alerts.hideLoader();
+      this.alerts.presentToast(data.statusText);
+     }
+    });  	
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditDailyOrderPage');
-  }
+  ionViewDidLoad() {  }
 
   setDate(date:Date){
   	let today = new Date();
@@ -44,12 +51,8 @@ export class MyOrdersPage {
   	}
   }
 
-  orderChoice(oPackage:any) {
-    if(!oPackage.recurring) {
-      this.navCtrl.setRoot(OneTimeOrderPage,{order: oPackage})
-    } else {
-      this.navCtrl.setRoot(EditOrderPage)      
-    }
+  orderChoice(order:any) {
+      this.navCtrl.setRoot(EditOrderPage, {order_id: order.id});
   }
 
 	cancelOrder(){

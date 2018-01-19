@@ -34,7 +34,6 @@ export class OrderChoicePage {
   ionViewDidLoad() {
     this.order_data.deliveryDate=this.initDate;
   	let product_data=this.navParams.get('data');
-    console.log('ionViewDidLoad OrderChoicePage');
     this.order_data.product_data = product_data;
   }
 

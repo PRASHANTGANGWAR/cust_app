@@ -7,55 +7,59 @@
   </ion-navbar>
 </ion-header>
 
+<!-- Order packages -->
 <ion-content>
-    <ion-list class="cart-list" *ngIf="hasOrders;else other_content">
-    <ion-item class="n-box" no-lines>
-      <ion-thumbnail class="mb--2" item-start>
-        <img src="assets/img/set-non-availability.png">
+  <ion-list class="cart-list" padding>
+    <ion-item class="w-bg-box" no-lines  *ngFor="let package of order.order_packages">
+      <ion-thumbnail item-start>
+          <img src="assets/img/{{package.product_id}}.png">
       </ion-thumbnail>
+      <p color="dark" >
+      {{package.product.category.name}}<br>
+      {{order.delivery_date | date:'dd/MM/yyyy'}}<br>
+      {{package.quantity}}
+      </p>
+      <ion-col col-2 text-left>
+      <button (click)="orderChoice(package)" ion-button  round color="primary" text-uppercase no-margin>
+        Update
+      </button>
+    </ion-col>
+
+      </ion-item>
+    </ion-list>
+
+<!-- if one time then cancel back -->
+  <button *ngIf="!order.recurring" color="primary" ion-button (click)="cancelOrder()" round block>Cancel Order</button>
+
+<!-- if recurring then dnd and duration -->
+    <ion-list *ngIf="order.recurring" class="cart-list">
+    <ion-item class="n-box" no-lines>
+      <ion-thumbnail class="mb--2" item-start><img src="assets/img/set-non-availability.png"></ion-thumbnail>
       <h4 color="dark">Set non availability</h4>
       <ion-grid no-padding>
-        <ion-row style="padding-top: 10px">
+        <ion-row>
           <ion-col text-left col-6>
-            <button (click)="nonAvialability()" ion-button  round color="primary" text-uppercase no-margin>
-              Update
-            </button>
+            <button (click)="nonAvialability()" ion-button  round color="primary" text-uppercase no-margin>Update</button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
     <ion-item class="n-box" no-lines>
-      <ion-thumbnail class="mb--2" item-start>
-        <img src="assets/img/edit-order-duration.png">
-      </ion-thumbnail>
+      <ion-thumbnail class="mb--2" item-start><img src="assets/img/edit-order-duration.png"></ion-thumbnail>
       <h4 color="dark">Edit order for a duration</h4>
       <ion-grid no-padding>
-        <ion-row style="padding-top: 10px">
+        <ion-row>
           <ion-col text-left col-6>
-            <button (click)="editOrderDuration()" ion-button  round color="primary" text-uppercase no-margin>
-              Update
-            </button>
+            <button (click)="editOrderDuration()" ion-button  round color="primary" text-uppercase no-margin>Update</button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
-    <ion-item class="n-box" no-lines>
-      <ion-thumbnail class="mb--2" item-start>
-        <img src="assets/img/edit-daily-order.png">
-      </ion-thumbnail>
-      <h4 color="dark">Edit daily order</h4>
-      <ion-grid no-padding>
-        <ion-row style="padding-top: 10px">
-          <ion-col text-left col-6>
-            <button (click)="editDailyOrder()" ion-button  round color="primary" text-uppercase no-margin>
-              Update
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+    </ion-list>
+     <!-- back button -->
+    <ion-item  class="n-box" no-lines>
+        <button color="secondary" ion-button (click)="back()" round block>Back </button>
     </ion-item>
-  </ion-list> 
-    <ng-template #other_content>
-    <div style="padding: 20px; color: #df3896;"><h2 >No order yet</h2></div>
-  </ng-template>
+
+
 </ion-content>

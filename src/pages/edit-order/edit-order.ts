@@ -5,56 +5,46 @@ import { SetNonavailabilityPage } from '../set-nonavailability/set-nonavailabili
 import{ MyOrdersPage } from '../my-orders/my-orders';
 import { EditOrderDurationPage } from '../edit-order-duration/edit-order-duration';
 import { Alerts } from '../../providers/alerts-provider';
+import { OrderChoicePage } from '../order-choice/order-choice';
 
-declare var window:any;
 @Component({
   selector: 'page-edit-order',
   templateUrl: 'edit-order.html',
 })
 export class EditOrderPage {
-  private hasOrders:boolean = false;
-
+  order:any = []; //order details
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private confData: ConferenceData,
     private alerts: Alerts) {
-    this.getAllOrders();
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditOrderPage');
-  }
-
-  getAllOrders(){
+ 
     this.alerts.showLoader();
-    this.confData.getAllOrders().then((data:any)=>{
-      if(data.status == 200){
-       let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
-       if(allOrders.length){
-        this.hasOrders = true;
-       }
-     }else{
-      this.alerts.presentToast(data.statusText);
-     }
-    });
+    let order_id = this.navParams.get('order_id') != null ? this.navParams.get('order_id') : 0;
+    this.order = this.confData.getOrderDetail(order_id);
     this.alerts.hideLoader();
+
   }
 
-  nonAvialability(){
-  	this.navCtrl.push(SetNonavailabilityPage);
-  }
+  ionViewDidLoad() {}
 
-  editDailyOrder(){
-    this.alerts.showLoader();
-    this.navCtrl.push(MyOrdersPage);
-    this.alerts.hideLoader();
-  }
+  nonAvialability(){this.navCtrl.push(SetNonavailabilityPage);}
+  back() { this.navCtrl.setRoot(MyOrdersPage);}
 
   editOrderDuration(){
     this.alerts.showLoader();
     this.navCtrl.push(EditOrderDurationPage);
     this.alerts.hideLoader();
   }
+
+  orderChoice(pkg:any){
+    let editData:any={};
+    editData.product_id= pkg.product_id;
+    editData.deliveryDate = this.order.delivery_date;
+    this.navCtrl.push(OrderChoicePage,{data:editData});
+
+     }
 
 }

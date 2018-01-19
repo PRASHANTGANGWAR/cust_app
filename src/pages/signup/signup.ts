@@ -16,7 +16,7 @@ import { Alerts } from '../../providers/alerts-provider';
   templateUrl: 'signup.html'
 })
 export class SignupPage implements OnInit {
-  myForm: FormGroup;
+  signForm: FormGroup;
   signup: SignupOptions = { name: '', mobile:'', email: ''};
   submitted = false;
   userForm:any;
@@ -29,16 +29,16 @@ export class SignupPage implements OnInit {
   ) {}
 
  ngOnInit() {
-    this.myForm = this.fb.group({
+    this.signForm = this.fb.group({
       'name':[null,[Validators.required]],
-      'mobile':[null,[Validators.required,Validators.minLength(10),Validators.pattern(/^[\s()+-]*([0-9][\s()+-]*){6,100}$/)]],
+      'mobile':[null,[Validators.required,Validators.pattern(/^[\s()+-]*([0-9][\s()+-]*){1,10}$/)]],
       'email':[null,[Validators.email]]
     });
   }
 
   onSignup() {
     // this.submitted = true;
-    if (this.myForm.valid) {
+    if (this.signForm.valid) {
       this.alerts.showLoader();
       this.userData.signup(this.signup).then((res:any)=>{
             this.alerts.hideLoader();

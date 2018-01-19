@@ -1,6 +1,6 @@
 
 export interface UserOptions {
-  username: string,
+  mobile: string,
   password: string
 }
 

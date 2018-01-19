@@ -1,7 +1,7 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<ion-title><b>LOGIN</b></ion-title>
-	</ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title><b>LOGIN</b></ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="form-content" text-center>
@@ -12,31 +12,35 @@
           <img src="assets/img/logo.png" />
         </div>
         <br>
-        <form #loginForm="ngForm" novalidate>
+        <form [formGroup]="loginForm" >
           <ion-list class="app-form" no-margin>
+            
+            <!-- mobile block -->
             <ion-item no-lines>
               <ion-icon name="ios-person-outline" item-start></ion-icon>
-              <ion-input [(ngModel)]="login.username" name="username" type="tel"  
-                 #username="ngModel" maxlength="10" placeholder="Mobile Number" 
-    					   required>     
+              <ion-input [(ngModel)]="login.mobile" name="mobile" type="tel"  
+                  placeholder="Mobile Number" 
+                 formControlName="mobile">     
               </ion-input>
             </ion-item>
-      		  <p ion-text [hidden]="username.valid || submitted == false" color="danger">
-      				Username is required
-      			</p>
+              <div *ngIf="loginForm.get('mobile').hasError('required') && (submitted == true || loginForm.get('mobile').touched)" class="danger" padding-bottom>
+              Enter your mobile number
+            </div>
+             <div *ngIf="loginForm.get('mobile').hasError('pattern') && (submitted == true || loginForm.get('mobile').touched)" class="danger" padding-bottom>Not a valid mobile number
+             </div>
 
+           <!-- passwword block -->
             <ion-item no-lines>
               <ion-icon name="ios-lock-outline" item-start></ion-icon>
               <ion-input [(ngModel)]="login.password" placeholder="Password" 
-                name="password" type="password" #password="ngModel" required>
-      				</ion-input>
+                name="password" type="password" formControlName="password">
+              </ion-input>
             </ion-item>
-      		  <p ion-text [hidden]="password.valid || submitted == false" color="danger">
-      				Password is required
-      			</p>
+              <div *ngIf="loginForm.get('password').hasError('required') && (submitted == true || loginForm.get('password').touched)" class="danger" padding-bottom>Password is required
+             </div>
           </ion-list>
 
-          <button (click)="onLogin(loginForm)" type="button"  color="primary" ion-button round block>Login</button>
+          <button (click)="onLogin()" type="button"  color="primary" ion-button round block>Login</button>
           <button color="secondary" (click)="onSignup()" ion-button round block>Register</button>
 
           <p (click)="forgotPassword()" margin-top>Forgot Password ?</p>

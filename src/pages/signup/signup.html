@@ -15,15 +15,15 @@
         <img src="assets/img/logo.png" />
       </div>
       <br>
-      <form [formGroup]="myForm" (ngSubmit)="onSignup()" novalidate>
+      <form [formGroup]="myForm" >
           <ion-list class="app-form" no-margin>
 
             <ion-item no-lines>
               <ion-icon name="ios-person-outline" item-left></ion-icon>
-              <ion-input [(ngModel)]="signup.name" placeholder = "Name" name="name" type="text" formControlName="name">
+              <ion-input [(ngModel)]="signup.name" placeholder = "Name" name="name" type="text" id="name1" formControlName="name">
               </ion-input>
             </ion-item>
-             <div *ngIf="myForm.get('name').hasError('required') && myForm.get('name').touched" class="danger">
+             <div *ngIf="myForm.get('name').hasError('required') && (submitted == true || myForm.get('name').touched)" class="danger" padding-bottom>
               Enter your name
             </div>
 
@@ -32,9 +32,9 @@
               <ion-input [(ngModel)]="signup.mobile" placeholder = "Mobile number" name="mobile" type="tel" minlength="1" maxlength="10" formControlName="mobile">
               </ion-input>
             </ion-item>
-            <div *ngIf="myForm.get('mobile').hasError('required') && myForm.get('mobile').touched" class="danger" padding-bottom> Mobile number is required
+            <div *ngIf="myForm.get('mobile').hasError('required') && (submitted == true || myForm.get('mobile').touched)" class="danger" padding-bottom> Mobile number is required
              </div>
-             <div *ngIf="myForm.get('mobile').hasError('pattern') && myForm.get('mobile').touched" class="danger" padding-bottom> Please enter numbers only
+             <div *ngIf="myForm.get('mobile').hasError('pattern') && (submitted == true || myForm.get('mobile').touched)" class="danger" padding-bottom> Not a valid mobile number
              </div>
 
             <ion-item no-lines>
@@ -42,11 +42,11 @@
               <ion-input [(ngModel)]="signup.email" placeholder="Email" name="email"      type="email" formControlName="email" >
               </ion-input>
             </ion-item>
-            <div *ngIf="myForm.get('email').hasError('pattern') && myForm.get('email').touched" class="danger" padding-bottom> Not a valid email
+            <div *ngIf="!myForm.get('email').valid && (submitted == true || myForm.get('email').touched)" class="danger" padding-bottom> Not a valid email
              </div>
 
           </ion-list>
-          <button color="primary" ion-button  type="submit" round block>Register</button>
+          <button color="primary" ion-button  type="submit" (click)="onSignup();" round block>Register</button>
       </form>
     </div>
   </div>

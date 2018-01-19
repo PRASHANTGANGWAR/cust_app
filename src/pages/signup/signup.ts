@@ -30,9 +30,9 @@ export class SignupPage implements OnInit {
 
  ngOnInit() {
     this.myForm = this.fb.group({
-      'name':['',[Validators.required]],
-      'mobile':['',[Validators.required,Validators.minLength(10),Validators.pattern(/[0-9\+\-\ ]/)]],
-      'email':['',[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]]
+      'name':[null,[Validators.required]],
+      'mobile':[null,[Validators.required,Validators.minLength(10),Validators.pattern(/^[\s()+-]*([0-9][\s()+-]*){6,100}$/)]],
+      'email':[null,[Validators.email]]
     });
   }
 
@@ -55,6 +55,7 @@ export class SignupPage implements OnInit {
           }
         });
     }else{
+       this.submitted=true;
       return false
     }
   }

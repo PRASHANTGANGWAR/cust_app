@@ -7,7 +7,8 @@ import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 declare var window: any;
 @Injectable()
 export class UserData {
-  baseUrl = 'http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com';
+   baseUrl = 'http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com';
+  // baseUrl = 'http://app.dairylac.com';
   constructor(
     public events: Events,
     private http: Http
@@ -45,32 +46,25 @@ export class UserData {
     });
   };
 
-  signup(username: string, email: string, phone: string){
-    console.log(username+""+email+""+phone);
+  signup(signup:any ){
     let headers = new Headers({ "Accept": "application/json", 'Content-Type': 'application/json' });
-    let data :any = {};
-    data.dob = "";
-    data.email = email;
-    data.mobile = phone;
-    data.name = username;
-    data.recipient_name = username;
-    data.recipient_number = phone;
-    data.role = "4";
+    signup.dob = "";
+    signup.recipient_name = signup.name;
+    signup.recipient_number = signup.mobile;
+    signup.role = "4";
+    debugger;
+    //todo : check with backend if role and other fields are needed.
+
     let options = new RequestOptions({ 
       method: RequestMethod.Post,
       headers: headers,
-      body: JSON.stringify({user: data}),
+      body: JSON.stringify({user: signup}),
       url: this.baseUrl+'/users'
     });
     return new Promise(resolve => {
-      this.http.request(new Request(options))
-      .subscribe(
-        res => {
-          resolve(res);
-        },
-        err => {
-          resolve(err);
-        }
+      this.http.request(new Request(options)).subscribe(
+        res => {resolve(res);},
+        err => {resolve(err);}
       );
     });
   };

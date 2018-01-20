@@ -39,7 +39,7 @@
       <ion-grid no-padding>
         <ion-row>
           <ion-col text-left col-6>
-            <button (click)="nonAvialability()" ion-button  round color="primary" text-uppercase no-margin>Update</button>
+            <button (click)="nonAvialability(order.id)" ion-button  round color="primary" text-uppercase no-margin>Update</button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -50,7 +50,7 @@
       <ion-grid no-padding>
         <ion-row>
           <ion-col text-left col-6>
-            <button (click)="editOrderDuration()" ion-button  round color="primary" text-uppercase no-margin>Update</button>
+            <button (click)="editOrderDuration(order.id)" ion-button  round color="primary" text-uppercase no-margin>Update</button>
           </ion-col>
         </ion-row>
       </ion-grid>

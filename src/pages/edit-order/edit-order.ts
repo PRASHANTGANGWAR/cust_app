@@ -13,7 +13,7 @@ import { OrderChoicePage } from '../order-choice/order-choice';
 })
 export class EditOrderPage {
   order:any = []; //order details
-
+  order_id:number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,9 +23,9 @@ export class EditOrderPage {
 
  
     this.alerts.showLoader();
-    let order_id = this.navParams.get('order_id');
-    if(order_id) {
-      this.order = this.confData.getOrderDetail(order_id);      
+    this.order_id = this.navParams.get('order_id');
+    if(this.order_id) {
+      this.order = this.confData.getOrderDetail(this.order_id);
     } else {
       this.back();
     }
@@ -46,6 +46,7 @@ export class EditOrderPage {
 
   orderChoice(pkg:any) {
     let editData:any={};
+    editData.order_id = this.order_id;
     editData.product_id= pkg.product_id;
     editData.deliveryDate = this.order.delivery_date;
     this.navCtrl.push(OrderChoicePage,{data:editData});

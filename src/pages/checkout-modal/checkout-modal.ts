@@ -303,7 +303,7 @@ export class CheckoutModalPage {
   }
 
   placeOrder(){
-  	let allOrders=JSON.parse(window.localStorage.getItem('allOrders'));
+
     let alladdress=JSON.parse(window.localStorage.getItem('user_address'));
     if(alladdress.addresses.length == 0){
      this.alerts.hideLoader();
@@ -328,7 +328,7 @@ export class CheckoutModalPage {
     order["order_packages_attributes"][0] = {};
     order["order_packages_attributes"][0]["id"] = "";
     //check if there is an existing order
-    if(allOrders.length && order.recurring != "false"){
+    if(this.recieveChoice.product_data.order_id && order.recurring != "false"){
     	//update order
 		order["order_packages_attributes"][0]["default_qty"] = this.mainNumber;
 		order["order_packages_attributes"][0]["friday"] = this.apiWeek[4].currentNumber;
@@ -341,13 +341,15 @@ export class CheckoutModalPage {
 		order["order_packages_attributes"][0]["time_slot_id"] = "5";
 		order["order_packages_attributes"][0]["tuesday"] = this.apiWeek[1].currentNumber;
 		order["order_packages_attributes"][0]["wednesday"] = this.apiWeek[2].currentNumber;
-		order.order_id = allOrders[0].id;
+    // find current order details
+    let orderDetail = this.confData.getOrderDetail(this.recieveChoice.product_data.order_id);
+		order.order_id = orderDetail.id;
    
     
       if(this.recieveChoice.product_data.end_date){
          //update order for a duration
           order.end_date=this.recieveChoice.product_data.end_date;
-          order.parent_order_id = allOrders[0].id;
+          order.parent_order_id = orderDetail.id;
           this.confData.createChildOrder(order).then((data:any)=>{
           this.alerts.hideLoader();
           if (data.status == 201){
@@ -357,9 +359,9 @@ export class CheckoutModalPage {
           }
         });
       } else{
-          for(var t=0;t<allOrders[0].order_packages.length;t++){
-            if(allOrders[0].order_packages[t].product_id == this.recieveChoice.product_data.product_id){
-              order["order_packages_attributes"][0]["id"]= allOrders[0].order_packages[t].id;
+          for(var t=0;t<orderDetail.order_packages.length;t++){
+            if(orderDetail.order_packages[t].product_id == this.recieveChoice.product_data.product_id){
+              order["order_packages_attributes"][0]["id"]= orderDetail.order_packages[t].id;
             }
           }
     	    this.confData.updateOrder(order).then((data:any)=>{

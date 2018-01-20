@@ -31,9 +31,9 @@ export class SetNonavailabilityPage {
     this.alerts.showLoader();
     this.isDnd = window.localStorage.getItem('isDnd');
     if(this.isDnd){
-      let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
-      this.fromDate = new Date(allOrders[0].dnd_from);
-      this.toDate = new Date(allOrders[0].dnd_to);
+      let allOrders = this.confData.getOrderDetail(this.navParams.get('id'));
+      this.fromDate = new Date(allOrders.dnd_from);
+      this.toDate = new Date(allOrders.dnd_to);
       this.alerts.hideLoader();
     }else{
       this.fromDate.setDate(this.fromDate.getDate()+1);

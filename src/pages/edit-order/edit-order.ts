@@ -35,12 +35,12 @@ export class EditOrderPage {
 
   ionViewDidLoad() {}
 
-  nonAvialability(){this.navCtrl.push(SetNonavailabilityPage);}
+  nonAvialability(id:number){this.navCtrl.push(SetNonavailabilityPage,{id: id});}
   back() { this.navCtrl.setRoot(MyOrdersPage);}
 
-  editOrderDuration() {
+  editOrderDuration(id:number) {
     this.alerts.showLoader();
-    this.navCtrl.push(EditOrderDurationPage);
+    this.navCtrl.push(EditOrderDurationPage,{id: id});
     this.alerts.hideLoader();
   }
 

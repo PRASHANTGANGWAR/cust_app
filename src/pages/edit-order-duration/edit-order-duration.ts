@@ -4,7 +4,6 @@ import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { OrderChoicePage } from '../order-choice/order-choice';
 
-declare var window:any;
 @Component({
   selector: 'page-edit-order-duration',
   templateUrl: 'edit-order-duration.html',
@@ -16,16 +15,19 @@ export class EditOrderDurationPage {
 
 	private orderPackages:any =[];
   private child_orders:any =[];
+  orderId:number;
 
 	constructor(public navCtrl: NavController,
 	  	public navParams: NavParams,
       public confData: ConferenceData,
 	  	public alerts:Alerts,
 	  	public modalCtrl: ModalController) {
-	    this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
-  		this.orderPackages = this.allOrders[0].order_packages;
-      var datefrom=new Date(this.allOrders[0].delivery_date)
-      var dateto=new Date(this.allOrders[0].delivery_date)
+
+      this.orderId = this.navParams.get('id');
+	    this.allOrders = this.confData.getOrderDetail(this.orderId);
+  		this.orderPackages = this.allOrders.order_packages;
+      var datefrom=new Date(this.allOrders.delivery_date)
+      var dateto=new Date(this.allOrders.delivery_date)
       this.fromDate.setDate(datefrom.getDate());
       this.toDate.setDate(dateto.getDate());
       this.getAllOrders();
@@ -72,8 +74,8 @@ export class EditOrderDurationPage {
   getAllOrders(){
     this.confData.getAllOrders().then((res:any)=>{
       if(res.status == 200){
-       let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
-       this.child_orders = allOrders[0].child_orders;
+       let allOrders = this.confData.getOrderDetail(this.orderId);
+       this.child_orders = allOrders.child_orders;
       }else{
         this.alerts.presentToast(res.statusText);
       }

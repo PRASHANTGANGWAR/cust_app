@@ -52,7 +52,6 @@ export class UserData {
     signup.recipient_name = signup.name;
     signup.recipient_number = signup.mobile;
     signup.role = "4";
-    debugger;
     //todo : check with backend if role and other fields are needed.
 
     let options = new RequestOptions({ 

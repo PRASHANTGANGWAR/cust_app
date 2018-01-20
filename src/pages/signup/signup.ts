@@ -29,10 +29,11 @@ export class SignupPage implements OnInit {
   ) {}
 
  ngOnInit() {
+   let emailPattern = "[a-zA-Z0-9._\-]+[@]+[a-zA-Z0-9\-]+[.]+[a-zA-Z]{2,6}" // for avoiding optional validation
     this.signForm = this.fb.group({
       'name':[null,[Validators.required]],
       'mobile':[null,[Validators.required,Validators.pattern(/^[\s()+-]*([0-9][\s()+-]*){1,10}$/)]],
-      'email':[null,[Validators.email]]
+      'email':[null,[Validators.pattern(emailPattern)]]
     });
   }
 

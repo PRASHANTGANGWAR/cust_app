@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component,OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NavController, MenuController, Events } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
@@ -11,25 +11,33 @@ import { Alerts } from '../../providers/alerts-provider';
   selector: 'login-user',
   templateUrl: 'login.html'
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   public flag : boolean = false;
-  login: UserOptions = { username: '', password: '' };
+  login: UserOptions = { mobile: '', password: '' };
   submitted = false;
+  loginForm:any;
 
   constructor(
     public events: Events,
     private navCtrl: NavController, 
     public userData: UserData,
     public menu: MenuController,
-    public alerts:Alerts
+    public alerts:Alerts,
+    private fb: FormBuilder
     ) { 
       }
 
-  onLogin(form: NgForm) {
-    this.submitted = true;
-    if (form.valid) {
+ ngOnInit() {
+    this.loginForm = this.fb.group({
+      'mobile':[null,[Validators.required,Validators.pattern(/^[\s()+-]*([0-9][\s()+-]*){1,10}$/)]],
+      'password':[null,[Validators.required]]
+    });
+  } 
+
+  onLogin() {
+    if (this.loginForm.valid) {
       this.alerts.showLoader();
-      this.userData.login(this.login.username,this.login.password).then(results=>{
+      this.userData.login(this.login.mobile,this.login.password).then(results=>{
           let resultData : any = {};
            resultData = results;
           if(resultData.status == 200){
@@ -48,6 +56,9 @@ export class LoginPage {
             this.alerts.presentToast('Username and password do not match.');
           }
       });
+    }else{
+      this.submitted = true;
+      return false;
     }
   }
 
@@ -58,11 +69,11 @@ export class LoginPage {
   }
 
   forgotPassword() {
-    if(this.login.username.length < 10 || this.login.username.length > 10){
+    if(this.login.mobile.length < 10 || this.login.mobile.length > 10){
         this.alerts.presentToast('Enter 10 digits mobile no.');
     }else{
       this.alerts.showLoader();
-        this.userData.forgotPassword(this.login.username).then((res:any)=>{
+        this.userData.forgotPassword(this.login.mobile).then((res:any)=>{
           this.alerts.hideLoader();
           if(res.status == 200){
             this.alerts.presentToast('You will recieve a message soon.');

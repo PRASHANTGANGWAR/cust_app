@@ -71,7 +71,7 @@ export class ProfilePage {
 	}
 
 	 setDate(date:Date){
-	 	let dob = date.getFullYear()+'-'+("0" + (date.getMonth() + 1)).slice(-2)+'-'+date.getDate();
+	 	let dob = date.getDate()+'/'+("0" + (date.getMonth() + 1)).slice(-2)+'/'+date.getFullYear();
 	 	this.Profile.dob = dob;
 	 }
 
@@ -81,7 +81,9 @@ export class ProfilePage {
 	   		let result: any = {};
 	   		result = data;
 	   		if(result.status == 200){
-	   			this.Profile = JSON.parse(result._body).user;
+	   			var userValues = JSON.parse(result._body).user;
+	   			userValues.dob=userValues.dob.split('-').reverse().join("-");
+	   			this.Profile = userValues;
 	   			this.RecName = this.Profile.recipient_name;
 	   			this.RecNumber = this.Profile.recipient_number;
 	   			this.hideLoader();
@@ -136,6 +138,7 @@ export class ProfilePage {
 	   		result = data;
 	   		if(result.user && result.user.authentication_token){
 	   			this.Profile = result.user;
+	   			this.Profile.dob=result.user.dob.split('-').reverse().join("-");
 	   			this.RecName = result.user.recipient_name;
 	   			this.RecNumber = result.user.recipient_number;
 	   			this.hideLoader();

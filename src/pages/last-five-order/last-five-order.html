@@ -26,7 +26,7 @@
            </ion-card-title>
         </ion-col>
       </ion-row>
-  <!--     <ion-row>
+      <ion-row>
         <ion-col col-7 class="amount">
            <ion-card-title>Delivery Id:</ion-card-title>
         </ion-col>
@@ -35,7 +35,7 @@
           <span>&#8377;</span> :{{del.id}}
            </ion-card-title>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
        <ion-row>
         <ion-col col-7  class="amount">
            <ion-card-title>Date</ion-card-title>
@@ -46,7 +46,7 @@
            </ion-card-title>
         </ion-col>
       </ion-row>
-      <!--    <ion-row>
+         <ion-row>
         <ion-col col-7 class="amount">
            <ion-card-title>Delivery time:</ion-card-title>
         </ion-col>
@@ -55,7 +55,7 @@
           <span>:{{del.time_slot.from_time}}-{{del.time_slot.to_time}}</span>  
            </ion-card-title>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
          <ion-row *ngFor="let pro of del.delivery_packages">
         <ion-col col-7 class="amount">
            <ion-card-title>{{pro.product.display_name}}</ion-card-title>

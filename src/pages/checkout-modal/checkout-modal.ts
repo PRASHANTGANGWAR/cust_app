@@ -311,7 +311,7 @@ export class CheckoutModalPage {
     }else{
     let order:any={"order_packages_attributes":{}};
     if(this.recieveChoice.choice == ''){
-        order.delivery_date=this.deliveryDate;
+        order.delivery_date = this.deliveryDate;
     }else{
         order.delivery_date = this.recieveChoice.deliveryDate; 
     }

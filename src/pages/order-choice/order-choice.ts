@@ -33,15 +33,16 @@ export class OrderChoicePage {
 
   ionViewDidLoad() {
   	let product_data=this.navParams.get('data');
-    if(product_data){
+    this.order_data.product_data = product_data;
+
+    if(product_data && product_data.deliveryDate ) {
       this.initDate = new Date(product_data.deliveryDate);
-      this.order_data.product_data = product_data;      
     }
   }
 
   openModal(choice:string) {
-  	console.log(choice);
   		this.order_data.choice = choice;
+      this.order_data.deliveryDate = this.initDate;
 	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:this.order_data});
 	  	chekoutModal.present();
   		chekoutModal.onDidDismiss((data)=>{

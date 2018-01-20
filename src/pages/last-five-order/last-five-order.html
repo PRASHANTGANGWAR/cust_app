@@ -15,81 +15,103 @@
 			
     <ion-item class="custom-item">
       <ion-grid class="font table">
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Order Id:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.order_id}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Delivery Id:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.id}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Date:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.date}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Delivery time:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.time_slot.from_time}}-{{del.time_slot.to_time}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list" *ngFor="let pro of del.delivery_packages">
-          <ion-col col-6 text-wrap no-lines>
-            <b>{{pro.product.display_name}}:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{pro.quantity}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Status:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines [hidden]="del.delivery_status!=1">
-            :Completed
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines [hidden]="del.delivery_status==1">
-            :Not completed
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Amount:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.total}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Amount paid:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.paid}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="list">
-          <ion-col col-6 text-wrap no-lines>
-            <b>Balance:</b>
-          </ion-col>
-          <ion-col col-6 text-wrap no-lines>
-            :{{del.due_balance}}
-          </ion-col>
-        </ion-row>
+     <ion-grid>
+      <ion-row>
+        <ion-col  col-7 class="amount">
+           <ion-card-title>Order Id</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{del.order_id}}</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+  <!--     <ion-row>
+        <ion-col col-7 class="amount">
+           <ion-card-title>Delivery Id:</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>&#8377;</span> :{{del.id}}
+           </ion-card-title>
+        </ion-col>
+      </ion-row> -->
+       <ion-row>
+        <ion-col col-7  class="amount">
+           <ion-card-title>Date</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{del.date | date:'dd/MM/yyyy'}}</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+      <!--    <ion-row>
+        <ion-col col-7 class="amount">
+           <ion-card-title>Delivery time:</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>:{{del.time_slot.from_time}}-{{del.time_slot.to_time}}</span>  
+           </ion-card-title>
+        </ion-col>
+      </ion-row> -->
+         <ion-row *ngFor="let pro of del.delivery_packages">
+        <ion-col col-7 class="amount">
+           <ion-card-title>{{pro.product.display_name}}</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{pro.quantity}}</span>   
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+         <ion-row >
+        <ion-col col-7 class="amount">
+           <ion-card-title>Status</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal" *ngIf="del.delivery_status!=1">
+           <ion-card-title>
+          <span>:Pending</span>    
+           </ion-card-title>
+        </ion-col>
+           <ion-col col-5 text-wrap no-lines class="bal" *ngIf="del.delivery_status==1">
+           <ion-card-title >
+          <span>:Completed</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+          <ion-row >
+        <ion-col col-7 class="amount">
+           <ion-card-title>Amount</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{del.total}}</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+           <ion-row >
+        <ion-col col-7 class="amount">
+           <ion-card-title>Amount paid</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{del.paid}}</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+           <ion-row >
+        <ion-col col-7 class="amount">
+           <ion-card-title>Balance</ion-card-title>
+        </ion-col>
+        <ion-col col-5 text-wrap no-lines class="bal">
+           <ion-card-title>
+          <span>: {{del.due_balance}}</span>
+           </ion-card-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
       </ion-grid>
     </ion-item>
     <ion-item>

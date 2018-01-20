@@ -12,6 +12,7 @@ declare var window:any;
 export class MyOrdersPage {
 	private allOrders:any;
 	private allOrderPackages:any = [];
+  private hasOrders:boolean = false;
 
   constructor(
   	public navCtrl: NavController,
@@ -27,6 +28,9 @@ export class MyOrdersPage {
     if(data.status == 200){
         this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
         let self = this;
+        if(self.allOrders.length > 0) {
+          self.hasOrders = true;
+        }
         self.allOrders.forEach(function(order:any) {
           self.allOrderPackages.push(order);
         });

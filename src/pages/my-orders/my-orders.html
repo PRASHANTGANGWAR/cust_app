@@ -10,7 +10,7 @@
 <ion-content>
   <ion-list class="selection" padding>
   </ion-list>
-  <ion-list class="cart-list">
+  <ion-list class="cart-list" *ngIf="hasOrders;else other_content">
     <div *ngFor="let orders of allOrderPackages" no-lines>
       <ion-item *ngFor="let order of orders.order_packages" no-lines>
         <ion-thumbnail item-start>
@@ -33,6 +33,9 @@
       </ion-item>
     </div>
   </ion-list>
+  <ng-template #other_content>
+    <div style="padding: 20px; color: #df3896;"><h2 >No order yet</h2></div>
+  </ng-template>
   <div padding> 
   </div>
 </ion-content>

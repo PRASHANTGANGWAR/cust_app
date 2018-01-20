@@ -19,7 +19,7 @@ declare var window:any;
 export class CheckoutModalPage {
 	checked:boolean = true;
 	public title = "";
-	private mainNumber = 0;
+	private mainNumber = 2;
   public initDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 	private weekday:any = [];
   deliveryDate:any;
@@ -112,7 +112,7 @@ export class CheckoutModalPage {
           if(allOrders[0].order_packages[i].product_id == this.recieveChoice.product_data.product_id){
               for(var k=1;k<allOrders[0].order_packages[i].weekdays_qty.length;k++){
                 if(allOrders[0].order_packages[i].weekdays_qty[0][1]!==allOrders[0].order_packages[i].weekdays_qty[k][1]){
-                 this.mainNumber = 0;
+                 this.mainNumber = 2;
                 }else{
                   this.mainNumber = allOrders[0].order_packages[i].weekdays_qty[0][1];
                 }

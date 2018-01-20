@@ -25,7 +25,7 @@ import { CheckoutModalPage } from '../pages/checkout-modal/checkout-modal';
 import { CurrentOrderPage } from '../pages/current-order/current-order';
 import { EditOrderPage } from '../pages/edit-order/edit-order';
 import { SetNonavailabilityPage } from '../pages/set-nonavailability/set-nonavailability';
-import { EditDailyOrderPage } from '../pages/edit-daily-order/edit-daily-order';
+import { MyOrdersPage } from '../pages/my-orders/my-orders';
 import { EditOrderDurationPage } from '../pages/edit-order-duration/edit-order-duration';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
@@ -66,7 +66,7 @@ var config = {
     CurrentOrderPage,
     EditOrderPage,
     SetNonavailabilityPage,
-    EditDailyOrderPage,
+    MyOrdersPage,
     EditOrderDurationPage,
     Splash
   ],
@@ -91,7 +91,7 @@ var config = {
         { component: CurrentOrderPage, name: 'CurrentOrder', segment: 'currentOrder' },
         { component: EditOrderPage, name: 'EditOrder', segment: 'editOrder' },
         { component: SetNonavailabilityPage, name: 'SetNonavailability', segment: 'setNonavailability' },
-        { component: EditDailyOrderPage, name: 'EditDaily', segment: 'editDailyOrder' },
+        { component: MyOrdersPage, name: 'MyOrders', segment: 'myOrders' },
         { component: EditOrderDurationPage, name: 'EditOrderDuration', segment: 'editOrderDuration' },
         { component: ProfilePage, name: 'ProfilePage', segment: 'profile' },
         { component: ChangePasPage, name: 'ChangePasPage', segment: 'changePassword' },
@@ -122,7 +122,7 @@ var config = {
     CurrentOrderPage,
     EditOrderPage,
     SetNonavailabilityPage,
-    EditDailyOrderPage,
+    MyOrdersPage,
     EditOrderDurationPage,
     Splash
   ],

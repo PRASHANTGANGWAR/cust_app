@@ -56,6 +56,17 @@ export class ConferenceData {
     });
   }
 
+// check if orders exist or not already :todo
+  getOrderDetail(id:number) {
+    let orders = JSON.parse(window.localStorage.getItem('allOrders'));
+    for(let i = 0; i < orders.length; i++){
+      if (orders[i].id == id) {
+        return orders[i];
+      }
+    }
+    return null; 
+  }
+
   getAllOrders(){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
@@ -132,7 +143,6 @@ export class ConferenceData {
       order.alter_from = "";
       order.app_version = "2.1";
       order.customer_id = user.id;
-     // order.delivery_date = data.delivery_date;
         order.delivery_date = data.delivery_date.toString();
       if(data.end_date){
         order.end_date = data.end_date;
@@ -148,14 +158,13 @@ export class ConferenceData {
       return {order};
   }
 
-  cancelOrder(){
+  cancelOrder(id:number){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
-    let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
     let options = new RequestOptions({ 
       method: RequestMethod.Delete,
       headers: headers,
-      url: this.baseUrl+'/orders/'+allOrders[0].id
+      url: this.baseUrl+'/orders/'+id
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle start>
+      <ion-icon name="md-menu"></ion-icon>
+    </button>
+    <ion-title text-uppercase>My Orders</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="selection" padding>
+  </ion-list>
+  <ion-list class="cart-list">
+    <div *ngFor="let orders of allOrderPackages" no-lines>
+      <ion-item *ngFor="let order of orders.order_packages" no-lines>
+        <ion-thumbnail item-start>
+          <img src="assets/img/{{order.product_id}}.png">
+        </ion-thumbnail>
+        <h5 color="dark">{{ order.product.category.name }}</h5>
+
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col col-5 text-left> 
+            <p>{{orders.delivery_date  | date:'dd/MM/yyyy'}}</p>    
+            </ion-col>
+            <ion-col col-2 text-left>
+              <button (click)="orderChoice(orders)" ion-button  round color="primary" text-uppercase no-margin>
+                Update
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+  <div padding> 
+  </div>
+</ion-content>

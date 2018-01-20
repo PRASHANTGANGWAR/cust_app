@@ -32,10 +32,11 @@ export class OrderChoicePage {
     }
 
   ionViewDidLoad() {
-    this.order_data.deliveryDate=this.initDate;
   	let product_data=this.navParams.get('data');
-    console.log('ionViewDidLoad OrderChoicePage');
-    this.order_data.product_data = product_data;
+    if(product_data){
+      this.initDate = new Date(product_data.deliveryDate);
+      this.order_data.product_data = product_data;      
+    }
   }
 
   openModal(choice:string) {
@@ -43,11 +44,11 @@ export class OrderChoicePage {
   		this.order_data.choice = choice;
 	  	const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data:this.order_data});
 	  	chekoutModal.present();
-		chekoutModal.onDidDismiss((data)=>{
-        if(data){
-		   	  this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data});
-        }
-		});
+  		chekoutModal.onDidDismiss((data)=>{
+          if(data){
+  		   	  this.navCtrl.setRoot(CurrentOrderPage,{currentOrder: data});
+          }
+  		});
   }
 
 
@@ -57,7 +58,7 @@ export class OrderChoicePage {
       if(date.getTime() >= today.getTime()){
         this.initDate = date;
         window.localStorage.setItem('changed_date',JSON.stringify(this.initDate));
-        this.order_data.deliveryDate=this.initDate;
+        this.order_data.deliveryDate = this.initDate;
       }else{
         this.alerts.presentToast("Please choose correct date");
       }

@@ -6,11 +6,10 @@ import { LoginPage } from '../pages/login/login';
 import { PaymentDue  } from '../pages/payment-due/payment-due';
 import { CategoriesPage } from '../pages/categories/categories';
 import { LastFiveOrder  } from '../pages/last-five-order/last-five-order';
-// import { NutritionValues  } from '../pages/Nutrition-Values/nutrition-values';
 import { ContactPage  } from '../pages/Contact-us/contact-us';
 import { ProfilePage } from '../pages/profile/profile';
 import { ViewAddressPage } from '../pages/view-address/view-address';
-import { EditOrderPage } from '../pages/edit-order/edit-order';
+import { MyOrdersPage } from '../pages/my-orders/my-orders';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { Alerts } from '../providers/alerts-provider';
@@ -54,9 +53,7 @@ export class ConferenceApp {
   appPages: PageInterface[] = [
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
     { title: 'My Profile', name: 'ProfilePage', component: ProfilePage, icon: 'md-contact', profile: true },
-    { title: 'My Orders',name:'EditOrderPage',component:EditOrderPage, icon: 'basket',editOrder:true },
-    // { title: 'My Address', name:'ViewAddressPage',component: ViewAddressPage, icon: 'locate',viewAddress:true },
-    // { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
+    { title: 'My Orders',name:'MyOrdersPage',component:MyOrdersPage, icon: 'basket',editOrder:true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true },
@@ -66,8 +63,6 @@ export class ConferenceApp {
     { title: 'Main Menu',name: 'CategoriesPage', component: CategoriesPage, icon: 'apps', categories: true },
     { title: 'My Profile', icon: 'md-contact', disable: true },
     { title: 'My Orders', icon: 'basket', disable: true  },
-    // { title: 'My Address', icon: 'locate', disable: true  },
-    // { title: 'Nutrition Values', name: 'NutritionValues', component: NutritionValues, icon: 'nutrition', nutritionValues: true },
     { title: 'Contact Us', name: 'ContactPage', component: ContactPage, icon: 'md-mail', contactUs: true },
     { title: 'Payment Due', name: 'PaymentDue', component: PaymentDue, icon: 'logo-usd', paymentdue: true, disable: true },
     { title: 'Last Five Deliveries', name: 'LastFiveOrder', component: LastFiveOrder, icon: 'skip-backward', lastOrders: true, disable: true },
@@ -120,7 +115,7 @@ export class ConferenceApp {
     }
 
     if(page.editOrder === true){
-      this.nav.setRoot(EditOrderPage);
+      this.nav.setRoot(MyOrdersPage);
     }
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the

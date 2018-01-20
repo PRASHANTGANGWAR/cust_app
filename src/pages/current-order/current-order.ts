@@ -10,11 +10,12 @@ import { EditOrderPage } from '../edit-order/edit-order';
 export class CurrentOrderPage {
   private orderPackages:any;
   private currentOrderAddress:any;
+  currentOrderData:any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let currentOrderData = this.navParams.get('currentOrder');
-    this.currentOrderAddress = currentOrderData.address;
-    this.orderPackages = currentOrderData.order_packages;
+    this.currentOrderData = this.navParams.get('currentOrder');
+    this.currentOrderAddress = this.currentOrderData.address;
+    this.orderPackages = this.currentOrderData.order_packages;
   }
 
   ionViewDidLoad() {
@@ -22,7 +23,7 @@ export class CurrentOrderPage {
   }
 
   editOrderPage(){
-  	this.navCtrl.setRoot(EditOrderPage);
+  	this.navCtrl.setRoot(EditOrderPage, {order_id: this.currentOrderData.id});
   }
 
   mainMenu(){

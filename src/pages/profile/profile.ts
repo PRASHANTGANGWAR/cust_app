@@ -82,7 +82,9 @@ export class ProfilePage {
 	   		result = data;
 	   		if(result.status == 200){
 	   			var userValues = JSON.parse(result._body).user;
-	   			userValues.dob=userValues.dob.split('-').reverse().join("-");
+	   			if(userValues.dob) {
+	   				userValues.dob = userValues.dob.split('-').reverse().join("-");	   				
+	   			}
 	   			this.Profile = userValues;
 	   			this.RecName = this.Profile.recipient_name;
 	   			this.RecNumber = this.Profile.recipient_number;
@@ -138,7 +140,9 @@ export class ProfilePage {
 	   		result = data;
 	   		if(result.user && result.user.authentication_token){
 	   			this.Profile = result.user;
-	   			this.Profile.dob=result.user.dob.split('-').reverse().join("-");
+	   			if(this.Profile.dob) {
+	   				this.Profile.dob=result.user.dob.split('-').reverse().join("-");
+	   			}
 	   			this.RecName = result.user.recipient_name;
 	   			this.RecNumber = result.user.recipient_number;
 	   			this.hideLoader();

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, Modal, ModalController, NavParams } from 'ionic-angular';
+import { NavController,Modal, AlertController, ModalController, NavParams } from 'ionic-angular';
 import { CheckoutModalPage } from '../checkout-modal/checkout-modal';
 import { Alerts } from '../../providers/alerts-provider';
 import { CurrentOrderPage } from '../current-order/current-order';
 import { ConferenceData } from '../../providers/conference-data';
+import{ MyOrdersPage } from '../my-orders/my-orders';
 
 @Component({
   selector: 'page-order-choice',
@@ -12,33 +13,24 @@ import { ConferenceData } from '../../providers/conference-data';
 export class OrderChoicePage {
 	public order_data:any = {};
   public initDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);;
-
+  private showCancel:boolean = false;
   constructor(
   	public navCtrl: NavController,
   	public navParams: NavParams,
     public alerts: Alerts,
   	private modalCtrl: ModalController,
-    private confData: ConferenceData) {
-     this.getAllOrders();
-  }
+    private confData: ConferenceData,
+    private alertCtrl: AlertController) {
 
-    getAllOrders(){
-     this.confData.getAllOrders().then((data:any)=>{
-        if(data.status == 200){
-        }else{
-          this.alerts.presentToast(data.statusText);
-        }
-      });
-    }
-
-  ionViewDidLoad() {
-  	let product_data=this.navParams.get('data');
+    let product_data=this.navParams.get('data');
     this.order_data.product_data = product_data;
 
     if(product_data && product_data.deliveryDate ) {
+      this.showCancel = true;
       this.initDate = new Date(product_data.deliveryDate);
     }
   }
+
 
   openModal(choice:string) {
   		this.order_data.choice = choice;
@@ -63,6 +55,38 @@ export class OrderChoicePage {
       }else{
         this.alerts.presentToast("Please choose correct date");
       }
+  }
+
+  cancelOrder(id:number) {
+    let alert = this.alertCtrl.create({
+      title: 'Cancel Order',
+      message: "Are you sure you want to cancel the order?",
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'CONFIRM',
+          handler: () => {
+            this.alerts.showLoader();
+            this.confData.cancelOrder(id).then((res:any)=>{
+              this.alerts.hideLoader();
+              if(res.status == 204){
+                this.navCtrl.setRoot(MyOrdersPage);
+                this.alerts.presentToast("Order cancelled succesfully");
+              }else{
+                this.alerts.presentToast(res.statusText);
+              }
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

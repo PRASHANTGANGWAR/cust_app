@@ -71,7 +71,7 @@ export class EditOrderPage {
             this.confData.cancelOrder(id).then((res:any)=>{
               this.alerts.hideLoader();
               if(res.status == 204){
-                this.navCtrl.setRoot(EditOrderPage);
+                this.navCtrl.setRoot(MyOrdersPage);
                 this.alerts.presentToast("Order cancelled succesfully");
               }else{
                 this.alerts.presentToast(res.statusText);

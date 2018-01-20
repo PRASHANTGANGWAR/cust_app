@@ -35,7 +35,7 @@ export class CategoriesPage {
     public modalCtrl: ModalController,
     private alert:Alerts,
     public alertCtrl: AlertController
-  ) {
+  ) { 
       window.localStorage.setItem('current_page',this.viewCtrl.name);
       this.productList();
     }
@@ -67,7 +67,13 @@ export class CategoriesPage {
             this.openModal(1);
           }else if(this.ctData.product_id == 4){
             this.openModal(2);
-          }else{
+          }else {
+            let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
+            for(let i = 0;i< allOrders.length ;i++){
+              if(allOrders[i].recurring) {
+                this.ctData.order_id = allOrders[i].id;
+              }
+            }
             this.navCtrl.push(OrderChoicePage,{data: this.ctData});
           }
         }
@@ -88,7 +94,7 @@ export class CategoriesPage {
       order_data.choice = "";
       order_data.value=value;
       order_data.product_data ={};
-      order_data.product_data.product_id=this.ctData.product_id;
+      order_data.product_data.product_id = this.ctData.product_id;
       const chekoutModal:Modal = this.modalCtrl.create(CheckoutModalPage,{data: order_data});
       chekoutModal.present();
 

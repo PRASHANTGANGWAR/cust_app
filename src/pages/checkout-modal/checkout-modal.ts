@@ -73,6 +73,7 @@ export class CheckoutModalPage {
     } else if(this.recieveChoice.choice == ""){
       this.title = "One Time Order";
       this.everydayData();
+      this.mainNumber=1;
     }
   }
 
@@ -146,7 +147,8 @@ export class CheckoutModalPage {
 	}
 
 	decrementMain(){
-		if(this.mainNumber !== 2){
+    if(this.recieveChoice.choice == ""){
+		if(this.mainNumber !== 1){
          if(this.recieveChoice.choice == ""){
           this.mainNumber -= 1; 
       }
@@ -165,6 +167,27 @@ export class CheckoutModalPage {
 			}
     }
 		}
+  }else{
+    if(this.mainNumber !== 2){
+         if(this.recieveChoice.choice == ""){
+          this.mainNumber -= 1; 
+      }
+      else{
+      if(this.mainNumber === 2){
+        this.mainNumber -= 2;
+        for(var i=0; i<this.weekday.length; i++){
+          this.weekday[i].currentNumber = this.mainNumber;
+        }
+      }
+      else{
+        this.mainNumber--;
+        for(var j=0; j<this.weekday.length; j++){
+          this.weekday[j].currentNumber = this.mainNumber;
+        }
+      }
+    }
+    }
+  }
 	}
 
 	increment (index: number){

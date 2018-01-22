@@ -146,7 +146,7 @@ export class CheckoutModalPage {
 	}
 
 	decrementMain(){
-		if(this.mainNumber !== 0){
+		if(this.mainNumber !== 2){
          if(this.recieveChoice.choice == ""){
           this.mainNumber -= 1; 
       }

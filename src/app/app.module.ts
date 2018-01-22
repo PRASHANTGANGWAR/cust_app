@@ -35,6 +35,18 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { CallNumber } from '@ionic-native/call-number';
 import { Splash } from '../pages/splash/splash';
+import * as Raven from 'raven-js';
+
+
+Raven
+  .config('https://91f4b82761bf49b5b8a256576f5f0af3@sentry.io/275429')
+  .install();
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    Raven.captureException(err);
+  }
+}
 
 var config = {
   backButtonText: '',
@@ -128,6 +140,7 @@ var config = {
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: RavenErrorHandler },
     ConferenceData,
     UserData,
     Alerts,

@@ -4,7 +4,7 @@ import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
-
+import { MyOrdersPage } from '../my-orders/my-orders';
 /**
  * Generated class for the CheckoutModalPage page.
  *
@@ -343,20 +343,26 @@ export class CheckoutModalPage {
 		order["order_packages_attributes"][0]["wednesday"] = this.apiWeek[2].currentNumber;
     // find current order details
     let orderDetail = this.confData.getOrderDetail(this.recieveChoice.product_data.order_id);
-		order.order_id = orderDetail.id;
+    order.order_id = orderDetail.id;
    
-    
       if(this.recieveChoice.product_data.end_date){
          //update order for a duration
           order.end_date=this.recieveChoice.product_data.end_date;
           order.parent_order_id = orderDetail.id;
           this.confData.createChildOrder(order).then((data:any)=>{
-          this.alerts.hideLoader();
           if (data.status == 201){
-            this.view.dismiss(data.json());
-          }else{
-            this.alerts.presentToast(data.statusText);
-          }
+            this.confData.getAllOrders().then((orderdata:any) => {
+                if(orderdata.status == 200) {
+                  this.alerts.hideLoader();
+                  this.navCtrl.setRoot(MyOrdersPage);
+                } else {
+                  this.alerts.hideLoader();
+                }
+              })
+            } else {
+              this.alerts.hideLoader();
+              this.alerts.presentToast(data.statusText);
+            }
         });
       } else {
           for(var t=0;t<orderDetail.order_packages.length;t++){

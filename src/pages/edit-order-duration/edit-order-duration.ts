@@ -65,9 +65,10 @@ export class EditOrderDurationPage {
     let editData:any={};
     let dFrom = this.fromDate.getFullYear()+'-'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'-'+this.fromDate.getDate();
     let dTo = this.toDate.getFullYear()+'-'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'-'+this.toDate.getDate();
-    editData.product_id=product_id;
+    editData.product_id = product_id;
     editData.deliveryDate=dFrom;
     editData.end_date = dTo;
+    editData.order_id = this.orderId;
     this.navCtrl.push(OrderChoicePage,{data:editData});
   }
 

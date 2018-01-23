@@ -17,7 +17,7 @@
       <p color="dark" >
       {{package.product.category.name}}<br>
       {{order.delivery_date | date:'dd/MM/yyyy'}}<br>
-      {{package.quantity}}
+      {{package.default_quantity}}
       </p>
       <ion-col col-6 text-left>
       <button *ngIf="order.recurring"  (click)="orderChoice(package)" ion-button  round color="primary" text-uppercase no-margin>

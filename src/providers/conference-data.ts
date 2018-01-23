@@ -56,7 +56,7 @@ export class ConferenceData {
     });
   }
 
-// check if orders exist or not already :todo
+// find details of order by id
   getOrderDetail(id:number) {
     let orders = JSON.parse(window.localStorage.getItem('allOrders'));
     for(let i = 0; i < orders.length; i++){

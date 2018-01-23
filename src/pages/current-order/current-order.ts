@@ -30,7 +30,11 @@ export class CurrentOrderPage {
   }
 
   editOrderPage(){
-  	this.navCtrl.setRoot(EditOrderPage, {order_id: this.currentOrderData.id});
+    let id = this.currentOrderData.id;
+    if(this.currentOrderData.parent_order_id){
+      id = this.currentOrderData.parent_order_id;
+    }
+  	this.navCtrl.setRoot(EditOrderPage, {order_id: id });
   }
 
   mainMenu(){

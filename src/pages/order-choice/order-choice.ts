@@ -46,6 +46,14 @@ export class OrderChoicePage {
 
 
   setDate(date: Date) {
+    if(this.order_data.product_data.end_date){
+      let endDate = new Date(this.order_data.product_data.end_date);
+      if(endDate.getTime() >= date.getTime()){
+        this.order_data.deliveryDate = date;
+      } else {
+        this.alerts.presentToast("Please choose correct date");
+      }
+    } else {
       let today = new Date();
       today.setDate(today.getDate());
       if(date.getTime() >= today.getTime()){
@@ -55,6 +63,7 @@ export class OrderChoicePage {
       }else{
         this.alerts.presentToast("Please choose correct date");
       }
+    }
   }
 
   cancelOrder(id:number) {

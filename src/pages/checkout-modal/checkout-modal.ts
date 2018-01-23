@@ -4,7 +4,6 @@ import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { MyAddressPage } from '../my-address/my-address';
 import { CategoriesPage } from '../categories/categories';
-import { MyOrdersPage } from '../my-orders/my-orders';
 /**
  * Generated class for the CheckoutModalPage page.
  *
@@ -73,7 +72,6 @@ export class CheckoutModalPage {
     } else if(this.recieveChoice.choice == ""){
       this.title = "One Time Order";
       this.everydayData();
-      this.mainNumber=1;
     }
   }
 
@@ -147,47 +145,25 @@ export class CheckoutModalPage {
 	}
 
 	decrementMain(){
-    if(this.recieveChoice.choice == ""){
-		if(this.mainNumber !== 1){
+		if(this.mainNumber !== 0){
          if(this.recieveChoice.choice == ""){
           this.mainNumber -= 1; 
       }
       else{
 			if(this.mainNumber === 2){
 				this.mainNumber -= 2;
-				for(var i=0; i<this.weekday.length; i++){
-					this.weekday[i].currentNumber = this.mainNumber;
+				for(var di=0; di<this.weekday.length; di++){
+					this.weekday[di].currentNumber = this.mainNumber;
 				}
 			}
 			else{
 				this.mainNumber--;
-				for(var j=0; j<this.weekday.length; j++){
-					this.weekday[j].currentNumber = this.mainNumber;
+				for(var dj=0; dj<this.weekday.length; dj++){
+					this.weekday[dj].currentNumber = this.mainNumber;
 				}
 			}
     }
 		}
-  }else{
-    if(this.mainNumber !== 2){
-         if(this.recieveChoice.choice == ""){
-          this.mainNumber -= 1; 
-      }
-      else{
-      if(this.mainNumber === 2){
-        this.mainNumber -= 2;
-        for(var i=0; i<this.weekday.length; i++){
-          this.weekday[i].currentNumber = this.mainNumber;
-        }
-      }
-      else{
-        this.mainNumber--;
-        for(var j=0; j<this.weekday.length; j++){
-          this.weekday[j].currentNumber = this.mainNumber;
-        }
-      }
-    }
-    }
-  }
 	}
 
 	increment (index: number){
@@ -370,14 +346,14 @@ export class CheckoutModalPage {
    
       if(this.recieveChoice.product_data.end_date){
          //update order for a duration
-          order.end_date=this.recieveChoice.product_data.end_date;
+          order.end_date = this.recieveChoice.product_data.end_date;
           order.parent_order_id = orderDetail.id;
           this.confData.createChildOrder(order).then((data:any)=>{
           if (data.status == 201){
             this.confData.getAllOrders().then((orderdata:any) => {
                 if(orderdata.status == 200) {
                   this.alerts.hideLoader();
-                  this.navCtrl.setRoot(MyOrdersPage);
+                  this.view.dismiss(data.json());
                 } else {
                   this.alerts.hideLoader();
                 }

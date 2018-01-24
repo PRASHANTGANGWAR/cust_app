@@ -247,4 +247,26 @@ export class ConferenceData {
     });
   }
 
+// canceal package
+  cancelPackage(id:number){
+    let user = JSON.parse(window.localStorage.getItem('login_details'));
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json', 'X-User-Mobile': user.mobile , 'X-User-Token': user.authentication_token });
+    let options = new RequestOptions({ 
+      method: RequestMethod.Delete,
+      headers: headers,
+      url: this.baseUrl+'/order_packages/'+id
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });   
+  }
+
 }

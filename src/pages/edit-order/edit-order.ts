@@ -47,6 +47,7 @@ export class EditOrderPage {
   orderChoice(pkg:any) {
     let editData:any={};
     editData.order_id = this.order_id;
+    editData.packageId = pkg.id;
     editData.product_id= pkg.product_id;
     editData.deliveryDate = this.order.delivery_date;
     this.navCtrl.push(OrderChoicePage,{data:editData});

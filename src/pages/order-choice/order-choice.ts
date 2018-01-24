@@ -67,7 +67,7 @@ export class OrderChoicePage {
     }
   }
 
-  cancelOrder(id:number) {
+  cancelOrder() {
     let alert = this.alertCtrl.create({
       title: 'Cancel Order',
       message: "Are you sure you want to cancel the order?",
@@ -83,12 +83,15 @@ export class OrderChoicePage {
           text: 'CONFIRM',
           handler: () => {
             this.alerts.showLoader();
-            this.confData.cancelOrder(id).then((res:any)=>{
+            this.confData.cancelPackage(this.order_data.product_data.packageId).then((res:any)=>{
               this.alerts.hideLoader();
-              if(res.status == 204){
+              if(res.status == 204) {
                 this.navCtrl.setRoot(MyOrdersPage);
-                this.alerts.presentToast("Order cancelled succesfully");
-              }else{
+                this.alerts.presentToast("Package cancelled succesfully");
+              } else if(res.status == 422) {
+                this.alerts.presentToast(JSON.parse(res._body).error_msg);
+              }
+                else{
                 this.alerts.presentToast(res.statusText);
               }
             });

@@ -52,6 +52,7 @@ export class OrderChoicePage {
       let endDate = new Date(this.order_data.product_data.end_date);
       if((endDate.getTime() >= date.getTime()) && (date.getTime() >= today.getTime())){
         this.order_data.deliveryDate = date;
+        this.initDate = date;
       } else {
         this.alerts.presentToast("Please choose correct date");
       }

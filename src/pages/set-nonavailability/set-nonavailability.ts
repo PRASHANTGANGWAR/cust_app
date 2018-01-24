@@ -4,7 +4,7 @@ import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { EditOrderPage } from '../edit-order/edit-order';
 
-declare var window:any;
+
 @Component({
   selector: 'page-set-nonavailability',
   templateUrl: 'set-nonavailability.html',
@@ -12,8 +12,7 @@ declare var window:any;
 export class SetNonavailabilityPage {
 	public fromDate: Date = new Date();
 	public toDate:Date = new Date();
-  private isDnd:string ='';
-
+  private isDnd:boolean = false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -29,9 +28,9 @@ export class SetNonavailabilityPage {
 
   onDndSet(){
     this.alerts.showLoader();
-    this.isDnd = window.localStorage.getItem('isDnd');
-    if(this.isDnd){
-      let allOrders = this.confData.getOrderDetail(this.navParams.get('id'));
+    let allOrders = this.confData.getOrderDetail(this.navParams.get('id'));
+    if(allOrders.dnd_from && allOrders.dnd_to){
+      this.isDnd = true;
       this.fromDate = new Date(allOrders.dnd_from);
       this.toDate = new Date(allOrders.dnd_to);
       this.alerts.hideLoader();
@@ -107,7 +106,6 @@ export class SetNonavailabilityPage {
             this.confData.createDnd(order).then((res:any)=>{
               this.alerts.hideLoader();
               if(res.status == 200){
-                window.localStorage.setItem('isDnd','1');
                 this.navCtrl.setRoot(EditOrderPage);
                 this.alerts.presentToast("Non availability set succesfully");
               }else{
@@ -140,7 +138,6 @@ export class SetNonavailabilityPage {
             this.confData.removeDnd(order).then((res:any)=>{
               this.alerts.hideLoader();
               if(res.status == 200){
-                window.localStorage.setItem('isDnd','');
                 this.navCtrl.setRoot(EditOrderPage);
                 this.alerts.presentToast("Non availability removed succesfully");
               }else{

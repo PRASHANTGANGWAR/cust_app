@@ -46,16 +46,16 @@ export class OrderChoicePage {
 
 
   setDate(date: Date) {
+    let today = new Date();
+    today.setDate(today.getDate());
     if(this.order_data.product_data.end_date){
       let endDate = new Date(this.order_data.product_data.end_date);
-      if(endDate.getTime() >= date.getTime()){
+      if((endDate.getTime() >= date.getTime()) && (date.getTime() >= today.getTime())){
         this.order_data.deliveryDate = date;
       } else {
         this.alerts.presentToast("Please choose correct date");
       }
     } else {
-      let today = new Date();
-      today.setDate(today.getDate());
       if(date.getTime() >= today.getTime()){
         this.initDate = date;
         window.localStorage.setItem('changed_date',JSON.stringify(this.initDate));

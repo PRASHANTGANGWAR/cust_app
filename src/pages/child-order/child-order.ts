@@ -116,12 +116,12 @@ export class ChildOrderUpdatePage implements OnInit {
 
   proceed() {
     let order:any={"order_packages_attributes":{}};
-    order.alternate = "false";
-    order.recurring = "true";
-    order.order_id = this.orderInfo.id;
-    order.delivery_date = this.orderInfo.formDate;
-    order.end_date = this.orderInfo.end_date;
-    order.parent_order_id = this.orderInfo.id;
+    order["alternate"] = "false";
+    order["recurring"] = "true";
+    order["order_id"] = this.orderId;
+    order["delivery_date"] = this.orderInfo.formDate;
+    order["end_date"] = this.orderInfo.end_date;
+    order["parent_order_id"] = this.orderId;
     // order pakage for cow
     order["order_packages_attributes"][0] = {};
     order["order_packages_attributes"][0]["id"] = "";
@@ -138,19 +138,19 @@ export class ChildOrderUpdatePage implements OnInit {
     order["order_packages_attributes"][0]["wednesday"] = this.weekdaysCow[2].currentNumber;
 
     //order pakage for bufflao
-    // order["order_packages_attributes"][1] = {};
-    // order["order_packages_attributes"][1]["id"] = "";
-    // order["order_packages_attributes"][1]["default_qty"] = 2;
-    // order["order_packages_attributes"][1]["friday"] = this.weekdaysBuff[4].currentNumber;
-    // order["order_packages_attributes"][1]["monday"] = this.weekdaysBuff[0].currentNumber;
-    // order["order_packages_attributes"][1]["package_type"] = "1";
-    // order["order_packages_attributes"][1]["product_id"] = 2;
-    // order["order_packages_attributes"][1]["saturday"] = this.weekdaysBuff[5].currentNumber;
-    // order["order_packages_attributes"][1]["sunday"] = this.weekdaysBuff[6].currentNumber;
-    // order["order_packages_attributes"][1]["thursday"] = this.weekdaysBuff[3].currentNumber;
-    // order["order_packages_attributes"][1]["time_slot_id"] = "5";
-    // order["order_packages_attributes"][1]["tuesday"] = this.weekdaysBuff[1].currentNumber;
-    // order["order_packages_attributes"][1]["wednesday"] = this.weekdaysBuff[2].currentNumber;
+    order["order_packages_attributes"][1] = {};
+    order["order_packages_attributes"][1]["id"] = "";
+    order["order_packages_attributes"][1]["default_qty"] = 2;
+    order["order_packages_attributes"][1]["friday"] = this.weekdaysBuff[4].currentNumber;
+    order["order_packages_attributes"][1]["monday"] = this.weekdaysBuff[0].currentNumber;
+    order["order_packages_attributes"][1]["package_type"] = "1";
+    order["order_packages_attributes"][1]["product_id"] = 2;
+    order["order_packages_attributes"][1]["saturday"] = this.weekdaysBuff[5].currentNumber;
+    order["order_packages_attributes"][1]["sunday"] = this.weekdaysBuff[6].currentNumber;
+    order["order_packages_attributes"][1]["thursday"] = this.weekdaysBuff[3].currentNumber;
+    order["order_packages_attributes"][1]["time_slot_id"] = "5";
+    order["order_packages_attributes"][1]["tuesday"] = this.weekdaysBuff[1].currentNumber;
+    order["order_packages_attributes"][1]["wednesday"] = this.weekdaysBuff[2].currentNumber;
 
     this.confData.createChildOrder(order).then((data:any)=>{
           if (data.status == 201){

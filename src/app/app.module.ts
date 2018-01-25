@@ -35,6 +35,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
 import { DatePickerModule } from 'ionic3-datepicker';
 import { CallNumber } from '@ionic-native/call-number';
 import { Splash } from '../pages/splash/splash';
+import { ChildOrderUpdatePage } from '../pages/child-order/child-order';
 import * as Raven from 'raven-js';
 
 
@@ -80,6 +81,7 @@ var config = {
     SetNonavailabilityPage,
     MyOrdersPage,
     EditOrderDurationPage,
+    ChildOrderUpdatePage,
     Splash
   ],
   imports: [
@@ -136,6 +138,7 @@ var config = {
     SetNonavailabilityPage,
     MyOrdersPage,
     EditOrderDurationPage,
+    ChildOrderUpdatePage,
     Splash
   ],
   providers: [

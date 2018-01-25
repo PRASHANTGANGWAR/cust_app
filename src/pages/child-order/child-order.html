@@ -1,0 +1,55 @@
+<ion-content>
+<!-- cow checkout modal -->
+	<ion-card class="card-details" *ngIf="isCow">
+  	<ion-card-content>
+        <div class="w-bg-box" text-center>
+          <ion-thumbnail item-start>
+            <img src="assets/img/1.png">
+        </ion-thumbnail>
+        </div>
+    </ion-card-content>
+  	<ion-card-content>
+  	      <div class="Qty" text-center *ngFor="let day of weekdaysCow; let i=index">
+  			<h3 color="primary"> {{day.day}}</h3>
+  	        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementCow(i)">
+  	          <ion-icon name="md-remove" color="light"></ion-icon>
+  	        </button>
+  	        <button ion-button clear class="op-btn mid-btn">
+  	          {{day.currentNumber}}
+  	        </button>
+  	        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementCow(i)">
+  	          <ion-icon name="md-add" color="light"></ion-icon>
+  	        </button>
+  	      </div>
+  	      <button color="primary" (click)="proceedCow()" ion-button block round text-uppercase>PROCEED</button>
+  	      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>			
+  	</ion-card-content>
+  </ion-card>
+
+<!-- buffalo checkout modal -->
+  <ion-card class="card-details" *ngIf="!isCow">
+    <ion-card-content>
+        <div class="w-bg-box" text-center>
+          <ion-thumbnail item-start>
+            <img src="assets/img/2.png">
+        </ion-thumbnail>
+        </div>
+    </ion-card-content>
+    <ion-card-content>
+          <div class="Qty" text-center *ngFor="let day of weekdaysBuff; let i=index">
+        <h3 color="primary"> {{day.day}}</h3>
+            <button ion-button icon-only class="op-btn" color="primary" (click)="decrementBuff(i)">
+              <ion-icon name="md-remove" color="light"></ion-icon>
+            </button>
+            <button ion-button clear class="op-btn mid-btn">
+              {{day.currentNumber}}
+            </button>
+            <button ion-button icon-only class="op-btn" color="primary" (click)="incrementBuff(i)">
+              <ion-icon name="md-add" color="light"></ion-icon>
+            </button>
+          </div>
+          <button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+          <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>     
+    </ion-card-content>
+  </ion-card>
+</ion-content>

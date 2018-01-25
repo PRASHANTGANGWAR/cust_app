@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
-import { OrderChoicePage } from '../order-choice/order-choice';
+import { ChildOrderUpdatePage } from '../child-order/child-order';
 
 @Component({
   selector: 'page-edit-order-duration',
@@ -12,8 +12,6 @@ export class EditOrderDurationPage {
 	public fromDate: Date = new Date();
 	public toDate:Date = new Date();
 	private allOrders:any;
-
-	private orderPackages:any =[];
   private child_orders:any =[];
   orderId:number;
 
@@ -25,7 +23,6 @@ export class EditOrderDurationPage {
 
       this.orderId = this.navParams.get('id');
 	    this.allOrders = this.confData.getOrderDetail(this.orderId);
-  		this.orderPackages = this.allOrders.order_packages;
       var datefrom=new Date(this.allOrders.delivery_date)
       var dateto=new Date(this.allOrders.delivery_date)
       this.fromDate.setDate(datefrom.getDate());
@@ -61,15 +58,14 @@ export class EditOrderDurationPage {
   }
 
 
-  orderChoice(product_id:number){
+  orderChoice(){
     let editData:any={};
     let dFrom = this.fromDate.getFullYear()+'-'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'-'+this.fromDate.getDate();
     let dTo = this.toDate.getFullYear()+'-'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'-'+this.toDate.getDate();
-    editData.product_id = product_id;
-    editData.deliveryDate=dFrom;
+    editData.formDate = dFrom;
     editData.end_date = dTo;
     editData.order_id = this.orderId;
-    this.navCtrl.push(OrderChoicePage,{data:editData});
+    this.navCtrl.push(ChildOrderUpdatePage,{data:editData});
   }
 
   getAllOrders(){

@@ -14,6 +14,8 @@ export class OrderChoicePage {
 	public order_data:any = {};
   public initDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);;
   private showCancel:boolean = false;
+  private hideDate:boolean = false;// if an recurring oreder is already running
+
   constructor(
   	public navCtrl: NavController,
   	public navParams: NavParams,
@@ -24,6 +26,11 @@ export class OrderChoicePage {
 
     let product_data=this.navParams.get('data');
     this.order_data.product_data = product_data;
+    // hide date
+    if(product_data.hideDate) {
+      this.hideDate = true;
+      this.initDate = new Date(this.confData.getOrderDetail(product_data.order_id).delivery_date);
+    }
 
     if(product_data && product_data.deliveryDate ) {
       this.showCancel = true;

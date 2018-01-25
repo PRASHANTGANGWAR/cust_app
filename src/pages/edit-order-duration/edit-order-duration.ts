@@ -23,10 +23,8 @@ export class EditOrderDurationPage {
 
       this.orderId = this.navParams.get('id');
 	    this.allOrders = this.confData.getOrderDetail(this.orderId);
-      var datefrom=new Date(this.allOrders.delivery_date)
-      var dateto=new Date(this.allOrders.delivery_date)
-      this.fromDate.setDate(datefrom.getDate());
-      this.toDate.setDate(dateto.getDate());
+      this.fromDate = new Date(this.allOrders.delivery_date);
+      this.toDate = new Date(this.allOrders.delivery_date);
       this.getAllOrders();
 	}
 

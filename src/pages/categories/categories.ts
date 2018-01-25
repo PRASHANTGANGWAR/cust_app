@@ -67,10 +67,11 @@ export class CategoriesPage {
             this.openModal(1);
           }else if(this.ctData.product_id == 4){
             this.openModal(2);
-          }else {
+          } else {
             let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
             for(let i = 0;i< allOrders.length ;i++){
               if(allOrders[i].recurring) {
+                this.ctData.hideDate = true;
                 this.ctData.order_id = allOrders[i].id;
               }
             }

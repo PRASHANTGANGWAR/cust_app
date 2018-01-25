@@ -9,7 +9,7 @@
 
 
 <ion-content padding>
-	<ion-list class="selection" padding>
+	<ion-list class="selection" padding *ngIf="!hideDate">
       <ion-item no-lines>
          <ion-icon name="md-calendar" item-left></ion-icon>Date : 
         <span ion-datepicker (ionChanged)="setDate($event);" [value]="initDate"

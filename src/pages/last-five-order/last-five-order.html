@@ -27,12 +27,12 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-7 class="amount">
+        <ion-col col-6 class="amount">
            <ion-card-title>Delivery Id:</ion-card-title>
         </ion-col>
-        <ion-col col-5 text-wrap no-lines class="bal">
+        <ion-col col-6 text-wrap no-lines class="bal">
            <ion-card-title>
-          <span>&#8377;</span> :{{del.id}}
+          <span>: {{del.id}}</span> 
            </ion-card-title>
         </ion-col>
       </ion-row>
@@ -47,12 +47,12 @@
         </ion-col>
       </ion-row>
          <ion-row>
-        <ion-col col-7 class="amount">
+        <ion-col col-6 class="amount">
            <ion-card-title>Delivery time:</ion-card-title>
         </ion-col>
-        <ion-col col-5 text-wrap no-lines class="bal">
+        <ion-col col-6 text-wrap no-lines class="bal">
            <ion-card-title>
-          <span>:{{del.time_slot.from_time}}-{{del.time_slot.to_time}}</span>  
+          <span>: {{del.time_slot.from_time}}-{{del.time_slot.to_time}}</span>  
            </ion-card-title>
         </ion-col>
       </ion-row>
@@ -72,12 +72,12 @@
         </ion-col>
         <ion-col col-6 text-wrap no-lines class="bal" *ngIf="del.delivery_status!=1">
            <ion-card-title>
-          <span>:Pending</span>    
+          <span>: Pending</span>    
            </ion-card-title>
         </ion-col>
            <ion-col col-6 text-wrap no-lines class="bal" *ngIf="del.delivery_status==1">
            <ion-card-title >
-          <span>:Completed</span>
+          <span>: Completed</span>
            </ion-card-title>
         </ion-col>
       </ion-row>

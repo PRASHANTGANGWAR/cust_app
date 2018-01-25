@@ -29,7 +29,7 @@ export class OrderChoicePage {
     // hide date
     if(product_data.hideDate) {
       this.hideDate = true;
-      this.initDate = new Date(this.confData.getOrderDetail(product_data.order_id).delivery_date);
+      this.initDate = new Date(this.confData.getOrderDetail(product_data.order_id).delivery_date)
     }
 
     if(product_data && product_data.deliveryDate ) {

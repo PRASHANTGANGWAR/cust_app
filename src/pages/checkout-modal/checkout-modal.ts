@@ -253,7 +253,7 @@ export class CheckoutModalPage {
 	orderConfirmation(msg:any,apiWeek:any) {
 		console.log(apiWeek);
     let alert = this.alertCtrl.create({
-      title: 'Place this order!',
+      title: 'Place your order?',
       message: msg,
       buttons: [
         {
@@ -282,7 +282,7 @@ export class CheckoutModalPage {
 
   presentConfirm() {
       let alert = this.alertCtrl.create({
-        message: 'Please add one address.',
+        message: 'Please add your address.',
         buttons: [
           {
             text: 'CANCEL',

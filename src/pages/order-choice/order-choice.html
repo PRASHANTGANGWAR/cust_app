@@ -35,10 +35,21 @@
 		</ion-row>
 	</ion-grid>
 
-  <ion-list *ngIf="showCancel" padding>
-    <ion-item no-lines auto text-center>
-      <ion-icon class="cross" name="close" (click)="cancelOrder()"></ion-icon>
+
+<!-- cancel pacakge -->
+  <ion-list  class="cart-list" *ngIf="showCancel" >
+    <ion-item class="n-box" no-lines>
+      <ion-thumbnail class="mb--2" item-start><img src="assets/img/cancel-icon.png"></ion-thumbnail>
+      <h6> Remove this package from order</h6>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col text-left col-6>
+            <button (click)="cancelOrder()" ion-button  round color="primary" text-uppercase no-margin>Cancel</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
   </ion-list>
+
 
 </ion-content>

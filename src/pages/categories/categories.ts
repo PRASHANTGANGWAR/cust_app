@@ -108,7 +108,7 @@ export class CategoriesPage {
 
     presentConfirm() {
       let alert = this.alertCtrl.create({
-        message: 'Please add one address to place order.',
+        message: 'Please add your address to place order.',
         buttons: [
           {
             text: 'CANCEL',

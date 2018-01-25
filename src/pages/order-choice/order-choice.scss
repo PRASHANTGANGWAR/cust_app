@@ -10,10 +10,10 @@ page-order-choice {
 			}
 		}
 	}
-	.cross {
-		font-size: 110px!important;
-    	color: red!important;
-    	cursor: pointer!important;
-    	margin-top: -30px!important;
+	.item-ios ion-thumbnail img {
+		width: 90px!important;
+	}
+	.label{
+		padding:2px!important;
 	}
 }

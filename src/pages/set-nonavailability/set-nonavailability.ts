@@ -75,7 +75,7 @@ export class SetNonavailabilityPage {
     order.dnd_from = dndFrom;
     order.dnd_to = dndTo;
     order.isNew = 1;
-    let msg = "Are you sure you want to set Dnd from "+order.dnd_from+" to "+ order.dnd_to+" ?"
+    let msg = "Are you sure to set Do Not Disturb from "+order.dnd_from+" to "+ order.dnd_to+" ? No Delivery shall be made in this period."
     this.presentConfirm(msg,order);
   }
 

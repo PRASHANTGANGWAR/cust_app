@@ -4,6 +4,7 @@ import { UserData } from '../../providers/user-data';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { Content } from 'ionic-angular';
+import { MyOrdersPage } from '../my-orders/my-orders';
 
 @Component({
   selector: 'child-order-update',
@@ -15,6 +16,10 @@ export class ChildOrderUpdatePage implements OnInit {
   orederDetail:any = {};
   weekday:any = [];
   isCow:boolean = true;
+  isBuff:boolean = false;
+  finalConfirmModal:boolean = false;
+  isCowQuantity:boolean = false;
+  isBuffQuantity:boolean = false;
   orderInfo:any = {};
   weekdaysCow:any = [{
       "day":"Monday","currentNumber":0
@@ -112,6 +117,7 @@ export class ChildOrderUpdatePage implements OnInit {
   proceedCow() {
     this.content.scrollToTop();
     this.isCow = false;
+    this.isBuff = true;
   }
 
   proceed() {
@@ -123,34 +129,67 @@ export class ChildOrderUpdatePage implements OnInit {
     order["end_date"] = this.orderInfo.end_date;
     order["parent_order_id"] = this.orderId;
     // order pakage for cow
-    order["order_packages_attributes"][0] = {};
-    order["order_packages_attributes"][0]["id"] = "";
-    order["order_packages_attributes"][0]["default_qty"] = 2;
-    order["order_packages_attributes"][0]["friday"] = this.weekdaysCow[4].currentNumber;
-    order["order_packages_attributes"][0]["monday"] = this.weekdaysCow[0].currentNumber;
-    order["order_packages_attributes"][0]["package_type"] = "1";
-    order["order_packages_attributes"][0]["product_id"] = 1;
-    order["order_packages_attributes"][0]["saturday"] = this.weekdaysCow[5].currentNumber;
-    order["order_packages_attributes"][0]["sunday"] = this.weekdaysCow[6].currentNumber;
-    order["order_packages_attributes"][0]["thursday"] = this.weekdaysCow[3].currentNumber;
-    order["order_packages_attributes"][0]["time_slot_id"] = "5";
-    order["order_packages_attributes"][0]["tuesday"] = this.weekdaysCow[1].currentNumber;
-    order["order_packages_attributes"][0]["wednesday"] = this.weekdaysCow[2].currentNumber;
+    if(this.isCowQuantity && this.isBuffQuantity) {
+      order["order_packages_attributes"][0] = {};
+      order["order_packages_attributes"][0]["id"] = "";
+      order["order_packages_attributes"][0]["default_qty"] = 0;
+      order["order_packages_attributes"][0]["friday"] = this.weekdaysCow[4].currentNumber;
+      order["order_packages_attributes"][0]["monday"] = this.weekdaysCow[0].currentNumber;
+      order["order_packages_attributes"][0]["package_type"] = "1";
+      order["order_packages_attributes"][0]["product_id"] = 1;
+      order["order_packages_attributes"][0]["saturday"] = this.weekdaysCow[5].currentNumber;
+      order["order_packages_attributes"][0]["sunday"] = this.weekdaysCow[6].currentNumber;
+      order["order_packages_attributes"][0]["thursday"] = this.weekdaysCow[3].currentNumber;
+      order["order_packages_attributes"][0]["time_slot_id"] = "5";
+      order["order_packages_attributes"][0]["tuesday"] = this.weekdaysCow[1].currentNumber;
+      order["order_packages_attributes"][0]["wednesday"] = this.weekdaysCow[2].currentNumber;
 
-    //order pakage for bufflao
-    order["order_packages_attributes"][1] = {};
-    order["order_packages_attributes"][1]["id"] = "";
-    order["order_packages_attributes"][1]["default_qty"] = 2;
-    order["order_packages_attributes"][1]["friday"] = this.weekdaysBuff[4].currentNumber;
-    order["order_packages_attributes"][1]["monday"] = this.weekdaysBuff[0].currentNumber;
-    order["order_packages_attributes"][1]["package_type"] = "1";
-    order["order_packages_attributes"][1]["product_id"] = 2;
-    order["order_packages_attributes"][1]["saturday"] = this.weekdaysBuff[5].currentNumber;
-    order["order_packages_attributes"][1]["sunday"] = this.weekdaysBuff[6].currentNumber;
-    order["order_packages_attributes"][1]["thursday"] = this.weekdaysBuff[3].currentNumber;
-    order["order_packages_attributes"][1]["time_slot_id"] = "5";
-    order["order_packages_attributes"][1]["tuesday"] = this.weekdaysBuff[1].currentNumber;
-    order["order_packages_attributes"][1]["wednesday"] = this.weekdaysBuff[2].currentNumber;
+      //order pakage for bufflao
+      order["order_packages_attributes"][1] = {};
+      order["order_packages_attributes"][1]["id"] = "";
+      order["order_packages_attributes"][1]["default_qty"] = 0;
+      order["order_packages_attributes"][1]["friday"] = this.weekdaysBuff[4].currentNumber;
+      order["order_packages_attributes"][1]["monday"] = this.weekdaysBuff[0].currentNumber;
+      order["order_packages_attributes"][1]["package_type"] = "1";
+      order["order_packages_attributes"][1]["product_id"] = 2;
+      order["order_packages_attributes"][1]["saturday"] = this.weekdaysBuff[5].currentNumber;
+      order["order_packages_attributes"][1]["sunday"] = this.weekdaysBuff[6].currentNumber;
+      order["order_packages_attributes"][1]["thursday"] = this.weekdaysBuff[3].currentNumber;
+      order["order_packages_attributes"][1]["time_slot_id"] = "5";
+      order["order_packages_attributes"][1]["tuesday"] = this.weekdaysBuff[1].currentNumber;
+      order["order_packages_attributes"][1]["wednesday"] = this.weekdaysBuff[2].currentNumber;
+
+    } else if(this.isCowQuantity && !this.isBuffQuantity) {
+
+      order["order_packages_attributes"][0] = {};
+      order["order_packages_attributes"][0]["id"] = "";
+      order["order_packages_attributes"][0]["default_qty"] = 0;
+      order["order_packages_attributes"][0]["friday"] = this.weekdaysCow[4].currentNumber;
+      order["order_packages_attributes"][0]["monday"] = this.weekdaysCow[0].currentNumber;
+      order["order_packages_attributes"][0]["package_type"] = "1";
+      order["order_packages_attributes"][0]["product_id"] = 1;
+      order["order_packages_attributes"][0]["saturday"] = this.weekdaysCow[5].currentNumber;
+      order["order_packages_attributes"][0]["sunday"] = this.weekdaysCow[6].currentNumber;
+      order["order_packages_attributes"][0]["thursday"] = this.weekdaysCow[3].currentNumber;
+      order["order_packages_attributes"][0]["time_slot_id"] = "5";
+      order["order_packages_attributes"][0]["tuesday"] = this.weekdaysCow[1].currentNumber;
+      order["order_packages_attributes"][0]["wednesday"] = this.weekdaysCow[2].currentNumber;
+    } else {
+
+      order["order_packages_attributes"][0] = {};
+      order["order_packages_attributes"][0]["id"] = "";
+      order["order_packages_attributes"][0]["default_qty"] = 0;
+      order["order_packages_attributes"][0]["friday"] = this.weekdaysBuff[4].currentNumber;
+      order["order_packages_attributes"][0]["monday"] = this.weekdaysBuff[0].currentNumber;
+      order["order_packages_attributes"][0]["package_type"] = "1";
+      order["order_packages_attributes"][0]["product_id"] = 2;
+      order["order_packages_attributes"][0]["saturday"] = this.weekdaysBuff[5].currentNumber;
+      order["order_packages_attributes"][0]["sunday"] = this.weekdaysBuff[6].currentNumber;
+      order["order_packages_attributes"][0]["thursday"] = this.weekdaysBuff[3].currentNumber;
+      order["order_packages_attributes"][0]["time_slot_id"] = "5";
+      order["order_packages_attributes"][0]["tuesday"] = this.weekdaysBuff[1].currentNumber;
+      order["order_packages_attributes"][0]["wednesday"] = this.weekdaysBuff[2].currentNumber;
+    }
 
     this.confData.createChildOrder(order).then((data:any)=>{
           if (data.status == 201){
@@ -158,6 +197,7 @@ export class ChildOrderUpdatePage implements OnInit {
                 if(orderdata.status == 200) {
                   this.alerts.hideLoader();
                   this.viewCtrl.dismiss(data.json());
+                  this.navCtrl.setRoot(MyOrdersPage);
                 } else {
                   this.alerts.hideLoader();
                 }
@@ -167,6 +207,28 @@ export class ChildOrderUpdatePage implements OnInit {
             this.alerts.presentToast(data.statusText);
           }
     });
+  }
+
+  proceedConfirm() {
+   for(let cn = 0 ;cn <this.weekdaysCow.length; cn++) {
+     if(this.weekdaysCow[cn].currentNumber > 0) {
+       this.isCowQuantity = true;
+     }
+   }
+
+   for(let bn = 0 ; bn <this.weekdaysBuff.length; bn++) {
+     if(this.weekdaysBuff[bn].currentNumber > 0) {
+       this.isBuffQuantity = true;
+     }
+   }
+   if(this.isCowQuantity || this.isBuffQuantity) {
+     this.isCow = false;
+     this.isBuff = false;
+     this.finalConfirmModal = true;
+     this.content.scrollToTop();
+   } else{
+     this.alerts.presentToast("Please select al least quantity");     
+   }
   }
 
 }

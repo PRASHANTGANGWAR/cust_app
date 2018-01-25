@@ -27,7 +27,7 @@
   </ion-card>
 
 <!-- buffalo checkout modal -->
-  <ion-card class="card-details" *ngIf="!isCow">
+  <ion-card class="card-details" *ngIf="isBuff">
     <ion-card-content>
         <div class="w-bg-box" text-center>
           <ion-thumbnail item-start>
@@ -48,8 +48,36 @@
               <ion-icon name="md-add" color="light"></ion-icon>
             </button>
           </div>
-          <button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+          <button color="primary" (click)="proceedConfirm()" ion-button block round text-uppercase>PROCEED</button>
           <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>     
+    </ion-card-content>
+  </ion-card>
+
+  <!-- final show checkout modal -->
+  <ion-card class="card-details" *ngIf="finalConfirmModal">
+    <ion-list class="cart-list" padding>
+      <ion-item class="w-bg-box" no-lines>
+        <ion-thumbnail item-start>
+            <img src="assets/img/1.png">
+        </ion-thumbnail>
+        <div>
+        <p *ngFor="let day of weekdaysCow">{{day.day}}:{{day.currentNumber}}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="cart-list" padding>
+      <ion-item class="w-bg-box" no-lines>
+        <ion-thumbnail item-start>
+            <img src="assets/img/2.png">
+        </ion-thumbnail>
+        <div>
+        <p *ngFor="let day of weekdaysBuff">{{day.day}}:{{day.currentNumber}}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <button color="primary" (click)="proceed()" ion-button block round text-uppercase> CONFIRM </button>
+      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>     
     </ion-card-content>
   </ion-card>
 </ion-content>

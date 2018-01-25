@@ -121,6 +121,7 @@ export class ChildOrderUpdatePage implements OnInit {
   }
 
   proceed() {
+    this.alerts.showLoader();
     let order:any={"order_packages_attributes":{}};
     order["alternate"] = "false";
     order["recurring"] = "true";

@@ -13,6 +13,7 @@ export class SetNonavailabilityPage {
 	public fromDate: Date = new Date();
 	public toDate:Date = new Date();
   private isDnd:boolean = false;
+  orderId:number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,7 +29,8 @@ export class SetNonavailabilityPage {
 
   onDndSet(){
     this.alerts.showLoader();
-    let allOrders = this.confData.getOrderDetail(this.navParams.get('id'));
+    this.orderId = this.navParams.get('id');
+    let allOrders = this.confData.getOrderDetail(this.orderId);
     if(allOrders.dnd_from && allOrders.dnd_to){
       this.isDnd = true;
       this.fromDate = new Date(allOrders.dnd_from);
@@ -103,7 +105,7 @@ export class SetNonavailabilityPage {
           text: 'CONFIRM',
           handler: () => {
             this.alerts.showLoader();
-            this.confData.createDnd(order).then((res:any)=>{
+            this.confData.createDnd(order,this.orderId).then((res:any)=>{
               this.alerts.hideLoader();
               if(res.status == 200){
                 this.navCtrl.setRoot(EditOrderPage);
@@ -135,7 +137,7 @@ export class SetNonavailabilityPage {
           text: 'CONFIRM',
           handler: () => {
             this.alerts.showLoader();
-            this.confData.removeDnd(order).then((res:any)=>{
+            this.confData.removeDnd(order,this.orderId).then((res:any)=>{
               this.alerts.hideLoader();
               if(res.status == 200){
                 this.navCtrl.setRoot(EditOrderPage);

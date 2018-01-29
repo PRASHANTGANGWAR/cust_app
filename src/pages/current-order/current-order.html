@@ -20,9 +20,6 @@
 		</ion-thumbnail>
 		<h4 color="dark" style="margin: 30px 0px;">{{package.product.category.name}}<br>{{package.product.name}}<br>
 		<p>Price: {{package.default_quantity * package.product.price }}</p>
-		<p *ngIf="package.product.category.name=='Desi Cow milk'">Price: {{package.default_quantity * package.product.price}}</p>
-		<p *ngIf="package.product.category.name=='DESI COW GHEE 1 LTR'">Price: {{package.default_quantity * package.product.price}}</p>
-		<p *ngIf="package.product.category.name=='DESI COW GHEE 2 LTR'">Price: {{package.default_quantity * package.product.price}}</p>
 		</h4>
 </ion-item>
 </ion-list>

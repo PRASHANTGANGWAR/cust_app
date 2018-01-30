@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
-import { EditOrderPage } from '../edit-order/edit-order';
+import { MyOrdersPage } from '../my-orders/my-orders';
 
 
 @Component({
@@ -23,11 +23,7 @@ export class SetNonavailabilityPage {
     this.onDndSet();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SetNonavailabilityPage');
-  }
-
-  onDndSet(){
+  onDndSet() {
     this.alerts.showLoader();
     this.orderId = this.navParams.get('id');
     let allOrders = this.confData.getOrderDetail(this.orderId);
@@ -68,8 +64,8 @@ export class SetNonavailabilityPage {
   }
 
   setDnd(){
-    let dndFrom = this.fromDate.getFullYear()+'-'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'-'+this.fromDate.getDate();
-    let dndTo = this.toDate.getFullYear()+'-'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'-'+this.toDate.getDate();
+    let dndFrom = this.fromDate.getDate()+'/'+("0" + (this.fromDate.getMonth() + 1)).slice(-2)+'/'+this.fromDate.getFullYear();
+    let dndTo = this.toDate.getDate()+'/'+("0" + (this.toDate.getMonth() + 1)).slice(-2)+'/'+this.toDate.getFullYear();
     let order: any={};
     order.app_version = "2.1";
     order.dnd_from = dndFrom;
@@ -104,11 +100,9 @@ export class SetNonavailabilityPage {
         {
           text: 'CONFIRM',
           handler: () => {
-            this.alerts.showLoader();
             this.confData.createDnd(order,this.orderId).then((res:any)=>{
-              this.alerts.hideLoader();
               if(res.status == 200){
-                this.navCtrl.setRoot(EditOrderPage);
+                this.navCtrl.setRoot(MyOrdersPage);
                 this.alerts.presentToast("Non availability set succesfully");
               }else{
                 this.alerts.presentToast(res.statusText);
@@ -136,11 +130,9 @@ export class SetNonavailabilityPage {
         {
           text: 'CONFIRM',
           handler: () => {
-            this.alerts.showLoader();
             this.confData.removeDnd(order,this.orderId).then((res:any)=>{
-              this.alerts.hideLoader();
               if(res.status == 200){
-                this.navCtrl.setRoot(EditOrderPage);
+                this.navCtrl.setRoot(MyOrdersPage);
                 this.alerts.presentToast("Non availability removed succesfully");
               }else{
                 this.alerts.presentToast(res.statusText);

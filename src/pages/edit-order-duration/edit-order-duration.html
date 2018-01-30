@@ -51,6 +51,18 @@
           </ion-row>
         </ion-grid>
       </ion-item>
+<!-- cancel button -->
+      <ion-item class="n-box" no-lines>
+      <ion-thumbnail class="mb--2" item-start><img src="assets/img/cancel-icon.png"></ion-thumbnail>
+      <h4 color="dark">Cancel order</h4>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col text-left col-6>
+            <button (click)="cancelOrder(child.child_order_id)" ion-button  round color="primary" text-uppercase no-margin>Cancel</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
     </ion-list>
   </ion-card-content>
 </ion-content>

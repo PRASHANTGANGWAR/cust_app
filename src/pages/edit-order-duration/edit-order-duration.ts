@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController,AlertController } from 'ionic-angular';
 import { Alerts } from '../../providers/alerts-provider';
 import { ConferenceData } from '../../providers/conference-data';
 import { ChildOrderUpdatePage } from '../child-order/child-order';
+import { MyOrdersPage } from '../my-orders/my-orders';
 
 @Component({
   selector: 'page-edit-order-duration',
@@ -19,6 +20,7 @@ export class EditOrderDurationPage {
 	  	public navParams: NavParams,
       public confData: ConferenceData,
 	  	public alerts:Alerts,
+      private alertCtrl: AlertController,
 	  	public modalCtrl: ModalController) {
 
       this.orderId = this.navParams.get('id');
@@ -75,5 +77,37 @@ export class EditOrderDurationPage {
         this.alerts.presentToast(res.statusText);
       }
     });
+  }
+
+  cancelOrder(id:number) {
+    let alert = this.alertCtrl.create({
+      title: 'Cancel Order',
+      message: "Are you sure you want to cancel the order?",
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'CONFIRM',
+          handler: () => {
+            this.alerts.showLoader();
+            this.confData.cancelOrder(id).then((res:any)=>{
+              this.alerts.hideLoader();
+              if(res.status == 204){
+                this.navCtrl.setRoot(MyOrdersPage);
+                this.alerts.presentToast("Order cancelled succesfully");
+              }else{
+                this.alerts.presentToast(res.statusText);
+              }
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

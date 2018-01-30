@@ -18,7 +18,7 @@ declare var window:any;
 export class CheckoutModalPage {
 	checked:boolean = true;
 	public title = "";
-	private mainNumber = 2;
+	private mainNumber = 0;
   public initDate: Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
 	private weekday:any = [];
   deliveryDate:any;

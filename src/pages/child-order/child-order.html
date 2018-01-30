@@ -55,6 +55,17 @@
 
   <!-- final show checkout modal -->
   <ion-card class="card-details" *ngIf="finalConfirmModal">
+  <!-- date -->
+     <ion-list class="selection" padding>
+      <ion-item no-lines>
+        <ion-icon name="md-calendar" item-left></ion-icon>From:
+          <span>{{orderInfo.formDate | date:'dd/MM/yyyy'}}</span>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-icon name="md-calendar" item-left></ion-icon>To:
+          <span>{{orderInfo.end_date | date:'dd/MM/yyyy'}}</span>
+      </ion-item>
+   </ion-list>
     <ion-list class="cart-list" padding>
       <ion-item class="w-bg-box" no-lines>
         <ion-thumbnail item-start>

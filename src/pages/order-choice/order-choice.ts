@@ -77,7 +77,7 @@ export class OrderChoicePage {
   cancelOrder() {
     let alert = this.alertCtrl.create({
       title: 'Cancel Order',
-      message: "Are you sure you want to cancel the order?",
+      message: "Are you sure you want to cancel this package?",
       buttons: [
         {
           text: 'CANCEL',

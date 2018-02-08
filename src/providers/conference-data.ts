@@ -7,7 +7,7 @@ declare var window: any;
 @Injectable()
 export class ConferenceData {
   data: any;
-  baseUrl = 'http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com'
+  baseUrl = 'http://app.dairylac.com';
 
   constructor(
     public http: Http,

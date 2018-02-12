@@ -9,7 +9,7 @@
 <ion-content>
   <div class="main-list half-b">
     <ion-card *ngFor="let cat of categories; 
-   let i = index" (click)='showlist(cat.products[0].id)'>
+   let i = index" (click)='showlist(cat.products[0].id,cat.products[0])'>
       <img src="{{cat.products[0].image}}"/>
       <div class="card-price">{{cat.products[0].price | currency:'INR':true}}</div>
       <ion-item>

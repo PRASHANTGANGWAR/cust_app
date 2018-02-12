@@ -55,7 +55,7 @@ export class CategoriesPage {
       });
     }
 
-    showlist(number: any){
+    showlist(number: any,product_type:any){
     let user = JSON.parse(window.localStorage.getItem('login_details'));
     if(user){
         let alladdress=JSON.parse(window.localStorage.getItem('user_address'));
@@ -63,10 +63,8 @@ export class CategoriesPage {
           this.presentConfirm();
         } else{
           this.ctData.product_id=number;
-          if(this.ctData.product_id == 3){
+          if(product_type.product_type == "1"){
             this.openModal(1);
-          }else if(this.ctData.product_id == 4){
-            this.openModal(2);
           } else {
             let allOrders = JSON.parse(window.localStorage.getItem('allOrders'));
             for(let i = 0;i< allOrders.length ;i++){

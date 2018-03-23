@@ -26,6 +26,8 @@ export interface ActionSheetButton {
 export class CategoriesPage {
   private categories:any=[];
    private ctData:any ={};
+   private obj:any = {};
+    public myarray: any=[];
 
   constructor(
     public navCtrl: NavController,
@@ -49,6 +51,13 @@ export class CategoriesPage {
              let result = res.json();
              this.categories = result.categories;
              window.localStorage.setItem('categories',JSON.stringify(this.categories));
+             for (var i = this.categories.length - 1; i >= 0; i--) {                    
+                     var value = this.categories[i].products[0].image;
+                     var key= this.categories[i].products[0].id;
+
+                    this.obj[key] = value;                                                                                
+                }
+                 window.localStorage.setItem('images',JSON.stringify(this.obj));       
           }else{
               this.alert.presentToast("something went wrong!");
           }

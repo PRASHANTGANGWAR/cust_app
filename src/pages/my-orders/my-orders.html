@@ -14,7 +14,7 @@
     <div *ngFor="let orders of allOrderPackages" no-lines>
       <ion-item *ngFor="let order of orders.order_packages" no-lines>
         <ion-thumbnail item-start>
-          <img src="assets/img/{{order.product_id}}.png">
+          <img src="{{image[order.product_id]}}">
         </ion-thumbnail>
         <h5 color="dark">{{ order.product.category.name }}</h5>
 

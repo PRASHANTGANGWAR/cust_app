@@ -13,6 +13,8 @@ export class MyOrdersPage {
 	private allOrders:any;
 	private allOrderPackages:any = [];
   private hasOrders:boolean = false;
+  private image:any=[]; //array to save data from images loco;
+
 
   constructor(
   	public navCtrl: NavController,
@@ -27,10 +29,11 @@ export class MyOrdersPage {
     this.confData.getAllOrders().then((data:any)=>{
     if(data.status == 200){
         this.allOrders = JSON.parse(window.localStorage.getItem("allOrders"));
+        this.image= JSON.parse(window.localStorage.getItem("images"));
         let self = this;
         if(self.allOrders.length > 0) {
           self.hasOrders = true;
-        }
+        } 
         self.allOrders.forEach(function(order:any) {
           self.allOrderPackages.push(order);
         });

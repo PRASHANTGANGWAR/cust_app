@@ -4,6 +4,7 @@ import { CategoriesPage } from '../categories/categories';
 import { EditOrderPage } from '../edit-order/edit-order';
 import { Alerts } from '../../providers/alerts-provider';
 
+declare var window:any;
 @Component({
   selector: 'page-current-order',
   templateUrl: 'current-order.html',
@@ -12,6 +13,7 @@ export class CurrentOrderPage {
   private orderPackages:any;
   private currentOrderAddress:any;
   currentOrderData:any = {};
+  public product_image:any=[];
 
   constructor(
     public navCtrl: NavController,
@@ -23,6 +25,8 @@ export class CurrentOrderPage {
     this.currentOrderAddress = this.currentOrderData.address;
     this.orderPackages = this.currentOrderData.order_packages;
     this.alert.hideLoader();
+        this.product_image= JSON.parse(window.localStorage.getItem("images"));
+
   }
 
   ionViewDidLoad() {

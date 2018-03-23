@@ -12,7 +12,7 @@
   <ion-list class="cart-list" padding>
     <ion-item class="w-bg-box" no-lines  *ngFor="let package of order.order_packages">
       <ion-thumbnail item-start>
-          <img src="assets/img/{{package.product_id}}.png">
+    <img src="{{product_image[package.product_id]}}">
       </ion-thumbnail>
       <p color="dark" *ngIf="!order.recurring">
        {{package.product.category.name}}<br>

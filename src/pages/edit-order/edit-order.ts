@@ -7,6 +7,8 @@ import { EditOrderDurationPage } from '../edit-order-duration/edit-order-duratio
 import { Alerts } from '../../providers/alerts-provider';
 import { OrderChoicePage } from '../order-choice/order-choice';
 
+
+declare var window:any;
 @Component({
   selector: 'page-edit-order',
   templateUrl: 'edit-order.html',
@@ -14,12 +16,17 @@ import { OrderChoicePage } from '../order-choice/order-choice';
 export class EditOrderPage {
   order:any = []; //order details
   order_id:number;
+  public product_image:any=[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private confData: ConferenceData,
     private alertCtrl:AlertController,
     private alerts: Alerts) {
+
+      this.product_image= JSON.parse(window.localStorage.getItem("images"));
+
 
  
     this.alerts.showLoader();

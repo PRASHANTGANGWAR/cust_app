@@ -6,7 +6,6 @@
     <ion-title text-uppercase>My Orders</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
   <ion-list class="selection" padding>
   </ion-list>
@@ -16,17 +15,18 @@
         <ion-thumbnail item-start>
           <img src="{{image[order.product_id]}}">
         </ion-thumbnail>
-        <h5 color="dark">{{ order.product.category.name }}</h5>
-
+        <h5 color="dark">{{ order.product.category.name }} </h5>
         <ion-grid no-padding>
           <ion-row>
             <ion-col col-5 text-left> 
             <p>{{orders.delivery_date  | date:'dd/MM/yyyy'}}</p>    
             </ion-col>
             <ion-col col-6 text-left>
-              <button (click)="orderChoice(orders)" ion-button  round color="primary" text-uppercase no-margin>
-                Update
+              <div >  
+              <button *ngIf="orders.delivery_date | dateCompare:orders.delivery_date" (click)="orderChoice(orders)" ion-button  round color="primary" text-uppercase no-margin>
+                Update 
               </button>
+            </div>
             </ion-col>
           </ion-row>
         </ion-grid>

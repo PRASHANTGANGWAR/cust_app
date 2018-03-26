@@ -37,8 +37,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { Splash } from '../pages/splash/splash';
 import { ChildOrderUpdatePage } from '../pages/child-order/child-order';
 import * as Raven from 'raven-js';
-
-
+import { DateComparePipe } from '../pipes/date-compare/date-compare';
 Raven
   .config('https://91f4b82761bf49b5b8a256576f5f0af3@sentry.io/275429')
   .install();
@@ -60,6 +59,7 @@ var config = {
 
 @NgModule({
   declarations: [
+     DateComparePipe,
     ConferenceApp,
     LoginPage,
     SignupPage,
@@ -83,6 +83,7 @@ var config = {
     EditOrderDurationPage,
     ChildOrderUpdatePage,
     Splash
+
   ],
   imports: [
     BrowserModule,
@@ -151,7 +152,8 @@ var config = {
     SplashScreen,
     EmailComposer,
     CallNumber,
-    DatePipe
+    DatePipe,
+    DateComparePipe
   ]
 })
 export class AppModule { }

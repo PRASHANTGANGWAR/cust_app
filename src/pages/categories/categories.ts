@@ -10,7 +10,6 @@ import { LoginPage } from '../login/login';
 import { MyAddressPage } from '../my-address/my-address';
 
 declare var window: any;
-
 export interface ActionSheetButton {
   text?: string;
   role?: string;
@@ -26,8 +25,7 @@ export interface ActionSheetButton {
 export class CategoriesPage {
   private categories:any=[];
    private ctData:any ={};
-   private obj:any = {};
-    public myarray: any=[];
+   private obj_product_image:any = {};
 
   constructor(
     public navCtrl: NavController,
@@ -41,8 +39,6 @@ export class CategoriesPage {
       window.localStorage.setItem('current_page',this.viewCtrl.name);
       this.productList();
     }
-
-  
     productList(){
       this.alert.showLoader();
       this.confData.categories().then((res:any)=>{
@@ -55,9 +51,9 @@ export class CategoriesPage {
                      var value = this.categories[i].products[0].image;
                      var key= this.categories[i].products[0].id;
 
-                    this.obj[key] = value;                                                                                
+                    this.obj_product_image[key] = value;
                 }
-                 window.localStorage.setItem('images',JSON.stringify(this.obj));       
+                 window.localStorage.setItem('images',JSON.stringify(this.obj_product_image));
           }else{
               this.alert.presentToast("something went wrong!");
           }
